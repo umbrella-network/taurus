@@ -11,3 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial version - repository migration
 - CI/CD
+
+### Changed
+
+- FCD values are now fetched from the API instead of the contract

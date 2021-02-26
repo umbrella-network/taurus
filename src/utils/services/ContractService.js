@@ -1,8 +1,5 @@
-import { ContractRegistry, ABI } from "@umb-network/toolbox";
-import { map } from "ramda";
+import { ContractRegistry } from "@umb-network/toolbox";
 import { ethers } from "ethers";
-import { keyToByte32 } from "@Formatters";
-import { fcdValues } from "@Mocks";
 
 const shouldMock = process.env.REACT_APP_SHOULD_FALLBACK === "true";
 
@@ -16,12 +13,6 @@ const provider = shouldMock
       infuraProvider,
       process.env.REACT_APP_CONTRACT_REGISTRY_ADDRESS
     );
-
-const readContract = async () => {
-  const address = await fetchChainAddress();
-
-  return new ethers.Contract(address, ABI.chainAbi, infuraProvider);
-};
 
 export async function fetchChainAddress(
   callback,
@@ -43,36 +34,6 @@ export async function fetchChainAddress(
   } catch (error) {
     if (typeof rejectedCallback === "function") {
       callback(rejectedCallback({ error }));
-    }
-  }
-}
-
-export async function fetchFCDValues(
-  successCallback,
-  rejectedCallback,
-  blockHeight,
-  keys
-) {
-  if (shouldMock) {
-    const mock = await fcdValues(blockHeight);
-    console.warn(
-      "getMultipleNumericData call intercepted, mocking data with: ",
-      mock
-    );
-
-    successCallback(mock);
-  } else {
-    try {
-      const contract = await readContract();
-
-      const blockFirstClassData = await contract.getMultipleNumericData(
-        blockHeight,
-        map(keyToByte32, keys)
-      );
-
-      successCallback(blockFirstClassData);
-    } catch (e) {
-      rejectedCallback(e);
     }
   }
 }
