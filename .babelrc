@@ -1,0 +1,21 @@
+{
+  "plugins": [
+    "@babel/plugin-proposal-optional-chaining",
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "@Images": "./src/assets/images",
+          "@Components": "./src/components",
+          "@Ui": "./src/components/ui",
+          "@Constants": "./src/utils/constants",
+          "@Services": "./src/utils/services",
+          "@Formatters": "./src/utils/formatters",
+          "@Utils": "./src/utils",
+          "@Store": "./src/utils/store",
+          "@Mocks": "./src/utils/mocks"
+        }
+      }
+    ]
+  ]
+}
