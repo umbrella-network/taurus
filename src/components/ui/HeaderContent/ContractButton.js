@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { Box, Text, Anchor } from "grommet";
 
 import { truncate } from "@Formatters";
-import { useChainAddress } from "@Store";
 import { Clipboardable } from "@Ui";
 
 const propTypes = {
@@ -12,9 +11,7 @@ const propTypes = {
 };
 
 function ContractButton() {
-  const {
-    state: { address },
-  } = useChainAddress();
+  const address = process.env.REACT_APP_CHAIN_CONTRACT;
 
   return (
     <Box direction="row" align="center" justify="end" gap="small">
@@ -25,10 +22,8 @@ function ContractButton() {
             size="xsmall"
             target="_blank"
             rel="noopener noreferrer"
-            href={`${process.env.REACT_APP_SCAN_URL}/${
-              `${address}#readContract` ?? ""
-            }`}
-            label={address ? truncate(address) : "Loading..."}
+            href={`${process.env.REACT_APP_SCAN_URL}/${address}#readContract`}
+            label={truncate(address)}
           />
           ]
         </Text>
