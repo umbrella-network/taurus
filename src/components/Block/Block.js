@@ -13,7 +13,7 @@ const propTypes = {
 };
 
 function Block({ block }) {
-  const { _id, height, root, votes, numericFcdKeys } = block;
+  const { _id, height, root, votes, numericFcdKeys, numericFcdValues } = block;
   const [leaves, setLeaves] = useState();
 
   const size = useContext(ResponsiveContext);
@@ -59,7 +59,11 @@ function Block({ block }) {
           blockHeight={height}
           leaves={numericSortByAttribute(leaves)}
         />
-        <FirstClassData keys={numericFcdKeys} blockHeight={height} />
+        <FirstClassData
+          keys={numericFcdKeys}
+          blockHeight={height}
+          values={numericFcdValues}
+        />
       </Grid>
     </Grid>
   );

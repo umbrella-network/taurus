@@ -1,54 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { ethers } from "ethers";
 
 import { Card, CardBody, CardHeader, Grid, Text } from "grommet";
-
-import { Alert } from "grommet-icons";
 
 import { isEmpty } from "ramda";
 
 import { truncate, keyToByte32 } from "@Formatters";
-import { fetchFCDValues } from "@Services";
 import { KeyValuePairs } from "@Ui";
 
 const propTypes = {
   keys: PropTypes.array,
   blockHeight: PropTypes.number.isRequired,
+  values: PropTypes.array,
 };
 
 const defaultValues = {
   keys: [],
+  values: [],
 };
 
-function FirstClassData({ keys, blockHeight }) {
+function FirstClassData({ keys, values }) {
   const fcdKeys = Object.values(keys);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
-  const [values, setValues] = useState([]);
-
-  useEffect(() => {
-    setIsLoading(true);
-    fetchFCDValues(setValues, setError, blockHeight, keys);
-  }, [blockHeight, keys]);
-
-  useEffect(() => {
-    if (!isEmpty(values) || error) {
-      setIsLoading(false);
-    }
-  }, [values, error]);
-
-  const status = () => {
-    if (error) {
-      return (
-        <Text weight={200}>
-          Error <Alert color="control" size="small" />
-        </Text>
-      );
-    } else if (isLoading) {
-      return <Text weight={200}>Loading...</Text>;
-    }
-  };
 
   return (
     <Card height={{ min: "280px", max: "748px" }} fill>
@@ -97,10 +69,7 @@ function FirstClassData({ keys, blockHeight }) {
                   },
                   {
                     key: "value",
-                    value:
-                      values[index] &&
-                      ethers.utils.formatEther(values[index].toString()),
-                    childValue: status(),
+                    value: values[index],
                   },
                   {
                     clipboardable: true,

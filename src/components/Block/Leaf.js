@@ -15,7 +15,6 @@ import {
 import { FormClose } from "grommet-icons";
 
 import { arrayToReadableJSON, truncate } from "@Formatters";
-import { useChainAddress } from "@Store";
 import { Clipboardable, LeafPairs } from "@Ui";
 import { isSizeMobile } from "@Utils";
 
@@ -30,9 +29,7 @@ const defaultProps = {
 };
 
 function Leaf({ leaf, blockHeight, label }) {
-  const {
-    state: { address },
-  } = useChainAddress();
+  const address = process.env.REACT_APP_CHAIN_CONTRACT;
 
   const { key, proof, value } = leaf;
   const [show, setShow] = useState(false);
