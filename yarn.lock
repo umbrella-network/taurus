@@ -2013,7 +2013,7 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
-"@types/node@*", "@types/node@^14.14.13":
+"@types/node@*":
   version "14.14.31"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.31.tgz#72286bd33d137aa0d152d47ec7c1762563d34055"
   integrity sha512-vFHy/ezP5qI0rFgJ7aQnjDXwAMrG0KqqIH7tQG5PPv3BWBayOPIQNBjVc/P6hhdZfMx51REc6tfDNXHUio893g==
@@ -2148,12 +2148,12 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@umb-network/toolbox@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@umb-network/toolbox/-/toolbox-0.4.1.tgz#2007e66e7fdf20e2ee1a275ecb1fa801d02a526a"
-  integrity sha512-4L77cPU/NB33Ehepn2Vh657moPsRXqvmWEliowbm70iDPLED6MkcH2kB5cdFFgsgct87qrrpjC05+nKEzwkj4g==
+"@umb-network/toolbox@^0.7.0":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@umb-network/toolbox/-/toolbox-0.7.1.tgz#753af9f049d9884d7e31c553c5b7d1d9b154f4fb"
+  integrity sha512-aoESgKydCSJd79GqkLwqyg8L/NBVxbdKlXZ/xgdiIoUq3pOsEEKQ6ZoJbj+md5w7DyugmlWt2o08OPiwxxYFpQ==
   dependencies:
-    "@types/node" "^14.14.13"
+    axios "^0.21.1"
     bignumber.js "^9.0.1"
     ethers "^5.0.24"
 
@@ -2740,7 +2740,7 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.11.0.tgz#d61f46d83b2519250e2784daf5b09479a8b41c59"
   integrity sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==
 
-axios@^0.21.0:
+axios@^0.21.0, axios@^0.21.1:
   version "0.21.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
   integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
