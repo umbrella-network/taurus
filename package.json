@@ -10,7 +10,7 @@
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.12.1",
-    "@umb-network/toolbox": "^0.4.1",
+    "@umb-network/toolbox": "^0.7.0",
     "axios": "^0.21.0",
     "classnames": "^2.2.6",
     "customize-cra": "^1.0.0",
