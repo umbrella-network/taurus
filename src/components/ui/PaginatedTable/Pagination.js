@@ -65,7 +65,12 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
   }
 
   return (
-    <Box gap="small" margin={{ horizontal: "medium", top: "auto" }}>
+    <Box
+      gap="small"
+      fill="horizontal"
+      pad={{ horizontal: "medium" }}
+      margin={{ top: "auto" }}
+    >
       <Grid
         columns={["60px", "auto", "60px"]}
         gap="small"
@@ -80,14 +85,16 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
           <Button
             disabled={currentPage === 1}
             plain
+            style={{ width: "18px" }}
             a11yTitle="First page"
-            icon={<LinkPrevious />}
+            icon={<LinkPrevious style={{ width: "18px" }} />}
             onClick={() => goToFirstPage()}
           />
           <Button
             plain
+            style={{ width: "18px" }}
             disabled={currentPage === 1}
-            icon={<Previous />}
+            icon={<Previous style={{ width: "18px" }} />}
             a11yTitle="Previous page"
             onClick={handlePrevious}
           />
@@ -97,6 +104,7 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
             <Button
               plain
               key={page}
+              style={{ fontSize: "14px" }}
               a11yTitle={`Page ${page}`}
               focusIndicator={false}
               label={currentPage === page ? <b>{page}</b> : page}
@@ -109,40 +117,47 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
             disabled={currentPage === maxPages}
             plain
             a11yTitle="Next page"
-            icon={<Next />}
+            icon={<Next style={{ width: "18px" }} />}
+            style={{ width: "18px" }}
             onClick={handleNext}
           />
           <Button
             disabled={currentPage === maxPages || maxPages === 0}
             a11yTitle="Last page"
-            icon={<LinkNext />}
+            icon={<LinkNext style={{ width: "18px" }} />}
+            style={{ width: "18px" }}
             plain
             reverse
             onClick={() => goToLastPage()}
           />
         </Grid>
       </Grid>
-      <Box
+      <Grid
         alignSelf="center"
-        direction="row"
-        gap="medium"
-        justify="between"
         align="center"
+        fill="horizontal"
+        gap="small"
+        style={{
+          gridAutoFlow: "column",
+          justifyContent: "space-between",
+          width: "260px",
+        }}
       >
         <Box alignSelf="center" gap="small" direction="row">
-          <Text>Pages:</Text>
-          <b>{maxPages}</b>
+          <Text size="14px">
+            <b>{maxPages}</b> pages
+          </Text>
         </Box>
         <Text>|</Text>
-        <Box
-          direction="row"
-          gap="small"
+        <Grid
           align="center"
-          justify="between"
-          width="230px"
+          gap="small"
+          columns={["min-content", "20px", "min-content"]}
+          style={{ justifyContent: "space-between" }}
         >
-          <Text>Navigate:</Text>
+          <Text size="14px">Navigate</Text>
           <MaskedInput
+            style={{ background: "white", fontSize: "10px" }}
             value={pageInputValue}
             mask={[
               {
@@ -154,9 +169,13 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
             onChange={handleChange}
             pad="xsmall"
           />
-          <Button label="Go" onClick={goToPageFromInput} />
-        </Box>
-      </Box>
+          <Button
+            label="Go"
+            style={{ fontSize: "10px", padding: "0px 10px" }}
+            onClick={goToPageFromInput}
+          />
+        </Grid>
+      </Grid>
     </Box>
   );
 }

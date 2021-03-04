@@ -33,7 +33,7 @@ function LeavesTable({ leaves, blockHeight }) {
         border={{ size: "xsmall", side: "bottom", color: "light-3" }}
       >
         <Text textAlign="center" weight="bold">
-          Leaves
+          Layer 2 Data
         </Text>
       </CardHeader>
       <CardBody

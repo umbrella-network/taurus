@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { Box, Grid, ResponsiveContext } from "grommet";
 
-import { BlocksTable, Proofs } from "@Components";
+import { BlocksTable, FirstClassData, LayerTwoData } from "@Components";
 import { BlocksProvider, ProofsProvider } from "@Store";
 import { HeaderContent, FooterContent } from "@Ui";
 import { isSizeMobile } from "@Utils";
@@ -30,9 +30,15 @@ function MainContent() {
         >
           <Box fill width={{ max: "1366px" }}>
             <Switch>
-              <Route path="/proofs">
+              <Route path="/first-class-data">
                 <ProofsProvider>
-                  <Proofs />
+                  <FirstClassData />
+                </ProofsProvider>
+              </Route>
+
+              <Route path="/layer-2-data">
+                <ProofsProvider>
+                  <LayerTwoData />
                 </ProofsProvider>
               </Route>
 
