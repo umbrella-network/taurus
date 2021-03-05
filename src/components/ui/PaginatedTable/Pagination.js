@@ -65,7 +65,7 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
   }
 
   return (
-    <Box gap="small" margin={{ horizontal: "medium", top: "auto" }}>
+    <Grid gap="small" margin={{ horizontal: "medium", top: "auto" }}>
       <Grid
         columns={["60px", "auto", "60px"]}
         gap="small"
@@ -122,11 +122,9 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
           />
         </Grid>
       </Grid>
-      <Box
-        alignSelf="center"
-        direction="row"
+      <Grid
         gap="medium"
-        justify="between"
+        style={{ gridAutoFlow: "column", justifyItems: "center" }}
         align="center"
       >
         <Box alignSelf="center" gap="small" direction="row">
@@ -134,30 +132,29 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
           <b>{maxPages}</b>
         </Box>
         <Text>|</Text>
-        <Box
-          direction="row"
-          gap="small"
-          align="center"
-          justify="between"
+        <Grid
+          columns={["max-content", "max-content"]}
           width="230px"
+          gap="small"
+          justify="center"
         >
-          <Text>Navigate:</Text>
           <MaskedInput
             value={pageInputValue}
             mask={[
               {
-                placeholder: 1,
+                placeholder: currentPage,
                 length: [String(maxPages).length],
                 regexp: /^([+]?[1-9]\d*)$/,
               },
             ]}
             onChange={handleChange}
             pad="xsmall"
+            style={{ width: "40px" }}
           />
-          <Button label="Go" onClick={goToPageFromInput} />
-        </Box>
-      </Box>
-    </Box>
+          <Button label="Go" size="small" onClick={goToPageFromInput} />
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
 
