@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Card } from "grommet";
 
 import { KeyValuePairs, ScanUrl } from "@Ui";
-import { truncate, valueToToken } from "@Formatters";
+import { truncate, valueToToken, formatTimestamp } from "@Formatters";
 
 const propTypes = {
   block: PropTypes.object.isRequired,
@@ -76,7 +76,7 @@ function Details({ block }) {
           },
           {
             key: "timestamp",
-            value: timestamp,
+            value: formatTimestamp(timestamp),
           },
         ]}
       />

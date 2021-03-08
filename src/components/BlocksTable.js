@@ -8,7 +8,7 @@ import { LinkPrevious, Next, Previous } from "grommet-icons";
 import { capitalize } from "lodash";
 
 import { Block } from "@Components";
-import { truncate, valueToToken } from "@Formatters";
+import { truncate, valueToToken, formatTimestampAge } from "@Formatters";
 import { fetchBlock, fetchBlocks } from "@Services";
 import {
   useBlocks,
@@ -77,7 +77,11 @@ function BlocksTable() {
       primary: true,
     },
     { property: "anchor" },
-    { property: "timestamp" },
+    {
+      property: "timestamp",
+      header: <Text weight="bold">Age</Text>,
+      render: (datum) => formatTimestampAge(datum.timestamp),
+    },
     { property: "root", render: (datum) => truncate(datum.root) },
     {
       property: "minter",
@@ -103,12 +107,12 @@ function BlocksTable() {
 
   const columns = blocksProperties.map((data) => {
     return {
-      ...data,
       ...(data.property && {
         key: data.property,
         align: "center",
         header: <Text weight="bold">{capitalize(data.property)}</Text>,
       }),
+      ...data,
     };
   });
 

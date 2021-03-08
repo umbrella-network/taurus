@@ -17,3 +17,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - FCD values are now fetched from the API instead of the contract
 - Bumped @umb-network/toolbox version
 - Layer 2 mobile table styling on block show page
+- Format block Age and timestamp
