@@ -65,7 +65,7 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
   }
 
   return (
-    <Box
+    <Grid
       gap="small"
       fill="horizontal"
       pad={{ horizontal: "medium" }}
@@ -134,12 +134,12 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
       </Grid>
       <Grid
         alignSelf="center"
-        align="center"
         fill="horizontal"
         gap="small"
         style={{
           gridAutoFlow: "column",
           justifyContent: "space-between",
+          justifySelf: "center",
           width: "260px",
         }}
       >
@@ -161,7 +161,7 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
             value={pageInputValue}
             mask={[
               {
-                placeholder: 1,
+                placeholder: currentPage,
                 length: [String(maxPages).length],
                 regexp: /^([+]?[1-9]\d*)$/,
               },
@@ -176,7 +176,7 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
           />
         </Grid>
       </Grid>
-    </Box>
+    </Grid>
   );
 }
 

@@ -40,6 +40,7 @@ function LeavesTable({ leaves, blockHeight }) {
         pad={{ vertical: "small" }}
         background="white"
         fill="horizontal"
+        style={{ minHeight: "675px" }}
       >
         <PaginatedTable
           dataPerPage={10}
