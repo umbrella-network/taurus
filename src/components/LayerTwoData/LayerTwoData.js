@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Grid, Heading } from "grommet";
 
-import { LoadingState } from "@Ui";
+import { LoadingState, SearchBar } from "@Ui";
 import Pagination from "@Ui/PaginatedTable/Pagination";
 
 import { isEmpty } from "ramda";
@@ -28,6 +28,8 @@ function LayerTwoData() {
     state: { leaves, proof },
     dispatch,
   } = usePrices();
+
+  const [filteredItems, setFilteredItems] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -65,13 +67,32 @@ function LayerTwoData() {
     };
   }, [dispatch]);
 
+  const displayedItems = isEmpty(filteredItems) && list ? list : filteredItems;
+
+  const filterCallback = (items) => {
+    setCurrentPage(1);
+    setFilteredItems(items);
+  };
+
   return (
     <Grid justify="center" fill rows={["34px", "auto"]} gap="large">
       <Heading>Layer 2 Data</Heading>
       {isLoading || isEmpty(list) ? (
         <LoadingState />
       ) : (
-        <>
+        <Grid
+          fill
+          style={{
+            justifyItems: "center",
+          }}
+          rows={["auto", "auto"]}
+          gap="large"
+        >
+          <SearchBar
+            items={list}
+            filterCallback={filterCallback}
+            searchTerm={"key"}
+          />
           <Grid
             className="layer-two-data-container"
             justifyContent="center"
@@ -82,25 +103,27 @@ function LayerTwoData() {
               gridGap: "24px 12px",
             }}
           >
-            {list.slice(rangeStart, rangeEnd).map(({ proof, key, value }) => (
-              <Proof
-                key={key}
-                proof={proof}
-                leaveKey={key}
-                value={value}
-                block={block}
-              />
-            ))}
+            {displayedItems
+              .slice(rangeStart, rangeEnd)
+              .map(({ proof, key, value }) => (
+                <Proof
+                  key={key}
+                  proof={proof}
+                  leaveKey={key}
+                  value={value}
+                  block={block}
+                />
+              ))}
           </Grid>
           <Grid style={{ maxWidth: "500px", width: "100%" }}>
             <Pagination
-              maxPages={Math.ceil(list.length / itemsPerPage)}
+              maxPages={Math.ceil(displayedItems.length / itemsPerPage)}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
               pageBreak={5}
             />
           </Grid>
-        </>
+        </Grid>
       )}
     </Grid>
   );

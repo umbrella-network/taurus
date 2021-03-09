@@ -118,9 +118,7 @@ function BlocksTable() {
   });
 
   if (displayLoading) {
-    return (
-      <LoadingState />
-    );
+    return <LoadingState />;
   }
 
   return (

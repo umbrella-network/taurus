@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+
+- Key search to Layer 2 and First Class Data pages
+
 ### Fixed
 
 - Update cache settings using nginx.conf
