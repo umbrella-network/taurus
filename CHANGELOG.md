@@ -19,3 +19,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bumped @umb-network/toolbox version
 - Data nomenclature
 - Layer 2 mobile table styling on block show page
+- Format block Age and timestamp
