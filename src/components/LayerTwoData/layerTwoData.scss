@@ -1,0 +1,21 @@
+.layer-two-data-container {
+  padding: 0 6px;
+  max-height: calc(100vh - 180px);
+  height: 650px;
+  overflow: auto;
+
+  @media (min-width: 768px) {
+    padding: 0 24px;
+    max-height: initial;
+    height: 100%;
+  }
+}
+
+.layer-two-data-container--has-more > div:last-child {
+  height: 252px;
+  background: url("/logo animated infinite.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 300px 120px;
+}

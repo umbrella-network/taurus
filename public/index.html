@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Umbrella Network - Block Explorer" />
+
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <title>Umbrella Block Explorer</title>
+
+    <style>
+      @keyframes fadein {
+        0% {
+          opacity: 0;
+        }
+        66% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @-webkit-keyframes fadein {
+        0% {
+          opacity: 0;
+        }
+        66% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .delay1,
+      .delay2,
+      .delay3,
+      .delay4 {
+        padding: 10px;
+      }
+
+      .delay1 {
+        -webkit-animation: 2s ease 0s normal forwards 1 fadein;
+        animation: 2s ease 0s normal forwards 1 fadein;
+      }
+      .delay2 {
+        -webkit-animation: 4s ease 0s normal forwards 1 fadein;
+        animation: 4s ease 0s normal forwards 1 fadein;
+      }
+      .delay3 {
+        -webkit-animation: 6s ease 0s normal forwards 1 fadein;
+        animation: 6s ease 0s normal forwards 1 fadein;
+      }
+      .delay4 {
+        -webkit-animation: 9s ease 0s normal forwards 1 fadein;
+        animation: 9s ease 0s normal forwards 1 fadein;
+      }
+
+      #welcome {
+        padding: 5% 10%;
+        text-align: center;
+        line-height: 2;
+        font-size: 24px;
+      }
+
+      .logo {
+        height: 25%;
+        width: 25%;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+      <div id="welcome">
+        <img class="logo" src="logo animated infinite.svg" alt="UMB Logo" />
+        <br />
+        One moment please, loading...
+        <div class="delay1">can't wait, huh? ;)</div>
+        <div class="delay2">...I'm doing my best...</div>
+        <div class="delay3">
+          I think it's your internet connection :-/ ...still trying
+        </div>
+        <div class="delay4">
+          OMG, I will print the page and I will send it to your home address,
+          okay?
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
