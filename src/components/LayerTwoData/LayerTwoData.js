@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import { Grid, Image, Heading } from "grommet";
+import { Grid, Heading } from "grommet";
 
-import { Loading } from "@Images";
-
+import { LoadingState } from "@Ui";
 import Pagination from "@Ui/PaginatedTable/Pagination";
 
 import { isEmpty } from "ramda";
@@ -70,9 +69,7 @@ function LayerTwoData() {
     <Grid justify="center" fill rows={["34px", "auto"]} gap="large">
       <Heading>Layer 2 Data</Heading>
       {isLoading || isEmpty(list) ? (
-        <Grid justifyContent="center" fill alignContent="center" gap="medium">
-          <Image src={Loading} style={{ width: "280px" }} />
-        </Grid>
+        <LoadingState />
       ) : (
         <>
           <Grid

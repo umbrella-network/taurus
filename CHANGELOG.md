@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial version - repository migration
 - CI/CD
-- First class data
+- First class data page
 
 ### Changed
 

@@ -1,18 +1,9 @@
 import React, { useEffect } from "react";
 
-import {
-  Grid,
-  Text,
-  Image,
-  Heading,
-  Card,
-  CardHeader,
-  CardBody,
-} from "grommet";
+import { Grid, Text, Heading, Card, CardHeader, CardBody } from "grommet";
 
 import { truncate, keyToByte32 } from "@Formatters";
-import { KeyValuePairs } from "@Ui";
-import { Loading } from "@Images";
+import { KeyValuePairs, LoadingState } from "@Ui";
 
 import { fetchProof } from "@Services";
 
@@ -44,9 +35,7 @@ function FirstClassData() {
     <Grid justify="center" fill rows={["34px", "auto"]} gap="large">
       <Heading>First Class Data</Heading>
       {isLoading || !block ? (
-        <Grid justifyContent="center" fill alignContent="center" gap="medium">
-          <Image src={Loading} style={{ width: "280px" }} />
-        </Grid>
+        <LoadingState />
       ) : (
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
           <Grid

@@ -6,6 +6,8 @@ import { LinkNext, LinkPrevious, Next, Previous } from "grommet-icons";
 
 import { range, isEmpty, splitEvery } from "ramda";
 
+import "./pagination.scss";
+
 const propTypes = {
   maxPages: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
@@ -66,6 +68,7 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
 
   return (
     <Grid
+      className="pagination"
       gap="small"
       fill="horizontal"
       pad={{ horizontal: "medium" }}
@@ -102,9 +105,9 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
         <Box direction="row" fill justify="around">
           {paginationRange.map((page) => (
             <Button
+              className="label"
               plain
               key={page}
-              style={{ fontSize: "14px" }}
               a11yTitle={`Page ${page}`}
               focusIndicator={false}
               label={currentPage === page ? <b>{page}</b> : page}
@@ -135,29 +138,23 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
       <Grid
         alignSelf="center"
         fill="horizontal"
+        className="navigation-info"
         gap="small"
-        style={{
-          gridAutoFlow: "column",
-          justifyContent: "space-between",
-          justifySelf: "center",
-          width: "260px",
-        }}
       >
         <Box alignSelf="center" gap="small" direction="row">
-          <Text size="14px">
+          <Text className="label">
             <b>{maxPages}</b> pages
           </Text>
         </Box>
         <Text>|</Text>
         <Grid
+          className="navigation-menu"
           align="center"
           gap="small"
-          columns={["min-content", "20px", "min-content"]}
-          style={{ justifyContent: "space-between" }}
         >
-          <Text size="14px">Navigate</Text>
+          <Text className="label">Navigate</Text>
           <MaskedInput
-            style={{ background: "white", fontSize: "10px" }}
+            className="navigation-input"
             value={pageInputValue}
             mask={[
               {
@@ -171,7 +168,7 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
           />
           <Button
             label="Go"
-            style={{ fontSize: "10px", padding: "0px 10px" }}
+            className="navigation-button"
             onClick={goToPageFromInput}
           />
         </Grid>

@@ -25,7 +25,7 @@ const defaultProps = {
 
 function Proof({ proof, leaveKey, value, priceName, block }) {
   return (
-    <Card style={{ minHeight: "252px" }}>
+    <Card style={{ height: "252px" }}>
       <CardHeader
         pad="small"
         justify="center"
