@@ -15,13 +15,17 @@ const propTypes = {
   leaveKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  priceName: PropTypes.string.isRequired,
+  priceName: PropTypes.string,
   block: PropTypes.object.isRequired,
+};
+
+const defaultProps = {
+  priceName: undefined,
 };
 
 function Proof({ proof, leaveKey, value, priceName, block }) {
   return (
-    <Card>
+    <Card style={{ height: "252px" }}>
       <CardHeader
         pad="small"
         justify="center"
@@ -29,7 +33,7 @@ function Proof({ proof, leaveKey, value, priceName, block }) {
         border={{ size: "xsmall", side: "bottom", color: "light-3" }}
       >
         <Text textAlign="center" weight="bold">
-          {priceName}
+          {priceName ?? leaveKey}
         </Text>
       </CardHeader>
       <CardBody direction="column" pad="small" background="white">
@@ -45,5 +49,6 @@ function Proof({ proof, leaveKey, value, priceName, block }) {
 }
 
 Proof.propTypes = propTypes;
+Proof.defaultProps = defaultProps;
 
 export default Proof;

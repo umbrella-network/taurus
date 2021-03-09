@@ -1,23 +1,19 @@
 import React from "react";
 
-import { numericSortByAttribute } from "@Utils";
-
 const ProofsContext = React.createContext();
 
-const KEYS_REQUESTED = "KEYS_REQUESTED";
-const KEYS_FULFILLED = "KEYS_FULFILLED";
-const KEYS_REJECTED = "KEYS_REJECTED";
-const KEYS_SELECTED = "KEYS_SELECTED";
+const LEAVES_REQUESTED = "LEAVES_REQUESTED";
+const LEAVES_FULFILLED = "LEAVES_FULFILLED";
+const LEAVES_REJECTED = "LEAVES_REJECTED";
 
 const PROOF_REQUESTED = "PROOF_REQUESTED";
 const PROOF_FULFILLED = "PROOF_FULFILLED";
 const PROOF_REJECTED = "PROOF_REJECTED";
 
 const initialState = {
-  keys: {
+  leaves: {
     isLoading: false,
     list: [],
-    selected: [],
     error: undefined,
   },
   proof: {
@@ -30,39 +26,31 @@ const initialState = {
 
 function reducer(state = {}, action = {}) {
   switch (action.type) {
-    case KEYS_REQUESTED:
+    case LEAVES_REQUESTED:
       return {
         ...state,
-        keys: {
-          ...state.keys,
+        leaves: {
+          ...state.leaves,
           error: undefined,
           isLoading: true,
         },
       };
-    case KEYS_FULFILLED:
+    case LEAVES_FULFILLED:
       return {
         ...state,
-        keys: {
-          ...state.keys,
+        leaves: {
+          ...state.leaves,
           error: undefined,
           isLoading: false,
           ...action.payload,
         },
       };
-    case KEYS_REJECTED:
+    case LEAVES_REJECTED:
       return {
         ...state,
-        keys: {
-          ...state.keys,
+        leaves: {
+          ...state.leaves,
           isLoading: false,
-          ...action.payload,
-        },
-      };
-    case KEYS_SELECTED:
-      return {
-        ...state,
-        keys: {
-          ...state.keys,
           ...action.payload,
         },
       };
@@ -99,25 +87,21 @@ function reducer(state = {}, action = {}) {
   }
 }
 
-export function keysRequested() {
-  return { type: KEYS_REQUESTED };
+export function leavesRequested() {
+  return { type: LEAVES_REQUESTED };
 }
 
-export function keysRequestFulfilled(data) {
+export function leavesRequestFulfilled(list) {
   return {
-    type: KEYS_FULFILLED,
+    type: LEAVES_FULFILLED,
     payload: {
-      list: numericSortByAttribute(data, "_id"),
+      list,
     },
   };
 }
 
-export function keysRequestRejected({ error }) {
-  return { type: KEYS_REJECTED, payload: { error } };
-}
-
-export function keysSelected(selected) {
-  return { type: KEYS_SELECTED, payload: { selected } };
+export function leavesRequestRejected({ error }) {
+  return { type: LEAVES_REJECTED, payload: { error } };
 }
 
 export function proofRequested() {

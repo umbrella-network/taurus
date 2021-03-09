@@ -6,6 +6,8 @@ import { LinkNext, LinkPrevious, Next, Previous } from "grommet-icons";
 
 import { range, isEmpty, splitEvery } from "ramda";
 
+import "./pagination.scss";
+
 const propTypes = {
   maxPages: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
@@ -65,7 +67,13 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
   }
 
   return (
-    <Grid gap="small" margin={{ horizontal: "medium", top: "auto" }}>
+    <Grid
+      className="pagination"
+      gap="small"
+      fill="horizontal"
+      pad={{ horizontal: "medium" }}
+      margin={{ top: "auto" }}
+    >
       <Grid
         columns={["60px", "auto", "60px"]}
         gap="small"
@@ -80,14 +88,16 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
           <Button
             disabled={currentPage === 1}
             plain
+            style={{ width: "18px" }}
             a11yTitle="First page"
-            icon={<LinkPrevious />}
+            icon={<LinkPrevious style={{ width: "18px" }} />}
             onClick={() => goToFirstPage()}
           />
           <Button
             plain
+            style={{ width: "18px" }}
             disabled={currentPage === 1}
-            icon={<Previous />}
+            icon={<Previous style={{ width: "18px" }} />}
             a11yTitle="Previous page"
             onClick={handlePrevious}
           />
@@ -95,6 +105,7 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
         <Box direction="row" fill justify="around">
           {paginationRange.map((page) => (
             <Button
+              className="label"
               plain
               key={page}
               a11yTitle={`Page ${page}`}
@@ -109,13 +120,15 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
             disabled={currentPage === maxPages}
             plain
             a11yTitle="Next page"
-            icon={<Next />}
+            icon={<Next style={{ width: "18px" }} />}
+            style={{ width: "18px" }}
             onClick={handleNext}
           />
           <Button
             disabled={currentPage === maxPages || maxPages === 0}
             a11yTitle="Last page"
-            icon={<LinkNext />}
+            icon={<LinkNext style={{ width: "18px" }} />}
+            style={{ width: "18px" }}
             plain
             reverse
             onClick={() => goToLastPage()}
@@ -123,22 +136,25 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
         </Grid>
       </Grid>
       <Grid
-        gap="medium"
-        style={{ gridAutoFlow: "column", justifyItems: "center" }}
-        align="center"
+        alignSelf="center"
+        fill="horizontal"
+        className="navigation-info"
+        gap="small"
       >
         <Box alignSelf="center" gap="small" direction="row">
-          <Text>Pages:</Text>
-          <b>{maxPages}</b>
+          <Text className="label">
+            <b>{maxPages}</b> pages
+          </Text>
         </Box>
         <Text>|</Text>
         <Grid
-          columns={["max-content", "max-content"]}
-          width="230px"
+          className="navigation-menu"
+          align="center"
           gap="small"
-          justify="center"
         >
+          <Text className="label">Navigate</Text>
           <MaskedInput
+            className="navigation-input"
             value={pageInputValue}
             mask={[
               {
@@ -149,9 +165,12 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
             ]}
             onChange={handleChange}
             pad="xsmall"
-            style={{ width: "40px" }}
           />
-          <Button label="Go" size="small" onClick={goToPageFromInput} />
+          <Button
+            label="Go"
+            className="navigation-button"
+            onClick={goToPageFromInput}
+          />
         </Grid>
       </Grid>
     </Grid>

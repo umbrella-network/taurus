@@ -55,14 +55,14 @@ function Block({ block }) {
           <Details block={block} />
           <Validators votes={votes} />
         </Grid>
-        <LeavesTable
-          blockHeight={height}
-          leaves={numericSortByAttribute(leaves)}
-        />
         <FirstClassData
           keys={numericFcdKeys}
           blockHeight={height}
           values={numericFcdValues}
+        />
+        <LeavesTable
+          blockHeight={height}
+          leaves={numericSortByAttribute(leaves)}
         />
       </Grid>
     </Grid>

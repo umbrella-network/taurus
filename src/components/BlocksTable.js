@@ -19,7 +19,8 @@ import {
   blocksRequestFulfilled,
   blocksRequestRejected,
 } from "@Store";
-import { ScanUrl } from "@Ui";
+
+import { ScanUrl, LoadingState } from "@Ui";
 import { isSizeMobile } from "@Utils";
 
 function BlocksTable() {
@@ -114,11 +115,7 @@ function BlocksTable() {
 
   if (displayLoading) {
     return (
-      <Box pad="large" gap="large">
-        <Text weight="bold" size="xlarge">
-          Loading...
-        </Text>
-      </Box>
+      <LoadingState />
     );
   }
 

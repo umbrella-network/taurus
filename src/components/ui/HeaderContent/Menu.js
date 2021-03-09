@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useLocation, useHistory } from "react-router-dom";
 
 import { Grid, Box, Button, Image } from "grommet";
-import { Cubes, Inherit } from "grommet-icons";
+import { Cubes, Inherit, Tree } from "grommet-icons";
 
 import { UmbrellaFullLogo } from "@Images";
 
@@ -24,10 +24,16 @@ function Menu({ isMobile, handlePathChange }) {
       matches: ["/", "/blocks"],
     },
     {
-      label: "proofs",
+      label: "first class data",
       icon: <Inherit />,
-      path: "/proofs",
-      matches: ["/proofs"],
+      path: "/first-class-data",
+      matches: ["/first-class-data"],
+    },
+    {
+      label: "layer 2 data",
+      icon: <Tree />,
+      path: "/layer-2-data",
+      matches: ["/layer-2-data"],
     },
   ];
 
@@ -78,7 +84,7 @@ function Menu({ isMobile, handlePathChange }) {
             ? { gridAutoFlow: "row", gridGap: "24px" }
             : {
                 gridAutoFlow: "column",
-                gridAutoColumns: "min-content",
+                gridAutoColumns: "max-content",
                 justifySelf: "center",
               }
         }

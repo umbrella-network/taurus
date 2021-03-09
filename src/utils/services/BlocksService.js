@@ -95,7 +95,11 @@ export async function fetchLeaves(dispatch, blockId) {
   );
 }
 
-export async function fetchKeys(dispatch, successCallback, rejectedCallback) {
+export async function fetchLatestLeaves(
+  dispatch,
+  successCallback,
+  rejectedCallback
+) {
   if (process.env.REACT_APP_SHOULD_FALLBACK === "true") {
     const latestBlockId = blockList[0]._id;
 
