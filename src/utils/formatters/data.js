@@ -113,5 +113,9 @@ export function formatTimestamp(timestamp) {
 }
 
 export function formatTimestampAge(timestamp) {
+  if (timestamp === "1970-01-01T00:00:00.000Z") {
+    return "-";
+  }
+
   return `${formatDistanceToNowStrict(new Date(timestamp))} ago`;
 }
