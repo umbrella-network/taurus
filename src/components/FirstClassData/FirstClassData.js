@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Grid, Text, Heading, Card, CardHeader, CardBody } from "grommet";
 
 import { truncate, keyToByte32 } from "@Formatters";
-import { KeyValuePairs, LoadingState } from "@Ui";
+import { KeyValuePairs, LoadingState, SearchBar } from "@Ui";
 
 import { fetchProof } from "@Services";
+import { isEmpty } from "ramda";
 
 import {
   usePrices,
@@ -22,6 +23,11 @@ function FirstClassData() {
     dispatch,
   } = usePrices();
 
+  const [filteredItems, setFilteredItems] = useState([]);
+
+  const displayedItems =
+    isEmpty(filteredItems) && block ? block.numericFcdKeys : filteredItems;
+
   useEffect(() => {
     if (!isLoading) {
       dispatch(proofRequested());
@@ -37,7 +43,11 @@ function FirstClassData() {
       {isLoading || !block ? (
         <LoadingState />
       ) : (
-        <div style={{ position: "relative", width: "100%", height: "100%" }}>
+        <Grid fill rows={["auto", "auto"]} gap="large">
+          <SearchBar
+            items={block.numericFcdKeys}
+            filterCallback={setFilteredItems}
+          />
           <Grid
             justifyContent="center"
             fill="horizontal"
@@ -47,7 +57,7 @@ function FirstClassData() {
               gridGap: "24px 12px",
             }}
           >
-            {block.numericFcdKeys.map((key, index) => (
+            {displayedItems.map((key) => (
               <Card key={key} style={{ minHeight: "252px" }}>
                 <CardHeader
                   pad="small"
@@ -76,7 +86,10 @@ function FirstClassData() {
                       },
                       {
                         key: "value",
-                        value: block.numericFcdValues[index],
+                        value:
+                          block.numericFcdValues[
+                            block.numericFcdKeys.indexOf(key)
+                          ],
                       },
                     ]}
                   />
@@ -101,7 +114,7 @@ function FirstClassData() {
               </Card>
             ))}
           </Grid>
-        </div>
+        </Grid>
       )}
     </Grid>
   );
