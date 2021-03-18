@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Key search to Layer 2 and First Class Data pages
+- Added age property to Block page
+
+### Changed
+
+- Updated blocks age property to match Etherscan age system
 
 ### Fixed
 

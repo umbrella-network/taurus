@@ -7,7 +7,6 @@ import {
   converters,
 } from "@umb-network/toolbox";
 import int64 from "int64-buffer";
-import { formatDistanceToNowStrict } from "date-fns";
 
 export const arrayToReadableJSON = (array) => {
   const formattedArray = array.map((element) => `"${element}"`);
@@ -103,19 +102,4 @@ export function textToHex(text) {
   } catch {
     return utils.hexlify(utils.toUtf8Bytes(text));
   }
-}
-
-export function formatTimestamp(timestamp) {
-  return new Date(timestamp)
-    .toISOString()
-    .replace("T", " ")
-    .replace(".000", " ");
-}
-
-export function formatTimestampAge(timestamp) {
-  if (timestamp === "1970-01-01T00:00:00.000Z") {
-    return "-";
-  }
-
-  return `${formatDistanceToNowStrict(new Date(timestamp))} ago`;
 }

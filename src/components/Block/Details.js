@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import { Card } from "grommet";
 
 import { KeyValuePairs, ScanUrl } from "@Ui";
-import { truncate, valueToToken, formatTimestamp } from "@Formatters";
+import { truncate, valueToToken } from "@Formatters";
+import { formatTimestamp, readableAgeFromTimestamp } from "@Utils";
 
 const propTypes = {
   block: PropTypes.object.isRequired,
@@ -39,6 +40,10 @@ function Details({ block }) {
             key: "block height",
             value: height,
             clipboardable: true,
+          },
+          {
+            key: "age",
+            value: readableAgeFromTimestamp(timestamp),
           },
           {
             key: "status",
