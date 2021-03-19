@@ -8,8 +8,10 @@ import { LinkPrevious, Next, Previous } from "grommet-icons";
 import { capitalize } from "lodash";
 
 import { Block } from "@Components";
-import { truncate, valueToToken, formatTimestampAge } from "@Formatters";
+import { truncate, valueToToken } from "@Formatters";
 import { fetchBlock, fetchBlocks } from "@Services";
+import { readableAgeFromTimestamp } from "@Utils";
+
 import {
   useBlocks,
   blockRequested,
@@ -81,7 +83,7 @@ function BlocksTable() {
     {
       property: "timestamp",
       header: <Text weight="bold">Age</Text>,
-      render: (datum) => formatTimestampAge(datum.timestamp),
+      render: (datum) => readableAgeFromTimestamp(datum.timestamp),
     },
     { property: "root", render: (datum) => truncate(datum.root) },
     {
