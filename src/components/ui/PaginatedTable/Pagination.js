@@ -28,10 +28,12 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
       setPaginationRange(
         pageGroups.find((pageGroup) => pageGroup.includes(currentPage))
       );
+    } else {
+      setPaginationRange(pageGroups[0]);
     }
 
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  }, [currentPage]);
+  }, [currentPage, maxPages]);
 
   function handleChange({ target: { value } }) {
     const page = parseInt(value) > maxPages ? maxPages : value;
@@ -147,11 +149,7 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
           </Text>
         </Box>
         <Text>|</Text>
-        <Grid
-          className="navigation-menu"
-          align="center"
-          gap="small"
-        >
+        <Grid className="navigation-menu" align="center" gap="small">
           <Text className="label">Navigate</Text>
           <MaskedInput
             className="navigation-input"

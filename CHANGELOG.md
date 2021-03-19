@@ -5,7 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2021-03-19
+
+### Added
+
+- Key search to Layer 2 and First Class Data pages
+- Added age property to Block page
+
+### Changed
+
+- Updated blocks age property to match Etherscan age system
+
+### Fixed
+
+- Update cache settings using nginx.conf
+
 ## [0.1.1] - 2021-03-15
+
 ### Changed
 
 - Hide invalid timestamps

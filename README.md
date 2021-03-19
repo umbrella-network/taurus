@@ -75,23 +75,27 @@ make dev-m1
 
 ### Web
 
-<img src=".github/blocksNavigation.gif" width="100%" />
+<img src=".github/screenshots/landing.png" width="100%" />
 
 ---
 
-<img src=".github/web1.png" width="100%" />
+<img src=".github/screenshots/fcd.png" width="100%" />
 
 ---
 
-<img src=".github/web2.png" width="100%" />
+<img src=".github/screenshots/block.png" width="100%" />
+
+---
+
+<img src=".github/screenshots/layer-two.png" width="100%" />
 
 ---
 
 ### Mobile
 
 <p align="center">
-  <img src=".github/mobile1.png" width="45%" />
-  <img src=".github/mobile2.png" width="45%" />
+  <img src=".github/screenshots/mobile1.png" width="45%" />
+  <img src=".github/screenshots/mobile2.png" width="45%" />
 </p>
 
 ---
