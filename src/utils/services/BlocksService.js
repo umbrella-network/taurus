@@ -1,7 +1,7 @@
 import axios from "axios";
 import { numericSortByAttribute } from "@Utils";
 import { join } from "ramda";
-import { blockList, blocks, leaves } from "@Mocks";
+import { blockList, blocks, leaves, info } from "@Mocks";
 
 async function mockRequest(
   dispatch,
@@ -172,5 +172,19 @@ export async function fetchBlock(
     successCallback,
     rejectedCallback,
     fallBack
+  );
+}
+
+export async function fetchInfo(
+  dispatch,
+  successCallback,
+  rejectedCallback
+) {
+  get(
+    `${process.env.REACT_APP_BLOCKS_API}/info`,
+    dispatch,
+    successCallback,
+    rejectedCallback,
+    info
   );
 }

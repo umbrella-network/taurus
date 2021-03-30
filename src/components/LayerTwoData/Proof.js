@@ -42,6 +42,7 @@ function Proof({ proof, leaveKey, value, priceName, block }) {
           blockHeight={block.height}
           proof={proof}
           value={value}
+          chainAddress={block.chainAddress}
         />
       </CardBody>
     </Card>

@@ -13,14 +13,15 @@ import { Leaf } from "./";
 const propTypes = {
   leaves: PropTypes.array.isRequired,
   blockHeight: PropTypes.number.isRequired,
+  chainAddress: PropTypes.string.isRequired,
 };
 
-function LeavesTable({ leaves, blockHeight }) {
+function LeavesTable({ leaves, blockHeight, chainAddress }) {
   const properties = [
     {
       property: "key",
       primary: true,
-      render: (datum) => <Leaf blockHeight={blockHeight} leaf={datum} />,
+      render: (datum) => <Leaf blockHeight={blockHeight} chainAddress={chainAddress} leaf={datum} />,
     },
     { property: "value", render: ({ value }) => valueToString(value) },
   ];

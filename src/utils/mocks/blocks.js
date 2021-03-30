@@ -6,6 +6,7 @@ export const blockList = [
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -54,6 +55,7 @@ export const blockList = [
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -102,6 +104,7 @@ export const blockList = [
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -150,6 +153,7 @@ export const blockList = [
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -198,6 +202,7 @@ export const blockList = [
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -246,6 +251,7 @@ export const blockList = [
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -294,6 +300,7 @@ export const blockList = [
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -342,6 +349,7 @@ export const blockList = [
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -390,6 +398,7 @@ export const blockList = [
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -438,6 +447,7 @@ export const blockList = [
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -486,6 +496,7 @@ export const blockList = [
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -534,6 +545,7 @@ export const blockList = [
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -582,6 +594,7 @@ export const blockList = [
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -630,6 +643,7 @@ export const blockList = [
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -678,6 +692,7 @@ export const blockList = [
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -729,6 +744,7 @@ export const blocks = {
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -777,6 +793,7 @@ export const blocks = {
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -825,6 +842,7 @@ export const blocks = {
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -873,6 +891,7 @@ export const blocks = {
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -921,6 +940,7 @@ export const blocks = {
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -969,6 +989,7 @@ export const blocks = {
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -1017,6 +1038,7 @@ export const blocks = {
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -1065,6 +1087,7 @@ export const blocks = {
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -1113,6 +1136,7 @@ export const blocks = {
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -1161,6 +1185,7 @@ export const blocks = {
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -1209,6 +1234,7 @@ export const blocks = {
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -1257,6 +1283,7 @@ export const blocks = {
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -1305,6 +1332,7 @@ export const blocks = {
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -1353,6 +1381,7 @@ export const blocks = {
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",
@@ -1401,6 +1430,7 @@ export const blocks = {
     votes: {
       "0xdc3ebc37da53a644d67e5e3b5ba4eef88d969d5c": "1000000000000000000",
     },
+    chainAddress: "0xa6bd2D1d3651a19765b548B8609aA54a7ca6f4bE",
     numericFcdKeys: [
       "Aave-USD",
       "BNB-USD",

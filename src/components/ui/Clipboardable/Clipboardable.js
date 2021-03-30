@@ -10,9 +10,14 @@ import { debounce } from "lodash";
 
 const propTypes = {
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  disabled: PropTypes.bool,
 };
 
-function Clipboardable({ text, children, ...rest }) {
+const defaultProps = {
+  disabled: false,
+};
+
+function Clipboardable({ text, disabled, children, ...rest }) {
   const [hasCopied, setHasCopied] = useState(false);
   const copiedCallback = debounce(setHasCopied, 750);
   const icon = hasCopied ? (
@@ -31,6 +36,7 @@ function Clipboardable({ text, children, ...rest }) {
       {children}
       <CopyToClipboard text={text}>
         <Button
+          disabled={disabled}
           icon={icon}
           size="small"
           plain
@@ -43,5 +49,6 @@ function Clipboardable({ text, children, ...rest }) {
 }
 
 Clipboardable.propTypes = propTypes;
+Clipboardable.defaultProps = defaultProps;
 
 export default Clipboardable;

@@ -19,7 +19,9 @@ function MainContent() {
       rows={["max-content", "minmax(max-content, auto)", "min-content"]}
     >
       <Router>
-        <HeaderContent />
+        <BlocksProvider>
+          <HeaderContent />
+        </BlocksProvider>
 
         <Box
           align="center"
