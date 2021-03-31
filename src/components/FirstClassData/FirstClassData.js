@@ -57,12 +57,12 @@ function FirstClassData() {
             fill="horizontal"
             style={{
               alignSelf: "start",
-              gridTemplateColumns: "repeat(auto-fit, 252px)",
+              gridTemplateColumns: "repeat(auto-fit, 272px)",
               gridGap: "24px 12px",
             }}
           >
             {displayedItems.map((key) => (
-              <Card key={key} style={{ minHeight: "252px" }}>
+              <Card key={key} style={{ minHeight: "272px" }}>
                 <CardHeader
                   pad="small"
                   justify="center"

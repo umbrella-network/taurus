@@ -22,15 +22,14 @@ const propTypes = {
   leaf: PropTypes.object.isRequired,
   blockHeight: PropTypes.number.isRequired,
   label: PropTypes.string,
+  chainAddress: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
   label: undefined,
 };
 
-function Leaf({ leaf, blockHeight, label }) {
-  const address = process.env.REACT_APP_CHAIN_CONTRACT;
-
+function Leaf({ leaf, blockHeight, label, chainAddress }) {
   const { key, proof, value } = leaf;
   const [show, setShow] = useState(false);
 
@@ -69,13 +68,13 @@ function Leaf({ leaf, blockHeight, label }) {
               border={{ size: "xsmall", style: "dashed", side: "bottom" }}
             >
               <Box direction="column" align="center">
-                <Clipboardable text={address} size="small">
+                <Clipboardable text={chainAddress} size="small">
                   <Anchor
                     size="small"
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={`${process.env.REACT_APP_SCAN_URL}/${address}#readContract`}
-                    label={`Contract - [${truncate(address)}]`}
+                    href={`${process.env.REACT_APP_SCAN_URL}/${chainAddress}#readContract`}
+                    label={`Contract - [${truncate(chainAddress)}]`}
                   />
                 </Clipboardable>
               </Box>
@@ -93,6 +92,7 @@ function Leaf({ leaf, blockHeight, label }) {
                 blockHeight={blockHeight}
                 proof={proof}
                 value={value}
+                chainAddress={chainAddress}
               />
             </Box>
             <Box>

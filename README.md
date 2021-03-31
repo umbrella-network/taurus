@@ -21,7 +21,6 @@ AWS_REPOSITORY=
 REACT_APP_BLOCKS_API=       //The URL in which the API will be available
 REACT_APP_SCAN_URL=         //URL for the address scan
 REACT_APP_TOKEN_AUTH=       //Auth Token to be used
-REACT_APP_CHAIN_CONTRACT=   //Chain contract address
 REACT_APP_SHOULD_FALLBACK=  //Whether should mock requests. ex: true
 ```
 

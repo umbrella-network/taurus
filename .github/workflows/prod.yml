@@ -57,7 +57,6 @@ jobs:
             REACT_APP_BLOCKS_API=${{ secrets.REACT_APP_BLOCKS_API_PROD }}
             REACT_APP_SCAN_URL=${{ secrets.REACT_APP_SCAN_URL_PROD }}
             REACT_APP_TOKEN_AUTH=${{ secrets.REACT_APP_TOKEN_AUTH_PROD}}
-            REACT_APP_CHAIN_CONTRACT=${{ secrets.REACT_APP_CHAIN_CONTRACT_PROD}}
             REACT_APP_SHOULD_FALLBACK=false
 
       - name: Push api

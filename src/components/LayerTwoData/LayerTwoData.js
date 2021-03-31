@@ -103,7 +103,7 @@ function LayerTwoData() {
             fill="horizontal"
             style={{
               alignSelf: "start",
-              gridTemplateColumns: "repeat(auto-fit, 252px)",
+              gridTemplateColumns: "repeat(auto-fit, 272px)",
               gridGap: "24px 12px",
             }}
           >
