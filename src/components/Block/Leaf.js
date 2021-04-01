@@ -73,7 +73,7 @@ function Leaf({ leaf, blockHeight, label, chainAddress }) {
                     size="small"
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={`${process.env.REACT_APP_SCAN_URL}/${chainAddress}#readContract`}
+                    href={`${process.env.REACT_APP_SCAN_URL}/${chainAddress}`}
                     label={`Contract - [${truncate(chainAddress)}]`}
                   />
                 </Clipboardable>

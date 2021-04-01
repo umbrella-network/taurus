@@ -52,7 +52,7 @@ function ContractButton() {
             disabled={!info.chainContractAddress}
             target="_blank"
             rel="noopener noreferrer"
-            href={`${process.env.REACT_APP_SCAN_URL}/${info.chainContractAddress}#readContract`}
+            href={`${process.env.REACT_APP_SCAN_URL}/${info.chainContractAddress}`}
             label={label}
           />
           ]
