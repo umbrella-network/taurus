@@ -15,9 +15,10 @@ const propTypes = {
     PropTypes.array,
   ]).isRequired,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  chainAddress: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
-function LeafPairs({ leafKey, blockHeight, proof, value }) {
+function LeafPairs({ leafKey, blockHeight, proof, value, chainAddress }) {
   return (
     <>
       <KeyValuePairs
@@ -45,6 +46,12 @@ function LeafPairs({ leafKey, blockHeight, proof, value }) {
           {
             key: "block height",
             value: blockHeight,
+            clipboardable: true,
+          },
+          {
+            key: "chain address",
+            value: truncate(chainAddress),
+            clipboardableValue: chainAddress,
             clipboardable: true,
           },
           {

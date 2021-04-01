@@ -23,6 +23,7 @@ function FirstClassData() {
     dispatch,
   } = usePrices();
 
+  const [isSearching, setIsSearching] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
 
   const displayedItems =
@@ -43,8 +44,11 @@ function FirstClassData() {
       {isLoading || !block ? (
         <LoadingState />
       ) : (
-        <Grid fill rows={["auto", "auto"]} gap="large">
+        <Grid fill rows={["min-content", "auto"]} gap="large">
           <SearchBar
+            isSearching={isSearching}
+            open={() => setIsSearching(true)}
+            close={() => setIsSearching(false)}
             items={block.numericFcdKeys}
             filterCallback={setFilteredItems}
           />
@@ -52,13 +56,13 @@ function FirstClassData() {
             justifyContent="center"
             fill="horizontal"
             style={{
-              alignSelf: "center",
-              gridTemplateColumns: "repeat(auto-fit, 252px)",
+              alignSelf: "start",
+              gridTemplateColumns: "repeat(auto-fit, 272px)",
               gridGap: "24px 12px",
             }}
           >
             {displayedItems.map((key) => (
-              <Card key={key} style={{ minHeight: "252px" }}>
+              <Card key={key} style={{ minHeight: "272px" }}>
                 <CardHeader
                   pad="small"
                   justify="center"

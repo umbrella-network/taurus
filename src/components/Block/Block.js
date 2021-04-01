@@ -13,7 +13,7 @@ const propTypes = {
 };
 
 function Block({ block }) {
-  const { _id, height, root, votes, numericFcdKeys, numericFcdValues } = block;
+  const { _id, height, root, votes, numericFcdKeys, numericFcdValues, chainAddress } = block;
   const [leaves, setLeaves] = useState();
 
   const size = useContext(ResponsiveContext);
@@ -62,6 +62,7 @@ function Block({ block }) {
         />
         <LeavesTable
           blockHeight={height}
+          chainAddress={chainAddress}
           leaves={numericSortByAttribute(leaves)}
         />
       </Grid>

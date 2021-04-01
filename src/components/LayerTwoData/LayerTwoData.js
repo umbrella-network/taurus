@@ -29,6 +29,7 @@ function LayerTwoData() {
     dispatch,
   } = usePrices();
 
+  const [isSearching, setIsSearching] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -85,21 +86,24 @@ function LayerTwoData() {
           style={{
             justifyItems: "center",
           }}
-          rows={["auto", "auto"]}
+          rows={["min-content", "auto"]}
           gap="large"
         >
           <SearchBar
+            isSearching={isSearching}
+            open={() => setIsSearching(true)}
+            close={() => setIsSearching(false)}
             items={list}
             filterCallback={filterCallback}
-            searchTerm={"key"}
+            searchTerm="key"
           />
           <Grid
             className="layer-two-data-container"
             justifyContent="center"
             fill="horizontal"
             style={{
-              alignSelf: "center",
-              gridTemplateColumns: "repeat(auto-fit, 252px)",
+              alignSelf: "start",
+              gridTemplateColumns: "repeat(auto-fit, 272px)",
               gridGap: "24px 12px",
             }}
           >
