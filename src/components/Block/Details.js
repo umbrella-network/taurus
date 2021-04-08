@@ -21,6 +21,7 @@ function Details({ block }) {
     staked,
     power,
     status,
+    chainAddress,
   } = block;
 
   return (
@@ -36,6 +37,12 @@ function Details({ block }) {
         justify="center"
         gap="xsmall"
         items={[
+          {
+            key: "chain address",
+            value: truncate(chainAddress),
+            clipboardable: true,
+            clipboardableValue: chainAddress,
+          },
           {
             key: "block height",
             value: height,
