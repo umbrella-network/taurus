@@ -4,6 +4,7 @@ REPOSITORY="$(AWS_REPOSITORY)/taurus"
 TAG=`git rev-parse --short HEAD`
 IMAGE="$(REPOSITORY):v$(TAG)"
 DEVELOP="$(NEW_AWS_REPOSITORY)/taurus:develop"
+DEVELOPBSC="$(NEW_AWS_REPOSITORY)/taurus:develop-bsc"
 
 CRED_TMP := /tmp/.credentials.tmp
 DURATION := 900
@@ -32,6 +33,10 @@ update-stg-kubeconfig:
 build-new-dev:
 	@echo "## Building the docker image ##"
 	@docker buildx build  --push --platform linux/amd64 -t $(DEVELOP) .
+
+build-new-dev-bsc:
+	@echo "## Building the docker image ##"
+	@docker buildx build  --push --platform linux/amd64 -t $(DEVELOPBSC) .
 
 
 build:
@@ -63,5 +68,5 @@ publish-bsc:
 
 dev: build push publish-dev
 
-dev-bsc: assume login-new-dev build-new-dev update-stg-kubeconfig publish-bsc
+dev-bsc: assume login-new-dev build-new-dev-bsc update-stg-kubeconfig publish-bsc
 dev-bsc-all: dev dev-bsc
