@@ -63,7 +63,6 @@ publish-bsc:
 
 	@kubectl --kubeconfig ~/.kube/config-staging scale --replicas=0 deployment/frontend-taurus-bsc01 -n dev
 	@kubectl --kubeconfig ~/.kube/config-staging scale --replicas=1 deployment/frontend-taurus-bsc01 -n dev
-	kubectl config view --minify
 
 
 
