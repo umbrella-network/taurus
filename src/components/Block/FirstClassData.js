@@ -23,7 +23,7 @@ function FirstClassData({ keys, values }) {
   const fcdKeys = Object.values(keys);
 
   return (
-    <Card height={{ min: "280px", max: "748px" }} fill>
+    <Card height={{ min: "280px", max: "760px" }} fill>
       <CardHeader
         pad="small"
         justify="center"

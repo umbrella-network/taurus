@@ -27,7 +27,7 @@ function MainContent() {
           align="center"
           background="light-1"
           gap="2rem"
-          pad="large"
+          pad="medium"
           style={isIOS ? { width: "100vw" } : { width: "100%" }}
         >
           <Box fill width={{ max: "1366px" }}>
