@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import { Box, DataTable, Text } from "grommet";
+import { DataTable, Text } from "grommet";
+import { SearchBar } from "@Ui";
 
 import { slice } from "ramda";
 import { capitalize } from "lodash";
 
 import Pagination from "./Pagination";
+
+import "./paginatedTable.scss";
 
 const propTypes = {
   title: PropTypes.string,
@@ -15,12 +18,16 @@ const propTypes = {
   dataPerPage: PropTypes.number.isRequired,
   tableConfig: PropTypes.object,
   pageBreak: PropTypes.number,
+  searchable: PropTypes.bool,
+  searchTerm: PropTypes.string,
 };
 
 const defaultProps = {
   title: undefined,
   tableConfig: {},
   pageBreak: 10,
+  searchable: false,
+  searchTerm: undefined,
 };
 
 function PaginatedTable({
@@ -30,21 +37,32 @@ function PaginatedTable({
   dataPerPage,
   tableConfig,
   pageBreak,
+  searchable,
+  searchTerm,
   ...rest
 }) {
   const [displayedData, setDisplayedData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+  const [isSearching, setIsSearching] = useState(false);
+  const [filteredItems, setFilteredItems] = useState([]);
 
-  const dataLength = data.length;
+  const filterCallback = (items) => {
+    setCurrentPage(1);
+    setFilteredItems(items);
+  };
+
+  const items = filteredItems.length ? filteredItems : data;
+
+  const dataLength = items.length;
   const maxPages = Math.ceil(dataLength / dataPerPage) || 0;
 
   useEffect(() => {
     const dataRangeStart = (currentPage - 1) * dataPerPage;
     const dataRangeEnd = currentPage * dataPerPage;
 
-    const pageData = slice(dataRangeStart, dataRangeEnd, data);
+    const pageData = slice(dataRangeStart, dataRangeEnd, items);
     setDisplayedData(pageData);
-  }, [currentPage, data, dataPerPage]);
+  }, [currentPage, items, dataPerPage]);
 
   const columns = properties.map((data) => {
     return {
@@ -62,12 +80,22 @@ function PaginatedTable({
   });
 
   return (
-    <Box gap="medium" flex="grow" {...rest}>
+    <div className="paginated-table" {...rest}>
       {title && (
         <Text weight="bold" size="xlarge">
           {title}
         </Text>
       )}
+      {searchable ? (
+        <SearchBar
+          isSearching={isSearching}
+          open={() => setIsSearching(true)}
+          close={() => setIsSearching(false)}
+          items={data}
+          filterCallback={filterCallback}
+          searchTerm={searchTerm}
+        />
+      ) : null}
       <DataTable
         background={{
           body: ["white", "light-2"],
@@ -89,7 +117,7 @@ function PaginatedTable({
           Nothing to show.
         </Text>
       )}
-    </Box>
+    </div>
   );
 }
 
