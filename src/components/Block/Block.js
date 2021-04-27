@@ -14,15 +14,21 @@ const propTypes = {
 
 function Block({ block }) {
   const { _id, height, root, votes, numericFcdKeys, numericFcdValues, chainAddress } = block;
+  const [isLoading, setIsLoading] = useState(true);
   const [leaves, setLeaves] = useState();
 
   const size = useContext(ResponsiveContext);
   const isDesktop = isSizeDesktop(size);
   const isMobile = isSizeMobile(size);
 
+  const handleLeavesLoades = (leaves) => {
+    setIsLoading(false);
+    setLeaves(leaves);
+  }
+
   useEffect(() => {
     const handleLeaves = async () => {
-      fetchLeaves(setLeaves, _id);
+      fetchLeaves(handleLeavesLoades, _id);
     };
 
     handleLeaves();
@@ -34,6 +40,7 @@ function Block({ block }) {
       gap="medium"
       style={{ maxWidth: "1366px" }}
       rows={["36px", "max-content", "auto"]}
+      className="block"
     >
       <Header
         height={height}
@@ -64,6 +71,7 @@ function Block({ block }) {
           blockHeight={height}
           chainAddress={chainAddress}
           leaves={numericSortByAttribute(leaves)}
+          isLoading={isLoading}
         />
       </Grid>
     </Grid>

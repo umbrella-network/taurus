@@ -77,7 +77,7 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
       margin={{ top: "auto" }}
     >
       <Grid
-        columns={["60px", "auto", "60px"]}
+        columns={["60px", "1fr", "60px"]}
         gap="small"
         align="center"
         justify="center"
@@ -85,7 +85,6 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
         <Grid
           columns={["24px", "24px"]}
           gap="small"
-          margin={{ right: "small" }}
         >
           <Button
             disabled={currentPage === 1}

@@ -2,26 +2,34 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Card, CardHeader, CardBody, Text } from "grommet";
+import { Card, CardHeader, Text } from "grommet";
 
-import { PaginatedTable } from "@Ui";
-
+import { PaginatedTable, LoadingState } from "@Ui";
 import { valueToString } from "@Formatters";
 
 import { Leaf } from "./";
+
+import "./leavesTable.scss";
 
 const propTypes = {
   leaves: PropTypes.array.isRequired,
   blockHeight: PropTypes.number.isRequired,
   chainAddress: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
-function LeavesTable({ leaves, blockHeight, chainAddress }) {
+function LeavesTable({ leaves, blockHeight, chainAddress, isLoading }) {
   const properties = [
     {
       property: "key",
       primary: true,
-      render: (datum) => <Leaf blockHeight={blockHeight} chainAddress={chainAddress} leaf={datum} />,
+      render: (datum) => (
+        <Leaf
+          blockHeight={blockHeight}
+          chainAddress={chainAddress}
+          leaf={datum}
+        />
+      ),
     },
     { property: "value", render: ({ value }) => valueToString(value) },
   ];
@@ -37,20 +45,21 @@ function LeavesTable({ leaves, blockHeight, chainAddress }) {
           Layer 2 Data
         </Text>
       </CardHeader>
-      <CardBody
-        pad={{ vertical: "small" }}
-        background="white"
-        fill="horizontal"
-        style={{ minHeight: "675px" }}
-      >
-        <PaginatedTable
-          dataPerPage={10}
-          pageBreak={5}
-          data={leaves}
-          properties={properties}
-          fill="horizontal"
-        />
-      </CardBody>
+      <div className="leaves-table__body">
+        {isLoading ? (
+          <LoadingState />
+        ) : (
+          <PaginatedTable
+            dataPerPage={10}
+            pageBreak={5}
+            data={leaves}
+            properties={properties}
+            fill="horizontal"
+            searchTerm="key"
+            searchable
+          />
+        )}
+      </div>
     </Card>
   );
 }
