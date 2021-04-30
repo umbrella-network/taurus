@@ -59,7 +59,7 @@ function Block({ block }) {
           gap="medium"
           fill="horizontal"
         >
-          <Details block={block} />
+          <Details block={block} leaves={leaves} isLoading={isLoading} />
           <Validators votes={votes} />
         </Grid>
         <FirstClassData

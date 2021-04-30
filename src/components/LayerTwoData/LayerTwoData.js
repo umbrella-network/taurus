@@ -76,58 +76,62 @@ function LayerTwoData() {
   };
 
   return (
-    <Grid justify="center" fill rows={["34px", "auto"]} gap="large">
+    <Grid justify="center" fill rows={["34px", "auto"]} gap="small">
       <Heading>Layer 2 Data</Heading>
       {isLoading || isEmpty(list) ? (
         <LoadingState />
       ) : (
-        <Grid
-          fill
-          style={{
-            justifyItems: "center",
-          }}
-          rows={["min-content", "auto"]}
-          gap="large"
-        >
-          <SearchBar
-            isSearching={isSearching}
-            open={() => setIsSearching(true)}
-            close={() => setIsSearching(false)}
-            items={list}
-            filterCallback={filterCallback}
-            searchTerm="key"
-          />
+        <>
+          <Heading level={4}>{`${list.length} data pairs`}</Heading>
           <Grid
-            className="layer-two-data-container"
-            justifyContent="center"
-            fill="horizontal"
+            fill
             style={{
-              alignSelf: "start",
-              gridTemplateColumns: "repeat(auto-fit, 272px)",
-              gridGap: "24px 12px",
+              justifyItems: "center",
             }}
+            rows={["min-content", "auto"]}
+            gap="large"
+            pad={{ top: "large" }}
           >
-            {displayedItems
-              .slice(rangeStart, rangeEnd)
-              .map(({ proof, key, value }) => (
-                <Proof
-                  key={key}
-                  proof={proof}
-                  leaveKey={key}
-                  value={value}
-                  block={block}
-                />
-              ))}
-          </Grid>
-          <Grid style={{ maxWidth: "500px", width: "100%" }}>
-            <Pagination
-              maxPages={Math.ceil(displayedItems.length / itemsPerPage)}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              pageBreak={5}
+            <SearchBar
+              isSearching={isSearching}
+              open={() => setIsSearching(true)}
+              close={() => setIsSearching(false)}
+              items={list}
+              filterCallback={filterCallback}
+              searchTerm="key"
             />
+            <Grid
+              className="layer-two-data-container"
+              justifyContent="center"
+              fill="horizontal"
+              style={{
+                alignSelf: "start",
+                gridTemplateColumns: "repeat(auto-fit, 272px)",
+                gridGap: "24px 12px",
+              }}
+            >
+              {displayedItems
+                .slice(rangeStart, rangeEnd)
+                .map(({ proof, key, value }) => (
+                  <Proof
+                    key={key}
+                    proof={proof}
+                    leaveKey={key}
+                    value={value}
+                    block={block}
+                  />
+                ))}
+            </Grid>
+            <Grid style={{ maxWidth: "500px", width: "100%" }}>
+              <Pagination
+                maxPages={Math.ceil(displayedItems.length / itemsPerPage)}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                pageBreak={5}
+              />
+            </Grid>
           </Grid>
-        </Grid>
+        </>
       )}
     </Grid>
   );
