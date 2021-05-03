@@ -193,11 +193,11 @@ jobs:
           BUILDING_ENVIRONMENT: ${{ steps.atifact-reader.outputs.environment }}
         run: >-
           for dir in $BUILDING_ENVIRONMENT/frontends/deployments/taurus/eth*/; do
-            yq eval ".images[0].newTag = \"$VERSION\"-eth" -i ${dir}kustomization.yaml
+            yq eval ".images[0].newTag = \"${VERSION}-eth\"" -i ${dir}kustomization.yaml
           done;
 
           for dir in $BUILDING_ENVIRONMENT/frontends/deployments/taurus/bsc*/; do
-            yq eval ".images[0].newTag = \"$VERSION\"-bsc" -i ${dir}kustomization.yaml
+            yq eval ".images[0].newTag = \"${VERSION}-bsc\"" -i ${dir}kustomization.yaml
           done
 
       - name: Commit, Push and create Pull Request
