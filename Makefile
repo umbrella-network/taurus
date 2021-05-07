@@ -60,13 +60,18 @@ publish-dev:
 	@kubectl set image deployment/taurus taurus=$(IMAGE) --namespace dev
 
 publish-bsc:
-
 	@kubectl --kubeconfig ~/.kube/config-staging scale --replicas=0 deployment/frontend-taurus-bsc01 -n dev
 	@kubectl --kubeconfig ~/.kube/config-staging scale --replicas=1 deployment/frontend-taurus-bsc01 -n dev
+
+publish-eth:
+	@kubectl --kubeconfig ~/.kube/config-staging scale --replicas=0 deployment/frontend-taurus-eth01 -n dev
+	@kubectl --kubeconfig ~/.kube/config-staging scale --replicas=1 deployment/frontend-taurus-eth01 -n dev
 
 
 
 dev: build push publish-dev
 
-dev-bsc: assume login-new-dev build-new-dev-bsc update-stg-kubeconfig publish-bsc
+login-dev: assume login-new-dev
+dev-eth: login-dev build-new-dev update-stg-kubeconfig publish-eth
+dev-bsc: login-dev build-new-dev-bsc update-stg-kubeconfig publish-bsc
 dev-bsc-all: dev dev-bsc
