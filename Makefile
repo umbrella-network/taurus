@@ -1,17 +1,15 @@
 include .env
 
-REPOSITORY="$(AWS_REPOSITORY)/taurus"
 TAG=`git rev-parse --short HEAD`
-IMAGE="$(REPOSITORY):v$(TAG)"
-DEVELOP="$(NEW_AWS_REPOSITORY)/taurus:develop"
-DEVELOPBSC="$(NEW_AWS_REPOSITORY)/taurus:develop-bsc"
+DEVELOP="$(AWS_REPOSITORY)/taurus:develop"
+DEVELOPBSC="$(AWS_REPOSITORY)/taurus:develop-bsc"
 
 CRED_TMP := /tmp/.credentials.tmp
 DURATION := 900
 AWS_REGION := us-east-2
 
 
-default: build
+default: dev-eth
 
 assume:
 	@aws sts assume-role --profile umb-master \
@@ -30,34 +28,17 @@ update-stg-kubeconfig:
 	@aws --profile umb-staging configure set aws_session_token $$(cat ${CRED_TMP} | jq -r '.SessionToken' )
 	@aws --profile umb-staging --region us-east-2 eks update-kubeconfig --kubeconfig ~/.kube/config-staging --name umb_staging
 
-build-new-dev:
+build-dev:
 	@echo "## Building the docker image ##"
 	@docker buildx build  --push --platform linux/amd64 -t $(DEVELOP) .
 
-build-new-dev-bsc:
+build-dev-bsc:
 	@echo "## Building the docker image ##"
 	@docker buildx build  --push --platform linux/amd64 -t $(DEVELOPBSC) .
 
-
-build:
-	@echo "## Building the docker image ##"
-	@docker build -t $(IMAGE) .
-
 login:
-	@aws ecr get-login-password  | docker login --username AWS --password-stdin $(AWS_REPOSITORY)
+	@aws ecr --profile umb-central --region $(AWS_REGION) get-login-password  | docker login --username AWS --password-stdin $(AWS_REPOSITORY)
 
-login-new-dev:
-	@aws ecr --profile umb-central --region $(AWS_REGION) get-login-password  | docker login --username AWS --password-stdin $(NEW_AWS_REPOSITORY)
-
-
-push: login
-	@echo "## Pushing image to AWS ##"
-	@docker push $(IMAGE)
-
-
-
-publish-dev:
-	@kubectl set image deployment/taurus taurus=$(IMAGE) --namespace dev
 
 publish-bsc:
 	@kubectl --kubeconfig ~/.kube/config-staging scale --replicas=0 deployment/frontend-taurus-bsc01 -n dev
@@ -69,9 +50,6 @@ publish-eth:
 
 
 
-dev: build push publish-dev
-
-login-dev: assume login-new-dev
-dev-eth: login-dev build-new-dev update-stg-kubeconfig publish-eth
-dev-bsc: login-dev build-new-dev-bsc update-stg-kubeconfig publish-bsc
-dev-bsc-all: dev dev-bsc
+login-dev: assume login
+dev-eth: login-dev build-dev update-stg-kubeconfig publish-eth
+dev-bsc: login-dev build-dev-bsc update-stg-kubeconfig publish-bsc
