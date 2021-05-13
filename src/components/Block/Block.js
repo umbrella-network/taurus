@@ -6,14 +6,15 @@ import { Grid, ResponsiveContext } from "grommet";
 import { isSizeDesktop, isSizeMobile, numericSortByAttribute } from "@Utils";
 import { fetchLeaves } from "@Services";
 
-import { Details, Header, FirstClassData, LeavesTable, Validators } from "./";
+import { Details, Header, LeavesTable, Validators } from "./";
 
 const propTypes = {
   block: PropTypes.object.isRequired,
 };
 
 function Block({ block }) {
-  const { _id, height, root, votes, numericFcdKeys, numericFcdValues, chainAddress } = block;
+  const { blockId, root, votes, chainAddress } = block;
+
   const [isLoading, setIsLoading] = useState(true);
   const [leaves, setLeaves] = useState();
 
@@ -24,15 +25,15 @@ function Block({ block }) {
   const handleLeavesLoades = (leaves) => {
     setIsLoading(false);
     setLeaves(leaves);
-  }
+  };
 
   useEffect(() => {
     const handleLeaves = async () => {
-      fetchLeaves(handleLeavesLoades, _id);
+      fetchLeaves(handleLeavesLoades, blockId);
     };
 
     handleLeaves();
-  }, [_id]);
+  }, [blockId]);
 
   return (
     <Grid
@@ -43,7 +44,7 @@ function Block({ block }) {
       className="block"
     >
       <Header
-        height={height}
+        height={blockId}
         root={root}
         isMobile={isMobile}
         isDesktop={isDesktop}
@@ -62,13 +63,9 @@ function Block({ block }) {
           <Details block={block} leaves={leaves} isLoading={isLoading} />
           <Validators votes={votes} />
         </Grid>
-        <FirstClassData
-          keys={numericFcdKeys}
-          blockHeight={height}
-          values={numericFcdValues}
-        />
+
         <LeavesTable
-          blockHeight={height}
+          blockId={blockId}
           chainAddress={chainAddress}
           leaves={numericSortByAttribute(leaves)}
           isLoading={isLoading}

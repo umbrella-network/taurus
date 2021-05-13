@@ -7,18 +7,18 @@ import { truncate, keyToHex, valueToString } from "@Formatters";
 
 const propTypes = {
   leafKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  blockHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-    .isRequired,
+  blockId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   proof: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
     PropTypes.array,
   ]).isRequired,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  chainAddress: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  chainAddress: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    .isRequired,
 };
 
-function LeafPairs({ leafKey, blockHeight, proof, value, chainAddress }) {
+function LeafPairs({ leafKey, blockId, proof, value, chainAddress }) {
   return (
     <>
       <KeyValuePairs
@@ -44,8 +44,8 @@ function LeafPairs({ leafKey, blockHeight, proof, value, chainAddress }) {
         margin={{ top: "xsmall" }}
         items={[
           {
-            key: "block height",
-            value: blockHeight,
+            key: "block ID",
+            value: blockId,
             clipboardable: true,
           },
           {

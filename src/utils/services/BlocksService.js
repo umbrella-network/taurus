@@ -1,7 +1,7 @@
 import axios from "axios";
 import { numericSortByAttribute } from "@Utils";
 import { join } from "ramda";
-import { blockList, blocks, leaves, info } from "@Mocks";
+import { blockList, blocks, firstClassData, leaves, info } from "@Mocks";
 
 async function mockRequest(
   dispatch,
@@ -101,7 +101,7 @@ export async function fetchLatestLeaves(
   rejectedCallback
 ) {
   if (process.env.REACT_APP_SHOULD_FALLBACK === "true") {
-    const latestBlockId = blockList[0]._id;
+    const latestBlockId = blockList[0].blockId;
 
     get(
       `${process.env.REACT_APP_BLOCKS_API}/blocks/${latestBlockId}/leaves`,
@@ -118,7 +118,7 @@ export async function fetchLatestLeaves(
       rejectedCallback
     );
 
-    const latestBlockId = latestBlockResponse.data[0]._id ?? undefined;
+    const latestBlockId = latestBlockResponse.data[0].blockId ?? undefined;
 
     get(
       `${process.env.REACT_APP_BLOCKS_API}/blocks/${latestBlockId}/leaves`,
@@ -127,6 +127,16 @@ export async function fetchLatestLeaves(
       rejectedCallback
     );
   }
+}
+
+export async function fetchFCD(dispatch, successCallback, rejectedCallback) {
+  get(
+    `${process.env.REACT_APP_BLOCKS_API}/fcds`,
+    dispatch,
+    successCallback,
+    rejectedCallback,
+    firstClassData
+  );
 }
 
 export async function fetchProof(
@@ -143,7 +153,7 @@ export async function fetchProof(
   const fallback = {
     data: {
       block: blockList[0],
-      leaves: leaves[blockList[0]._id].filter(({ key }) =>
+      leaves: leaves[blockList[0].blockId].filter(({ key }) =>
         selected.includes(key)
       ),
     },
@@ -175,11 +185,7 @@ export async function fetchBlock(
   );
 }
 
-export async function fetchInfo(
-  dispatch,
-  successCallback,
-  rejectedCallback
-) {
+export async function fetchInfo(dispatch, successCallback, rejectedCallback) {
   get(
     `${process.env.REACT_APP_BLOCKS_API}/info`,
     dispatch,
