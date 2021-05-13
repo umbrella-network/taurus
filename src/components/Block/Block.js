@@ -40,7 +40,7 @@ function Block({ block }) {
       fill
       gap="medium"
       style={{ maxWidth: "1366px" }}
-      rows={["36px", "max-content", "auto"]}
+      rows={["auto", "max-content", "auto"]}
       className="block"
     >
       <Header
@@ -51,7 +51,11 @@ function Block({ block }) {
       />
       <Grid
         gap="medium"
-        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(296px, 1fr))" }}
+        style={{
+          gridTemplateColumns: isMobile
+            ? "1fr"
+            : "repeat(auto-fit, minmax(296px, 1fr))",
+        }}
         fill="horizontal"
       >
         <Grid

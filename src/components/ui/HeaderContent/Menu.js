@@ -73,7 +73,7 @@ function Menu({ isMobile, handlePathChange }) {
           <Image
             align="center"
             justify="center"
-            width="250px"
+            width="200px"
             src={UmbrellaFullLogo}
           />
         </Button>
