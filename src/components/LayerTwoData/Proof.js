@@ -39,7 +39,7 @@ function Proof({ proof, leaveKey, value, priceName, block }) {
       <CardBody direction="column" pad="small" background="white">
         <LeafPairs
           leafKey={leaveKey}
-          blockHeight={block.height}
+          blockId={block.blockId}
           proof={proof}
           value={value}
           chainAddress={block.chainAddress}

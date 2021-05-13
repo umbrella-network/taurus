@@ -19,9 +19,9 @@ const defaultProps = {
 
 function Details({ block, leaves, isLoading }) {
   const {
-    height,
+    blockId,
     anchor,
-    timestamp,
+    dataTimestamp,
     root,
     minter,
     staked,
@@ -53,13 +53,13 @@ function Details({ block, leaves, isLoading }) {
               clipboardableValue: chainAddress,
             },
             {
-              key: "block height",
-              value: height,
+              key: "block ID",
+              value: blockId,
               clipboardable: true,
             },
             {
               key: "age",
-              value: readableAgeFromTimestamp(timestamp),
+              value: readableAgeFromTimestamp(dataTimestamp),
             },
             {
               key: "L2 data pairs",
@@ -100,8 +100,8 @@ function Details({ block, leaves, isLoading }) {
               clipboardableValue: power,
             },
             {
-              key: "timestamp",
-              value: formatTimestamp(timestamp),
+              key: "dataTimestamp",
+              value: formatTimestamp(dataTimestamp),
             },
           ]}
         />
