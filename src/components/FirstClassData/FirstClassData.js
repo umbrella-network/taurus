@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Grid, Text, Heading, Card, CardHeader, CardBody } from "grommet";
 
-import { truncate, keyToByte32 } from "@Formatters";
+import { truncate, keyToHex } from "@Formatters";
 import { KeyValuePairs, LoadingState, SearchBar } from "@Ui";
 
 import { fetchFCD } from "@Services";
@@ -71,7 +71,11 @@ function FirstClassData() {
                   pad="small"
                   justify="center"
                   background="light-2"
-                  border={{ size: "xsmall", side: "bottom", color: "light-3" }}
+                  border={{
+                    size: "xsmall",
+                    side: "bottom",
+                    color: "light-3",
+                  }}
                 >
                   <Text textAlign="center" weight="bold">
                     {key}
@@ -105,9 +109,9 @@ function FirstClassData() {
                     items={[
                       {
                         clipboardable: true,
-                        clipboardableValue: keyToByte32(key),
+                        clipboardableValue: keyToHex(key),
                         key: "key [bytes]",
-                        value: truncate(keyToByte32(key)),
+                        value: truncate(keyToHex(key)),
                       },
                     ]}
                   />

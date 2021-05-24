@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update Block view to encompass changes on back-end
 - Rework API requests to match back-end changes
 - Update mocks to match changes
+- Improve encoding/decoding methods
+- Update toolbox to encompass encoding/decoding changes
 
 ## [0.6.4] - 2021-05-10
 
