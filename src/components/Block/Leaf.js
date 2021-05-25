@@ -20,7 +20,7 @@ import { isSizeMobile } from "@Utils";
 
 const propTypes = {
   leaf: PropTypes.object.isRequired,
-  blockHeight: PropTypes.number.isRequired,
+  blockId: PropTypes.number.isRequired,
   label: PropTypes.string,
   chainAddress: PropTypes.string.isRequired,
 };
@@ -29,7 +29,7 @@ const defaultProps = {
   label: undefined,
 };
 
-function Leaf({ leaf, blockHeight, label, chainAddress }) {
+function Leaf({ leaf, blockId, label, chainAddress }) {
   const { key, proof, value } = leaf;
   const [show, setShow] = useState(false);
 
@@ -89,7 +89,7 @@ function Leaf({ leaf, blockHeight, label, chainAddress }) {
             >
               <LeafPairs
                 leafKey={key}
-                blockHeight={blockHeight}
+                blockId={blockId}
                 proof={proof}
                 value={value}
                 chainAddress={chainAddress}

@@ -63,7 +63,7 @@ function BlocksTable() {
 
   const handleView = (block) => {
     dispatch(blockRequestFulfilled(block));
-    history.push(`/blocks/${block._id}`);
+    history.push(`/blocks/${block.blockId}`);
   };
 
   const nextPage = () => {
@@ -75,15 +75,16 @@ function BlocksTable() {
 
   const blocksProperties = [
     {
-      property: "height",
+      property: "blockId",
       size: "small",
       primary: true,
+      header: <Text weight="bold">Block ID</Text>,
     },
     { property: "anchor" },
     {
-      property: "timestamp",
+      property: "dataTimestamp",
       header: <Text weight="bold">Age</Text>,
-      render: (datum) => readableAgeFromTimestamp(datum.timestamp),
+      render: (datum) => readableAgeFromTimestamp(datum.dataTimestamp),
     },
     { property: "root", render: (datum) => truncate(datum.root) },
     {

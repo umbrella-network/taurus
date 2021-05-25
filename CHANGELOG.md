@@ -5,18 +5,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] - 2021-05-25
+
+### Changed
+
+- FCD are no longer stored for every block but updated on new blocks
+- Update Block view to encompass changes on back-end
+- Rework API requests to match back-end changes
+- Update mocks to match changes
+- Improve encoding/decoding methods
+- Update toolbox to encompass encoding/decoding changes
+
 ## [0.6.4] - 2021-05-10
+
 ### Added
+
 - Update Makefile
+
 ## [0.6.3] - 2021-05-07
+
 ### Fixed
+
 - Update Makefile
+
 ## [0.6.2] - 2021-05-03
+
 ### Fixed
+
 - GitOps Action
 
 ## [0.6.1] - 2021-05-03
+
 ### Added
+
 - Add new Production git workflow
 
 ## [0.6.0] - 2021-04-30

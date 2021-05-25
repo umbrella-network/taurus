@@ -2,23 +2,23 @@ import React, { useEffect, useState } from "react";
 
 import { Grid, Text, Heading, Card, CardHeader, CardBody } from "grommet";
 
-import { truncate, keyToByte32 } from "@Formatters";
+import { truncate, keyToHex } from "@Formatters";
 import { KeyValuePairs, LoadingState, SearchBar } from "@Ui";
 
-import { fetchProof } from "@Services";
+import { fetchFCD } from "@Services";
 import { isEmpty } from "ramda";
 
 import {
   usePrices,
-  proofRequested,
-  proofRequestFulfilled,
-  proofRequestRejected,
+  firstClassDataRequested,
+  firstClassDataFulfilled,
+  firstClassDataRejected,
 } from "@Store";
 
 function FirstClassData() {
   const {
     state: {
-      proof: { block, isLoading },
+      firstClassData: { list, isLoading },
     },
     dispatch,
   } = usePrices();
@@ -26,13 +26,17 @@ function FirstClassData() {
   const [isSearching, setIsSearching] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
 
+  const fcdKeys = list.map((fcdPair) => fcdPair._id);
+
   const displayedItems =
-    isEmpty(filteredItems) && block ? block.numericFcdKeys : filteredItems;
+    isEmpty(filteredItems) && !isEmpty(list)
+      ? list
+      : list.filter(({ _id }) => filteredItems.includes(_id));
 
   useEffect(() => {
     if (!isLoading) {
-      dispatch(proofRequested());
-      fetchProof(dispatch, proofRequestFulfilled, proofRequestRejected, []);
+      dispatch(firstClassDataRequested());
+      fetchFCD(dispatch, firstClassDataFulfilled, firstClassDataRejected, []);
     }
 
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
@@ -41,7 +45,7 @@ function FirstClassData() {
   return (
     <Grid justify="center" fill rows={["34px", "auto"]} gap="large">
       <Heading>First Class Data</Heading>
-      {isLoading || !block ? (
+      {isLoading || isEmpty(fcdKeys) ? (
         <LoadingState />
       ) : (
         <Grid fill rows={["min-content", "auto"]} gap="large">
@@ -49,7 +53,7 @@ function FirstClassData() {
             isSearching={isSearching}
             open={() => setIsSearching(true)}
             close={() => setIsSearching(false)}
-            items={block.numericFcdKeys}
+            items={fcdKeys}
             filterCallback={setFilteredItems}
           />
           <Grid
@@ -61,18 +65,23 @@ function FirstClassData() {
               gridGap: "24px 12px",
             }}
           >
-            {displayedItems.map((key) => (
-              <Card key={key} style={{ minHeight: "272px" }}>
+            {displayedItems.map(({ _id: key, value }) => (
+              <Card key={key} style={{ minHeight: "172px" }}>
                 <CardHeader
                   pad="small"
                   justify="center"
                   background="light-2"
-                  border={{ size: "xsmall", side: "bottom", color: "light-3" }}
+                  border={{
+                    size: "xsmall",
+                    side: "bottom",
+                    color: "light-3",
+                  }}
                 >
                   <Text textAlign="center" weight="bold">
                     {key}
                   </Text>
                 </CardHeader>
+
                 <CardBody direction="column" pad="small" background="white">
                   <KeyValuePairs
                     flex="shrink"
@@ -90,10 +99,7 @@ function FirstClassData() {
                       },
                       {
                         key: "value",
-                        value:
-                          block.numericFcdValues[
-                            block.numericFcdKeys.indexOf(key)
-                          ],
+                        value: value,
                       },
                     ]}
                   />
@@ -103,14 +109,9 @@ function FirstClassData() {
                     items={[
                       {
                         clipboardable: true,
-                        key: "block height",
-                        value: block.height,
-                      },
-                      {
-                        clipboardable: true,
-                        clipboardableValue: keyToByte32(key),
+                        clipboardableValue: keyToHex(key),
                         key: "key [bytes]",
-                        value: truncate(keyToByte32(key)),
+                        value: truncate(keyToHex(key)),
                       },
                     ]}
                   />
