@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { isEmpty } from "ramda";
+import { isEmpty, uniq } from "ramda";
 import { useHistory, useLocation } from "react-router-dom";
 
 import Select from "react-select";
@@ -45,11 +45,12 @@ function SearchBar({
       const parsedQueryItems = queryItems
         .split(",")
         .map((item) => ({ label: item }));
+
       handleChange(parsedQueryItems);
     }
 
     /*eslint-disable-next-line */
-  }, []);
+  }, [items]);
 
   function valueFromItem(item) {
     return searchTerm ? item[searchTerm] : item;
@@ -70,7 +71,7 @@ function SearchBar({
   };
 
   const handleChange = (selected) => {
-    setSelectValue(selected);
+    setSelectValue(uniq(selected));
     const selectedItems = Array.isArray(selected)
       ? selected.map(({ label }) => label)
       : [selected.label];
