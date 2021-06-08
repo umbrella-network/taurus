@@ -26,12 +26,7 @@ function FirstClassData() {
   const [isSearching, setIsSearching] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
 
-  const fcdKeys = list.map((fcdPair) => fcdPair._id);
-
-  const displayedItems =
-    isEmpty(filteredItems) && !isEmpty(list)
-      ? list
-      : list.filter(({ _id }) => filteredItems.includes(_id));
+  const displayedItems = isEmpty(filteredItems) && list ? list : filteredItems;
 
   useEffect(() => {
     if (!isLoading) {
@@ -45,7 +40,7 @@ function FirstClassData() {
   return (
     <Grid justify="center" fill rows={["34px", "auto"]} gap="large">
       <Heading>First Class Data</Heading>
-      {isLoading || isEmpty(fcdKeys) ? (
+      {isLoading || isEmpty(displayedItems) ? (
         <LoadingState />
       ) : (
         <Grid fill rows={["min-content", "auto"]} gap="large">
@@ -53,8 +48,9 @@ function FirstClassData() {
             isSearching={isSearching}
             open={() => setIsSearching(true)}
             close={() => setIsSearching(false)}
-            items={fcdKeys}
+            items={list}
             filterCallback={setFilteredItems}
+            searchTerm="_id"
           />
           <Grid
             justifyContent="center"
