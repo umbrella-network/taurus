@@ -25,7 +25,7 @@ const defaultProps = {
 
 function Proof({ proof, leaveKey, value, priceName, block }) {
   return (
-    <Card style={{ height: "252px" }}>
+    <Card style={{ height: "302px" }}>
       <CardHeader
         pad="small"
         justify="center"
@@ -43,6 +43,7 @@ function Proof({ proof, leaveKey, value, priceName, block }) {
           proof={proof}
           value={value}
           chainAddress={block.chainAddress}
+          timestamp={block.dataTimestamp}
         />
       </CardBody>
     </Card>
