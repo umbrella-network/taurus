@@ -5,6 +5,8 @@ import { Grid, Text, Heading, Card, CardHeader, CardBody } from "grommet";
 import { truncate, keyToHex } from "@Formatters";
 import { KeyValuePairs, LoadingState, SearchBar } from "@Ui";
 
+import { formatTimestamp } from "@Utils";
+
 import { fetchFCD } from "@Services";
 import { isEmpty } from "ramda";
 
@@ -61,7 +63,7 @@ function FirstClassData() {
               gridGap: "24px 12px",
             }}
           >
-            {displayedItems.map(({ _id: key, value }) => (
+            {displayedItems.map(({ _id: key, value, dataTimestamp }) => (
               <Card key={key} style={{ minHeight: "172px" }}>
                 <CardHeader
                   pad="small"
@@ -96,6 +98,10 @@ function FirstClassData() {
                       {
                         key: "value",
                         value: value,
+                      },
+                      {
+                        key: "timestamp",
+                        value: formatTimestamp(dataTimestamp),
                       },
                     ]}
                   />
