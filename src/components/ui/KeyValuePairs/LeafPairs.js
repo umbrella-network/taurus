@@ -47,6 +47,10 @@ function LeafPairs({
             key: "value",
             value: valueToString(value),
           },
+          {
+            key: "",
+            value: formatTimestamp(timestamp),
+          },
         ]}
       />
       <KeyValuePairs
@@ -56,10 +60,6 @@ function LeafPairs({
             key: "block ID",
             value: blockId,
             clipboardable: true,
-          },
-          {
-            key: "timestamp",
-            value: formatTimestamp(timestamp),
           },
           {
             key: "chain address",
