@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import KeyValuePairs from "./KeyValuePairs";
 
+import { formatTimestamp } from "@Utils";
 import { truncate, keyToHex, valueToString } from "@Formatters";
 
 const propTypes = {
@@ -16,9 +17,17 @@ const propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   chainAddress: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     .isRequired,
+  timestamp: PropTypes.string.isRequired,
 };
 
-function LeafPairs({ leafKey, blockId, proof, value, chainAddress }) {
+function LeafPairs({
+  leafKey,
+  blockId,
+  proof,
+  value,
+  chainAddress,
+  timestamp,
+}) {
   return (
     <>
       <KeyValuePairs
@@ -47,6 +56,10 @@ function LeafPairs({ leafKey, blockId, proof, value, chainAddress }) {
             key: "block ID",
             value: blockId,
             clipboardable: true,
+          },
+          {
+            key: "timestamp",
+            value: formatTimestamp(timestamp),
           },
           {
             key: "chain address",

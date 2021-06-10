@@ -14,17 +14,23 @@ import "./leavesTable.scss";
 const propTypes = {
   leaves: PropTypes.array.isRequired,
   blockId: PropTypes.number.isRequired,
+  timestamp: PropTypes.string.isRequired,
   chainAddress: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
-function LeavesTable({ leaves, blockId, chainAddress, isLoading }) {
+function LeavesTable({ leaves, blockId, chainAddress, isLoading, timestamp }) {
   const properties = [
     {
       property: "key",
       primary: true,
       render: (datum) => (
-        <Leaf blockId={blockId} chainAddress={chainAddress} leaf={datum} />
+        <Leaf
+          blockId={blockId}
+          chainAddress={chainAddress}
+          leaf={datum}
+          timestamp={timestamp}
+        />
       ),
     },
     { property: "value", render: ({ value }) => valueToString(value) },

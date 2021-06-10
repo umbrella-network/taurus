@@ -13,7 +13,7 @@ const propTypes = {
 };
 
 function Block({ block }) {
-  const { blockId, root, votes, chainAddress } = block;
+  const { blockId, root, votes, chainAddress, dataTimestamp } = block;
 
   const [isLoading, setIsLoading] = useState(true);
   const [leaves, setLeaves] = useState();
@@ -71,6 +71,7 @@ function Block({ block }) {
         <LeavesTable
           blockId={blockId}
           chainAddress={chainAddress}
+          timestamp={dataTimestamp}
           leaves={numericSortByAttribute(leaves)}
           isLoading={isLoading}
         />

@@ -21,6 +21,7 @@ import { isSizeMobile } from "@Utils";
 const propTypes = {
   leaf: PropTypes.object.isRequired,
   blockId: PropTypes.number.isRequired,
+  timestamp: PropTypes.string.isRequired,
   label: PropTypes.string,
   chainAddress: PropTypes.string.isRequired,
 };
@@ -29,7 +30,7 @@ const defaultProps = {
   label: undefined,
 };
 
-function Leaf({ leaf, blockId, label, chainAddress }) {
+function Leaf({ leaf, blockId, label, chainAddress, timestamp }) {
   const { key, proof, value } = leaf;
   const [show, setShow] = useState(false);
 
@@ -93,6 +94,7 @@ function Leaf({ leaf, blockId, label, chainAddress }) {
                 proof={proof}
                 value={value}
                 chainAddress={chainAddress}
+                timestamp={timestamp}
               />
             </Box>
             <Box>
