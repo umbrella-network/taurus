@@ -100,7 +100,7 @@ function FirstClassData() {
                         value: value,
                       },
                       {
-                        key: "timestamp",
+                        key: "",
                         value: formatTimestamp(dataTimestamp),
                       },
                     ]}
