@@ -1,4 +1,4 @@
-import { splitAt } from "ramda";
+import { isEmpty, splitAt } from "ramda";
 
 export function valueToToken({
   value,
@@ -7,12 +7,18 @@ export function valueToToken({
   precision = 18,
 }) {
   const valueText = `${value}`;
-  const shouldTruncate = truncate && valueText.length > precision;
   const [integer, decimals] = splitAt(precision * -1, valueText);
 
-  const formattedValue = shouldTruncate
-    ? `${integer}.${splitAt(2, decimals)[0]}...`
-    : valueText;
+  const paddingLength = precision - decimals.length;
+  const isDecimalNumber = isEmpty(integer);
+  const decimalsToTruncate = isDecimalNumber ? paddingLength : 0;
 
-  return `${formattedValue} ${token}`;
+  const paddedDecimals = decimals.padStart(precision, "0");
+
+  const formattedInteger = isDecimalNumber ? "0" : integer;
+  const formattedDecimals = truncate
+    ? `${splitAt(decimalsToTruncate + 2, paddedDecimals)[0]}...`
+    : paddedDecimals;
+
+  return `${formattedInteger}.${formattedDecimals} ${token}`;
 }
