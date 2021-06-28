@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import KeyValuePairs from "./KeyValuePairs";
 
 import { formatTimestamp } from "@Utils";
-import { truncate, keyToHex, valueToString } from "@Formatters";
+import { truncate, keyToHex, leafToString } from "@Formatters";
 
 const propTypes = {
   leafKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
@@ -45,7 +45,7 @@ function LeafPairs({
           },
           {
             key: "value",
-            value: valueToString(value),
+            value: leafToString(value, leafKey),
           },
           {
             key: "",
