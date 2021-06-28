@@ -32,11 +32,12 @@ export function keyToHex(key) {
   }
 }
 
-export function valueToString(value) {
+export function leafToString(value, key) {
   try {
-    const stringValue = LeafValueCoder.decode(value);
+    const stringValue = LeafValueCoder.decode(value, key);
     return stringValue;
-  } catch {
+  } catch (error) {
+    console.log(`error decoding ${key}: `, error);
     return "";
   }
 }
