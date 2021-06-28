@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { Card, CardHeader, Text } from "grommet";
 
 import { PaginatedTable, LoadingState } from "@Ui";
-import { valueToString } from "@Formatters";
+import { leafToString } from "@Formatters";
 
 import { Leaf } from "./";
 
@@ -33,7 +33,7 @@ function LeavesTable({ leaves, blockId, chainAddress, isLoading, timestamp }) {
         />
       ),
     },
-    { property: "value", render: ({ value }) => valueToString(value) },
+    { property: "value", render: ({ value, key }) => leafToString(value, key) },
   ];
 
   return (
