@@ -1,4 +1,4 @@
-FROM node:14.8.0 as build-stage
+FROM node:16.3.0-alpine3.11 as build-stage
 
 ARG REACT_APP_BLOCKS_API
 ARG REACT_APP_SCAN_URL
