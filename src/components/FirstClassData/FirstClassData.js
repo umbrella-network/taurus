@@ -4,6 +4,7 @@ import { Grid, Text, Heading, Card, CardHeader, CardBody } from "grommet";
 
 import { truncate, keyToHex } from "@Formatters";
 import { KeyValuePairs, LoadingState, SearchBar } from "@Ui";
+import { LeafValueCoder } from "@umb-network/toolbox";
 
 import { formatTimestamp } from "@Utils";
 
@@ -97,7 +98,9 @@ function FirstClassData() {
                       },
                       {
                         key: "value",
-                        value: value,
+                        clipboardable: LeafValueCoder.isFixedValue(key),
+                        clipboardableValue: value,
+                        value: LeafValueCoder.isFixedValue(key) ? truncate(value) : value,
                       },
                       {
                         key: "",
