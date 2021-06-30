@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import KeyValuePairs from "./KeyValuePairs";
+import { LeafValueCoder } from "@umb-network/toolbox";
 
 import { formatTimestamp } from "@Utils";
 import { truncate, keyToHex, leafToString } from "@Formatters";
@@ -28,6 +29,9 @@ function LeafPairs({
   chainAddress,
   timestamp,
 }) {
+  const decodedValue = leafToString(value, leafKey);
+  const isFixedValue = LeafValueCoder.isFixedValue(leafKey);
+
   return (
     <>
       <KeyValuePairs
@@ -44,8 +48,10 @@ function LeafPairs({
             value: leafKey,
           },
           {
+            clipboardable: isFixedValue,
+            clipboardableValue: decodedValue,
             key: "value",
-            value: leafToString(value, leafKey),
+            value: isFixedValue ? truncate(decodedValue) : decodedValue,
           },
           {
             key: "",
