@@ -5,9 +5,11 @@ ARG REACT_APP_SCAN_URL
 ARG REACT_APP_TOKEN_AUTH
 ARG REACT_APP_SHOULD_FALLBACK
 
+RUN apk add --no-cache git
+
 WORKDIR /app
 
-COPY package*.json /app/
+COPY package*.json yarn.lock /app/
 
 RUN yarn install
 
