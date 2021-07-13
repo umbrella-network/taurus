@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add SANDBOX workflow
 
+### Fixed
+
+- Include yarn.lock in docker build
+
 ## [0.7.8] - 2021-06-29
 
 ### Fixed
