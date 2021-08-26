@@ -1,69 +1,114 @@
-name: sandbox
-
+name: prod_deployment
 on:
-  push:
-    tags:
-      - prod
-
+  workflow_dispatch:
 jobs:
-  main:
+  build_eth:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-      - uses: docker/setup-buildx-action@v1
+      - name: Check out repository
+        uses: actions/checkout@v2
 
-      - name: Environment
-        env:
-          AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT_PROD }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-        id: URI
-        run: |
-          export REPO=$(echo $GITHUB_REPOSITORY | sed 's/^.*\///g')
-          export IMAGEURI="$AWS_ACCOUNT.dkr.ecr.$AWS_REGION.amazonaws.com/$REPO"
-          echo "::set-output NAME=IMAGE_URI::$IMAGEURI"
-
-      - name: Get short SHA
-        id: slug
-        run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
-
-      - name: Docker meta
-        id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v1
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
         with:
-          images: ${{ steps.URI.outputs.IMAGE_URI }}
-          tag-custom: ${{ steps.slug.outputs.sha8 }}
-          tag-custom-only: true
+          node-version: 16.x
 
-      - name: Configure AWS credentials
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build ETH
+        run: yarn build
+        env:
+          REACT_APP_BLOCKS_API: ${{ secrets.REACT_APP_BLOCKS_API_PROD }}
+          REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAL_URL_PROD }}
+          REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_PROD }}
+          REACT_APP_SHOULD_FALLBACK: false
+          
+
+      - name: Upload environment to be used by the next job
+        uses: actions/upload-artifact@v2
+        with:
+          name: build_eth
+          path: build
+          retention-days: 1
+  
+  build_bsc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build ETH
+        run: yarn build
+        env:
+          REACT_APP_BLOCKS_API: ${{ secrets.REACT_APP_BLOCKS_API_BSC_PROD }}
+          REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAL_URL_BSC_PROD }}
+          REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_BSC_PROD }}
+          REACT_APP_SHOULD_FALLBACK: false
+          
+
+      - name: Upload environment to be used by the next job
+        uses: actions/upload-artifact@v2
+        with:
+          name: build_bsc
+          path: build
+          retention-days: 1
+
+  
+  push_eth:
+    needs: build_eth
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retrieve build
+        uses: actions/download-artifact@v2
+        with:
+          name: build_eth
+          path: build-download
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
-          aws-region: us-east-2
+          aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+      - name: Sync files to S3
+        run: |
+          aws s3 sync build-download/ s3://${{ secrets.AWS_S3_BUCKET_ETH_PROD }} --cache-control "max-age=86400" --delete --only-show-errors
+          aws s3 cp build-download/index.html s3://${{ secrets.AWS_S3_BUCKET_ETH_PROD }} --cache-control "no-cache, no-store, must-revalidate"
 
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
+      - name: Invalidate Cache
+        run: |
+          aws cloudfront create-invalidation --paths "/*" --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_ETH_PROD }}
+
+  push_bsc:
+    needs: build_bsc
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retrieve build
+        uses: actions/download-artifact@v2
         with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.docker_meta.outputs.tags }}
-          build-args: |
-            REACT_APP_BLOCKS_API=${{ secrets.REACT_APP_BLOCKS_API_PROD }}
-            REACT_APP_SCAN_URL=${{ secrets.REACT_APP_SCAN_URL_PROD }}
-            REACT_APP_TOKEN_AUTH=${{ secrets.REACT_APP_TOKEN_AUTH_PROD}}
-            REACT_APP_SHOULD_FALLBACK=false
-
-      - name: Push api
-        uses: ianbelcher/eks-kubectl-action@master
+          name: build_bsc
+          path: build-download
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
-          aws_region: ${{ secrets.AWS_REGION }}
-          cluster_name: ${{ secrets.CLUSTER_NAME_PROD }}
-          args: set image --record deployment/taurus taurus="${{ steps.docker_meta.outputs.tags }}" --namespace prod
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Sync files to S3
+        run: |
+          aws s3 sync build-download/ s3://${{ secrets.AWS_S3_BUCKET_BSC_PROD }} --cache-control "max-age=86400" --delete --only-show-errors
+          aws s3 cp build-download/index.html s3://${{ secrets.AWS_S3_BUCKET_BSC_PROD }} --cache-control "no-cache, no-store, must-revalidate"
+
+      - name: Invalidate Cache
+        run: |
+          aws cloudfront create-invalidation --paths "/*" --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_BSC_PROD }}
