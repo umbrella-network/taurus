@@ -21,10 +21,9 @@ jobs:
         run: yarn build
         env:
           REACT_APP_BLOCKS_API: ${{ secrets.REACT_APP_BLOCKS_API_PROD }}
-          REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAL_URL_PROD }}
+          REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_PROD }}
           REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_PROD }}
           REACT_APP_SHOULD_FALLBACK: false
-          
 
       - name: Upload environment to be used by the next job
         uses: actions/upload-artifact@v2
@@ -32,7 +31,7 @@ jobs:
           name: build_eth
           path: build
           retention-days: 1
-  
+
   build_bsc:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
@@ -48,14 +47,13 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
-      - name: Build ETH
+      - name: Build BSC
         run: yarn build
         env:
           REACT_APP_BLOCKS_API: ${{ secrets.REACT_APP_BLOCKS_API_BSC_PROD }}
-          REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAL_URL_BSC_PROD }}
+          REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_BSC_PROD }}
           REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_BSC_PROD }}
           REACT_APP_SHOULD_FALLBACK: false
-          
 
       - name: Upload environment to be used by the next job
         uses: actions/upload-artifact@v2
@@ -64,7 +62,6 @@ jobs:
           path: build
           retention-days: 1
 
-  
   push_eth:
     needs: build_eth
     runs-on: ubuntu-latest
