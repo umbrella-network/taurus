@@ -13,7 +13,7 @@
           "@Formatters": "./src/utils/formatters",
           "@Utils": "./src/utils",
           "@Store": "./src/utils/store",
-          "@Constants": "./src/utils/constants"
+          "@Hooks": "./src/utils/hooks"
         }
       }
     ]
