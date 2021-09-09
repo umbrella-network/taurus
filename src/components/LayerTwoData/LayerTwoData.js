@@ -56,7 +56,7 @@ function LayerTwoData() {
   useEffect(() => {
     if (!isLoading) {
       dispatch(proofRequested());
-      fetchProof(dispatch, proofRequestFulfilled, proofRequestRejected, []);
+      fetchProof(dispatch, proofRequestFulfilled, proofRequestRejected);
     }
 
     /* eslint-disable-next-line react-hooks/exhaustive-deps */

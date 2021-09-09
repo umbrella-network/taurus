@@ -1,7 +1,18 @@
 import axios from "axios";
 import { numericSortByAttribute } from "@Utils";
-import { join } from "ramda";
-import { blockList, blocks, firstClassData, leaves, info } from "@Mocks";
+import { blockList, blocks, leaves, info } from "@Mocks";
+
+import {
+  apiUrl,
+  chainId,
+  shouldFallback,
+  tokenAuth,
+  isForeignChain,
+} from "@Constants";
+
+const blocksUrl = isForeignChain
+  ? `${apiUrl}/foreign-blocks/${chainId}`
+  : `${apiUrl}/blocks`;
 
 async function mockRequest(
   dispatch,
@@ -20,12 +31,21 @@ const authorization = (token) => {
   return { headers: { Authorization: `Bearer ${token}` } };
 };
 
-async function request(url, dispatch, successCallback, rejectedCallback) {
+async function request(
+  url,
+  dispatch,
+  successCallback,
+  rejectedCallback,
+  params = {}
+) {
   try {
-    const response = await axios.get(
-      url,
-      authorization(process.env.REACT_APP_TOKEN_AUTH)
-    );
+    const response = await axios.get(url, {
+      ...authorization(tokenAuth),
+      params: {
+        chainId,
+        ...params,
+      },
+    });
 
     if (
       typeof successCallback === "function" &&
@@ -57,12 +77,19 @@ async function request(url, dispatch, successCallback, rejectedCallback) {
   }
 }
 
-async function get(url, dispatch, successCallback, rejectCallback, fallback) {
-  if (process.env.REACT_APP_SHOULD_FALLBACK === "true") {
+async function get(
+  url,
+  dispatch,
+  successCallback,
+  rejectCallback,
+  fallback,
+  params
+) {
+  if (shouldFallback) {
     console.warn(url, "intercepted, mocking data with: ", fallback);
     mockRequest(dispatch, successCallback, rejectCallback, fallback);
   } else {
-    return request(url, dispatch, successCallback, rejectCallback);
+    return request(url, dispatch, successCallback, rejectCallback, params);
   }
 }
 
@@ -71,23 +98,20 @@ export async function fetchBlocks(
   successCallback,
   rejectedCallback,
   page = 0,
-  blocksLimit = 15
+  limit = 15
 ) {
-  const blocksOffset = page * blocksLimit;
+  const offset = page * limit;
   const fallBack = blockList;
 
-  get(
-    `${process.env.REACT_APP_BLOCKS_API}/blocks?limit=${blocksLimit}&offset=${blocksOffset}`,
-    dispatch,
-    successCallback,
-    rejectedCallback,
-    fallBack
-  );
+  get(blocksUrl, dispatch, successCallback, rejectedCallback, fallBack, {
+    limit,
+    offset,
+  });
 }
 
 export async function fetchLeaves(dispatch, blockId) {
   get(
-    `${process.env.REACT_APP_BLOCKS_API}/blocks/${blockId}/leaves`,
+    `${apiUrl}/blocks/${blockId}/leaves`,
     dispatch,
     undefined,
     undefined,
@@ -100,11 +124,11 @@ export async function fetchLatestLeaves(
   successCallback,
   rejectedCallback
 ) {
-  if (process.env.REACT_APP_SHOULD_FALLBACK === "true") {
+  if (shouldFallback) {
     const latestBlockId = blockList[0].blockId;
 
     get(
-      `${process.env.REACT_APP_BLOCKS_API}/blocks/${latestBlockId}/leaves`,
+      `${apiUrl}/blocks/${latestBlockId}/leaves`,
       dispatch,
       successCallback,
       rejectedCallback,
@@ -112,16 +136,19 @@ export async function fetchLatestLeaves(
     );
   } else {
     const latestBlockResponse = await get(
-      `${process.env.REACT_APP_BLOCKS_API}/blocks?limit=1`,
+      blocksUrl,
       undefined,
       undefined,
-      rejectedCallback
+      rejectedCallback,
+      {
+        limit: 1,
+      }
     );
 
     const latestBlockId = latestBlockResponse.data[0].blockId ?? undefined;
 
     get(
-      `${process.env.REACT_APP_BLOCKS_API}/blocks/${latestBlockId}/leaves`,
+      `${apiUrl}/blocks/${latestBlockId}/leaves`,
       dispatch,
       successCallback,
       rejectedCallback
@@ -131,36 +158,23 @@ export async function fetchLatestLeaves(
 
 export async function fetchFCD(dispatch, successCallback, rejectedCallback) {
   get(
-    `${process.env.REACT_APP_BLOCKS_API}/fcds`,
+    `${apiUrl}/fcds`,
     dispatch,
     successCallback,
-    rejectedCallback,
-    firstClassData
+    rejectedCallback
   );
 }
 
-export async function fetchProof(
-  dispatch,
-  successCallback,
-  rejectedCallback,
-  selected
-) {
-  const params = join(
-    "&",
-    selected.map((key) => `keys[]=${key}`)
-  );
-
+export async function fetchProof(dispatch, successCallback, rejectedCallback) {
   const fallback = {
     data: {
       block: blockList[0],
-      leaves: leaves[blockList[0].blockId].filter(({ key }) =>
-        selected.includes(key)
-      ),
+      leaves: leaves[blockList[0].blockId],
     },
   };
 
   get(
-    `${process.env.REACT_APP_BLOCKS_API}/proofs/?${params}`,
+    `${apiUrl}/proofs`,
     dispatch,
     successCallback,
     rejectedCallback,
@@ -177,7 +191,7 @@ export async function fetchBlock(
   const fallBack = blocks[id];
 
   get(
-    `${process.env.REACT_APP_BLOCKS_API}/blocks/${id}`,
+    `${blocksUrl}/${id}`,
     dispatch,
     successCallback,
     rejectedCallback,
@@ -186,11 +200,5 @@ export async function fetchBlock(
 }
 
 export async function fetchInfo(dispatch, successCallback, rejectedCallback) {
-  get(
-    `${process.env.REACT_APP_BLOCKS_API}/info`,
-    dispatch,
-    successCallback,
-    rejectedCallback,
-    info
-  );
+  get(`${apiUrl}/info`, dispatch, successCallback, rejectedCallback, info);
 }

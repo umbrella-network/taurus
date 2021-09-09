@@ -23,6 +23,7 @@ jobs:
           REACT_APP_BLOCKS_API: ${{ secrets.REACT_APP_BLOCKS_API_PROD }}
           REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_PROD }}
           REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_PROD }}
+          REACT_APP_FOREIGN_CHAIN_ID: ${{ secrets.REACT_APP_FOREIGN_CHAIN_ID_PROD }}
           REACT_APP_SHOULD_FALLBACK: false
 
       - name: Upload environment to be used by the next job

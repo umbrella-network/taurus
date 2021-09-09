@@ -12,6 +12,8 @@ import { truncate, valueToToken } from "@Formatters";
 import { fetchBlock, fetchBlocks } from "@Services";
 import { readableAgeFromTimestamp } from "@Utils";
 
+import { shouldFallback } from "@Constants";
+
 import {
   useBlocks,
   blockRequested,
@@ -171,10 +173,7 @@ function BlocksTable() {
             >
               <Box>
                 <Button
-                  disabled={
-                    Boolean(process.env.REACT_APP_SHOULD_FALLBACK === "true") ||
-                    isFirstPage
-                  }
+                  disabled={shouldFallback || isFirstPage}
                   plain
                   label={
                     <Text size={isMobile ? "xsmall" : "medium"}>
@@ -188,10 +187,7 @@ function BlocksTable() {
 
               <Box direction="row" justify="center" gap="medium">
                 <Button
-                  disabled={
-                    Boolean(process.env.REACT_APP_SHOULD_FALLBACK === "true") ||
-                    isFirstPage
-                  }
+                  disabled={shouldFallback || isFirstPage}
                   plain
                   icon={<Previous />}
                   onClick={previousPage}
@@ -200,9 +196,7 @@ function BlocksTable() {
                   {`Page ${currentPage + 1}`}
                 </Text>
                 <Button
-                  disabled={Boolean(
-                    process.env.REACT_APP_SHOULD_FALLBACK === "true"
-                  )}
+                  disabled={shouldFallback}
                   plain
                   icon={<Next />}
                   onClick={nextPage}
