@@ -7,12 +7,7 @@ import {
   chainId,
   shouldFallback,
   tokenAuth,
-  isForeignChain,
 } from "@Constants";
-
-const blocksUrl = isForeignChain
-  ? `${apiUrl}/foreign-blocks/${chainId}`
-  : `${apiUrl}/blocks`;
 
 async function mockRequest(
   dispatch,
@@ -103,10 +98,17 @@ export async function fetchBlocks(
   const offset = page * limit;
   const fallBack = blockList;
 
-  get(blocksUrl, dispatch, successCallback, rejectedCallback, fallBack, {
-    limit,
-    offset,
-  });
+  get(
+    `${apiUrl}/blocks`,
+    dispatch,
+    successCallback,
+    rejectedCallback,
+    fallBack,
+    {
+      limit,
+      offset,
+    }
+  );
 }
 
 export async function fetchLeaves(dispatch, blockId) {
@@ -136,7 +138,7 @@ export async function fetchLatestLeaves(
     );
   } else {
     const latestBlockResponse = await get(
-      blocksUrl,
+      `${apiUrl}/blocks`,
       undefined,
       undefined,
       rejectedCallback,
@@ -157,12 +159,7 @@ export async function fetchLatestLeaves(
 }
 
 export async function fetchFCD(dispatch, successCallback, rejectedCallback) {
-  get(
-    `${apiUrl}/fcds`,
-    dispatch,
-    successCallback,
-    rejectedCallback
-  );
+  get(`${apiUrl}/fcds`, dispatch, successCallback, rejectedCallback);
 }
 
 export async function fetchProof(dispatch, successCallback, rejectedCallback) {
@@ -191,7 +188,7 @@ export async function fetchBlock(
   const fallBack = blocks[id];
 
   get(
-    `${blocksUrl}/${id}`,
+    `${apiUrl}/blocks/${id}`,
     dispatch,
     successCallback,
     rejectedCallback,
