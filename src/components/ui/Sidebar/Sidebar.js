@@ -6,10 +6,8 @@ import { useLocation, useHistory } from "react-router-dom";
 import {
   UmbrellaIcon,
   UmbrellaTypography,
-  Gauge,
   Stack,
   Blocks,
-  Shield,
   Mail,
   Menu,
   Close,
@@ -37,28 +35,16 @@ function NewKeys() {
 
 const options = [
   {
-    label: "Dashboard",
-    icon: <Gauge />,
-    path: "/",
-    matches: ["/"],
-  },
-  {
-    label: "API Pairs",
+    label: "Datapairs",
     icon: <Stack />,
-    path: "/api-pairs",
-    matches: ["/api-pairs"],
+    path: "/datapairs",
+    matches: ["/datapairs"],
   },
   {
     label: "Blocks",
     icon: <Blocks />,
     path: "/blocks",
     matches: ["/blocks"],
-  },
-  {
-    label: "Validators",
-    icon: <Shield />,
-    path: "/validators",
-    matches: ["/validators"],
   },
 ];
 

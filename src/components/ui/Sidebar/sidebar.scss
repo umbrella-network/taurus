@@ -17,8 +17,6 @@
     height: 30px;
     grid-template-rows: repeat(3, min-content) 1fr 54px;
     width: 0;
-    transition: width 0.2s ease-out;
-    transition: height 0.2s ease-out;
     background: white;
     grid-gap: $spacing-medium;
     overflow: hidden;
@@ -53,7 +51,6 @@
     margin-bottom: $tinier;
     grid-template-columns: 1fr 13px;
     align-items: center;
-    transition: padding 0.2s ease-out;
     padding: $spacing $spacing 0;
 
     a {
@@ -152,7 +149,6 @@
     grid-auto-columns: 24px;
     justify-self: center;
     justify-items: center;
-    transition: width 0.2s ease-out;
 
     @media (min-width: $tablet) {
       justify-self: start;
