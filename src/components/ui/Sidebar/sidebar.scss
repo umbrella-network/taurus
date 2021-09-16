@@ -106,6 +106,10 @@
       pointer-events: none;
       text-decoration: none;
 
+      .icon--hover {
+        display: none;
+      }
+
       @media(min-width: $tablet) {
         pointer-events: initial;
       }
@@ -118,8 +122,14 @@
       }
 
       &--current, &:hover {
-        & svg rect, & svg path {
-          fill: $primary;
+        .icon {
+          &--hover {
+            display: initial;
+          }
+
+          &--default {
+            display: none;
+          }
         }
 
         .link__label {

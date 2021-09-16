@@ -8,10 +8,14 @@ import {
   UmbrellaTypography,
   Stack,
   Blocks,
-  Mail,
+  Contact,
+  Document,
+  BlocksAlt,
+  StackAlt,
+  DocumentAlt,
+  ContactAlt,
   Menu,
   Close,
-  Document,
   Twitter,
   Github,
   Medium,
@@ -36,13 +40,15 @@ function NewKeys() {
 const options = [
   {
     label: "Datapairs",
-    icon: <Stack />,
+    icon: Stack,
+    hoverIcon: StackAlt,
     path: "/datapairs",
     matches: ["/datapairs"],
   },
   {
     label: "Blocks",
-    icon: <Blocks />,
+    icon: Blocks,
+    hoverIcon: BlocksAlt,
     path: "/blocks",
     matches: ["/blocks"],
   },
@@ -51,13 +57,15 @@ const options = [
 const subOptions = [
   {
     label: "Contact us",
-    icon: <Mail />,
+    icon: Contact,
+    hoverIcon: ContactAlt,
     path: "https://discord.gg/QEatbAm8ey",
     matches: [],
   },
   {
     label: "Documentation",
-    icon: <Document />,
+    icon: Document,
+    hoverIcon: DocumentAlt,
     path: "https://umbrella-network.readme.io/docs",
     matches: [],
   },
@@ -142,7 +150,8 @@ function Sidebar() {
                 "link--current": option.matches.includes(pathname),
               })}
             >
-              {option.icon}
+              <img alt="" src={option.hoverIcon} className="icon--hover" />
+              <img alt="" src={option.icon} className="icon--default" />
               <p className="link__label">{option.label}</p>
               {option?.notification}
             </button>
@@ -162,7 +171,8 @@ function Sidebar() {
                 "link--current": option.matches.includes(pathname),
               })}
             >
-              {option.icon}
+              <img alt="" src={option.icon} className="icon--default" />
+              <img alt="" src={option.hoverIcon} className="icon--hover" />
               <p className="link__label">{option.label}</p>
               {option?.notification}
             </a>
