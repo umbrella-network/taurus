@@ -22,3 +22,5 @@ export { default as Twitter } from "./twitter.svg";
 export { ReactComponent as Collapse } from "./collapse.svg";
 export { ReactComponent as Menu } from "./menu.svg";
 export { ReactComponent as Close } from "./close.svg";
+export { ReactComponent as Arrow } from "./arrow.svg";
+export { ReactComponent as Clipboard } from "./clipboard.svg";

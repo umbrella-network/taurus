@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { BlocksTable, FirstClassData, LayerTwoData } from "@Components";
+import { Datapairs } from "@Components";
 import { BlocksProvider, ProofsProvider } from "@Store";
 import { Sidebar } from "@Ui";
 
@@ -15,22 +15,15 @@ function MainContent() {
 
         <div className="main-content">
           <Switch>
-            <Route path="/first-class-data">
-              <ProofsProvider>
-                <FirstClassData />
-              </ProofsProvider>
-            </Route>
-
-            <Route path="/layer-2-data">
-              <ProofsProvider>
-                <LayerTwoData />
-              </ProofsProvider>
-            </Route>
-
-            <Route path={["/blocks/:id", "/"]}>
+            <Route path="/blocks">
               <BlocksProvider>
-                <BlocksTable />
               </BlocksProvider>
+            </Route>
+
+            <Route path={["/datapairs", "/"]}>
+              <ProofsProvider>
+                <Datapairs />
+              </ProofsProvider>
             </Route>
           </Switch>
         </div>
