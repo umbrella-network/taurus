@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import { apiUrl, chainId, tokenAuth } from "@Constants";
 
 const authorization = (token) => {
@@ -22,32 +21,17 @@ async function request(
       },
     });
 
-    if (
-      typeof successCallback === "function" &&
-      typeof dispatch === "function"
-    ) {
-      dispatch(successCallback(response.data));
-    } else if (typeof successCallback === "function") {
+    if (typeof successCallback === "function") {
       successCallback(response.data);
-    } else if (typeof dispatch === "function") {
-      dispatch(response.data);
     } else {
       return response;
     }
   } catch (e) {
     const error = e?.response?.status ?? e?.message;
+    console.error(error);
 
-    if (
-      typeof rejectedCallback === "function" &&
-      typeof dispatch === "function"
-    ) {
-      dispatch(rejectedCallback({ error }));
-    } else if (typeof rejectedCallback === "function") {
+    if (typeof rejectedCallback === "function") {
       rejectedCallback({ error });
-    } else if (typeof dispatch === "function") {
-      dispatch({ error });
-    } else {
-      return error;
     }
   }
 }
@@ -61,7 +45,6 @@ const get = async (
 ) => request(url, dispatch, successCallback, rejectCallback, params);
 
 export async function fetchBlocks(
-  dispatch,
   successCallback,
   rejectedCallback,
   page = 0,

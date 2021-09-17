@@ -1,0 +1,57 @@
+@import '../../../assets/variables';
+
+.info-box {
+  position: relative;
+
+  .children {
+    cursor: pointer;
+  }
+
+  &__content {
+    z-index: 2;
+    width: 100vw;
+    max-width: 160px;
+    padding: $spacing-smaller;
+    display: none;
+    position: absolute;
+    background: $background;
+    box-shadow: $box-shadow;
+    border-radius: $border-radius-large;
+    top: calc(100% + 6px);
+    font-weight: 400;
+
+    &--right {
+      right: 0;
+    }
+
+    &--left {
+      left: 0;
+    }
+
+    &--center {
+      right: 50%;
+      transform: translateX(50%);
+    }
+
+    &--open {
+      display: grid;
+      grid-gap: $spacing-smaller;
+    }
+
+    p {
+      font-family: $font-family;
+      color: $text-medium;
+      font-size: $tinier;
+      line-height: 16px;
+      font-weight: 400;
+
+      span {
+        font-weight: 700;
+      }
+    }
+
+    .info-box-content-title {
+      font-weight: bold;
+    }
+  }
+}

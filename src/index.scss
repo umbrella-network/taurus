@@ -1,5 +1,6 @@
 @import 'assets/variables';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @font-face {
   font-style: normal;
@@ -9,7 +10,6 @@
 }
 
 * {
-  background-color: $background;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -31,6 +31,7 @@ main {
   height: 100vh;
   grid-template-rows: 73px 1fr;
   grid-template-columns: 1fr;
+  grid-gap: $spacing;
 
   @media(min-width: $tablet) {
     grid-template-rows: 1fr;
@@ -38,17 +39,17 @@ main {
   }
 
   @media(min-width: $desktop) {
+    grid-gap: 0;
     grid-template-columns: 256px 1fr;
   }
 
   .main-content {
-    margin: $spacing $spacing-small;
-    max-height: 100vh;
     overflow: auto;
     grid-row-start: 2;
 
     @media(min-width: $tablet) {
       grid-column-start: 2;
+      grid-row-start: 1;
     }
   }
 }

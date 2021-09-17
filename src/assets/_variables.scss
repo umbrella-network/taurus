@@ -6,6 +6,7 @@ $background-lighter: #F2F2F2;
 $background-pop-ups: #F6F9FB;
 $background-list: #E8EAEB;
 $background-option: #C4C4C4;
+$background-table: #F7FAFE;
 $separator: #161B43;
 $highlight: #00D483;
 $text: #000;
@@ -22,11 +23,12 @@ $warning: #FFBE4F;
 $error: #E31C3D;
 
 $title-font-family: 'Milliard';
+$secondary-font-family: 'Lato';
 $font-family: 'Inter';
 
 $xlarge: 50px;
 $larger: 40px;
-$large: 34px;
+$large: 32px;
 $medium: 24px;
 $small: 20px;
 $smaller: 18px;
@@ -50,10 +52,11 @@ $spacing-max: 92px;
 $spacing-xlarge: 74px;
 $spacing-larger: 64px;
 $spacing-large: 42px;
-$spacing-medium: 30px;
+$spacing-medium: 32px;
 $spacing: 24px;
 $spacing-small: 18px;
 $spacing-smaller: 12px;
+$spacing-table: 8px;
 $spacing-tiny: 6px;
 $spacing-tiniest: 4px;
 
