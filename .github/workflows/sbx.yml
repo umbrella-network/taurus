@@ -33,6 +33,36 @@ jobs:
           name: build_bsc
           path: build
           retention-days: 1
+  
+  build_eth:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build BSC
+        run: yarn build
+        env:
+          REACT_APP_BLOCKS_API: ${{ secrets.REACT_APP_BLOCKS_API_ETH_SBX }}
+          REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_ETH_SBX }}
+          REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_ETH_SBX }}
+          REACT_APP_FOREIGN_CHAIN_ID: ${{ secrets.REACT_APP_FOREIGN_CHAIN_ID_ETH_SBX }}
+          REACT_APP_SHOULD_FALLBACK: false
+
+      - name: Upload environment to be used by the next job
+        uses: actions/upload-artifact@v2
+        with:
+          name: build_eth
+          path: build
+          retention-days: 1
 
   push_bsc_sbx:
     needs: build_bsc
@@ -58,3 +88,28 @@ jobs:
       - name: Invalidate Cache
         run: |
           aws cloudfront create-invalidation --paths "/*" --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_SBX }}
+  
+  push_eth_sbx:
+    needs: build_eth
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retrieve build
+        uses: actions/download-artifact@v2
+        with:
+          name: build_eth
+          path: build-download
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_SBX }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_SBX }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Sync files to S3
+        run: |
+          aws s3 sync build-download/ s3://${{ secrets.AWS_S3_BUCKET_ETH_SBX }} --cache-control "max-age=86400" --delete --only-show-errors
+          aws s3 cp build-download/index.html s3://${{ secrets.AWS_S3_BUCKET_ETH_SBX }} --cache-control "no-cache, no-store, must-revalidate"
+
+      - name: Invalidate Cache
+        run: |
+          aws cloudfront create-invalidation --paths "/*" --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_ETH_SBX }}
