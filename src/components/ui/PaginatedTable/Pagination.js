@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-
-import { Box, Button, Text, MaskedInput, Grid } from "grommet";
-import { LinkNext, LinkPrevious, Next, Previous } from "grommet-icons";
+import classnames from "classnames";
+import { Arrow } from "@Images";
 
 import { range, isEmpty, splitEvery } from "ramda";
 
@@ -11,17 +10,35 @@ import "./pagination.scss";
 const propTypes = {
   maxPages: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
-  pageBreak: PropTypes.number.isRequired,
   setCurrentPage: PropTypes.func.isRequired,
+  callback: PropTypes.func,
 };
 
-function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
+const defaultProps = {
+  callback: () => {},
+};
+
+function Pagination({
+  maxPages,
+  currentPage,
+  setCurrentPage,
+  callback,
+}) {
+  const pageBreak = 3;
   const [paginationRange, setPaginationRange] = useState([1]);
   const pageGroups = splitEvery(pageBreak, range(1, maxPages + 1));
 
-  const [pageInputValue, setPageInputValue] = useState("");
+  const [pageInputValue, setPageInputValue] = useState(currentPage);
 
   const multipleRangeGroups = maxPages > pageBreak;
+
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === maxPages || maxPages === 0;
+
+  useEffect(() => {
+    callback();
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, [currentPage]);
 
   useEffect(() => {
     if (multipleRangeGroups) {
@@ -32,13 +49,23 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
       setPaginationRange(pageGroups[0]);
     }
 
+    setPageInputValue(currentPage);
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [currentPage, maxPages]);
 
   function handleChange({ target: { value } }) {
-    const page = parseInt(value) > maxPages ? maxPages : value;
+    const maxPagesLength = String(maxPages).length;
+    const valueLength = String(value).length;
+    const isLengthValid = maxPagesLength >= valueLength;
+    const isNumbersOnly = value.match(/^([+]?[1-9]\d*)$/);
 
-    setPageInputValue(page);
+    if (isLengthValid && isNumbersOnly) {
+      const page = parseInt(value) > maxPages ? maxPages : value;
+
+      setPageInputValue(page);
+    } else if (isEmpty(value)) {
+      setPageInputValue("");
+    }
   }
 
   function handleNext() {
@@ -53,14 +80,6 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
     setCurrentPage(previousPage);
   }
 
-  function goToFirstPage() {
-    setCurrentPage(1);
-  }
-
-  function goToLastPage() {
-    setCurrentPage(maxPages);
-  }
-
   function goToPageFromInput() {
     if (!isEmpty(pageInputValue) && pageInputValue <= maxPages) {
       const parsedPage = parseInt(pageInputValue);
@@ -69,111 +88,68 @@ function Pagination({ maxPages, currentPage, setCurrentPage, pageBreak }) {
   }
 
   return (
-    <Grid
-      className="pagination"
-      gap="small"
-      fill="horizontal"
-      pad={{ horizontal: "medium" }}
-      margin={{ top: "auto" }}
-    >
-      <Grid
-        columns={["60px", "1fr", "60px"]}
-        gap="small"
-        align="center"
-        justify="center"
-      >
-        <Grid
-          columns={["24px", "24px"]}
-          gap="small"
+    <div className="pagination">
+      <div className="pagination__buttons">
+        <button
+          className={classnames("pagination__button pagination__button--left", {
+            "pagination__button--disabled": isFirstPage,
+          })}
+          disabled={isFirstPage}
+          onClick={handlePrevious}
+          aria-label="Previous page"
         >
-          <Button
-            disabled={currentPage === 1}
-            plain
-            style={{ width: "18px" }}
-            a11yTitle="First page"
-            icon={<LinkPrevious style={{ width: "18px" }} />}
-            onClick={() => goToFirstPage()}
-          />
-          <Button
-            plain
-            style={{ width: "18px" }}
-            disabled={currentPage === 1}
-            icon={<Previous style={{ width: "18px" }} />}
-            a11yTitle="Previous page"
-            onClick={handlePrevious}
-          />
-        </Grid>
-        <Box direction="row" fill justify="around">
-          {paginationRange.map((page) => (
-            <Button
-              className="label"
-              plain
-              key={page}
-              a11yTitle={`Page ${page}`}
-              focusIndicator={false}
-              label={currentPage === page ? <b>{page}</b> : page}
-              onClick={() => setCurrentPage(page)}
-            />
-          ))}
-        </Box>
-        <Grid columns={["24px", "24px"]} gap="small" margin={{ left: "small" }}>
-          <Button
-            disabled={currentPage === maxPages}
-            plain
-            a11yTitle="Next page"
-            icon={<Next style={{ width: "18px" }} />}
-            style={{ width: "18px" }}
-            onClick={handleNext}
-          />
-          <Button
-            disabled={currentPage === maxPages || maxPages === 0}
-            a11yTitle="Last page"
-            icon={<LinkNext style={{ width: "18px" }} />}
-            style={{ width: "18px" }}
-            plain
-            reverse
-            onClick={() => goToLastPage()}
-          />
-        </Grid>
-      </Grid>
-      <Grid
-        alignSelf="center"
-        fill="horizontal"
-        className="navigation-info"
-        gap="small"
-      >
-        <Box alignSelf="center" gap="small" direction="row">
-          <Text className="label">
-            <b>{maxPages}</b> pages
-          </Text>
-        </Box>
-        <Text>|</Text>
-        <Grid className="navigation-menu" align="center" gap="small">
-          <Text className="label">Navigate</Text>
-          <MaskedInput
-            className="navigation-input"
+          <Arrow />
+        </button>
+        {paginationRange?.map((page) => (
+          <button
+            className={classnames("pagination__button", {
+              "pagination__button--current-page": page === currentPage,
+            })}
+            key={`${JSON.stringify(setCurrentPage)} ${page} pagination`}
+            onClick={() => setCurrentPage(page)}
+            aria-label={`Go to page ${page}`}
+          >
+            <p>{page}</p>
+          </button>
+        ))}
+        <button
+          className={classnames(
+            "pagination__button pagination__button--right",
+            {
+              "pagination__button--disabled": isLastPage,
+            }
+          )}
+          disabled={isLastPage}
+          aria-label="Next page"
+          onClick={handleNext}
+        >
+          <Arrow />
+        </button>
+      </div>
+      <div className="pagination__divider" />
+      <div className="pagination__navigation">
+        <p>Go To:</p>
+        <div className="navigation">
+          <input
+            className="navigation__input"
             value={pageInputValue}
-            mask={[
-              {
-                placeholder: currentPage,
-                length: [String(maxPages).length],
-                regexp: /^([+]?[1-9]\d*)$/,
-              },
-            ]}
+            placeholder={currentPage}
             onChange={handleChange}
-            pad="xsmall"
           />
-          <Button
+          <button
             label="Go"
-            className="navigation-button"
+            className="navigation__button"
             onClick={goToPageFromInput}
-          />
-        </Grid>
-      </Grid>
-    </Grid>
+          >
+            <Arrow />
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
 Pagination.propTypes = propTypes;
+Pagination.defaultProps = defaultProps;
 
 export default Pagination;

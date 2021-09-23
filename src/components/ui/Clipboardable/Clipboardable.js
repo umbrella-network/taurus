@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-
-import { Button, Box } from "grommet";
-
-import { Clipboard, Compliance } from "grommet-icons";
+import classnames from "classnames";
+import { Clipboard } from "@Images";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { debounce } from "lodash";
+
+import "./clipboardable.scss";
 
 const propTypes = {
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -19,12 +19,7 @@ const defaultProps = {
 
 function Clipboardable({ text, disabled, children, ...rest }) {
   const [hasCopied, setHasCopied] = useState(false);
-  const copiedCallback = debounce(setHasCopied, 750);
-  const icon = hasCopied ? (
-    <Compliance {...rest} color="#3E7AB8" />
-  ) : (
-    <Clipboard {...rest} color="#3E7AB8" />
-  );
+  const copiedCallback = debounce(setHasCopied, 250);
 
   const handleClick = () => {
     setHasCopied(true);
@@ -32,19 +27,20 @@ function Clipboardable({ text, disabled, children, ...rest }) {
   };
 
   return (
-    <Box direction="row" gap="xsmall">
+    <div className="clipboardable">
       {children}
       <CopyToClipboard text={text}>
-        <Button
+        <button
+          className={classnames("clipboardable__button", {
+            "clipboardable__button--copied": hasCopied,
+          })}
           disabled={disabled}
-          icon={icon}
-          size="small"
-          plain
-          style={{ cursor: "pointer" }}
           onClick={handleClick}
-        />
+        >
+          <Clipboard />
+        </button>
       </CopyToClipboard>
-    </Box>
+    </div>
   );
 }
 

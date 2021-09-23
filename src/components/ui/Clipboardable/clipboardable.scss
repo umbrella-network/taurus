@@ -1,0 +1,32 @@
+@import '../../../assets/variables';
+
+.clipboardable {
+  display: grid;
+  align-items: center;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  grid-gap: $tiniest;
+
+  &__button {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background: rgba(0, 0, 0, 0);
+    svg {
+      transition: width 250ms ease, height 250ms ease;
+    }
+
+    &--copied {
+      svg {
+        width: 16px;
+        height: 16px;
+
+        rect {
+          fill: $primary-dark;
+        }
+      }
+    }
+  }
+}

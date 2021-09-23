@@ -1,9 +1,9 @@
 export { default as Clipboardable } from "./Clipboardable/Clipboardable";
 export { default as Sidebar } from "./Sidebar/Sidebar";
-export { default as KeyValuePairs } from "./KeyValuePairs/KeyValuePairs";
-export { default as LeafPairs } from "./KeyValuePairs/LeafPairs";
 export { default as PaginatedTable } from "./PaginatedTable/PaginatedTable";
-export { default as ScanUrl } from "./ScanUrl/ScanUrl";
 export { default as Pagination } from "./PaginatedTable/Pagination";
 export { default as LoadingState } from "./LoadingState/LoadingState";
 export { default as SearchBar } from "./SearchBar/SearchBar";
+export { default as Heading } from "./Heading/Heading";
+export { default as Card } from "./Card/Card";
+export { default as Info } from "./Info/Info";
