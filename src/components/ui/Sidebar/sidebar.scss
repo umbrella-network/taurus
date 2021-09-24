@@ -167,7 +167,7 @@
   }
 
   &__collapse {
-    width: 64px;
+    width: $sidebar-collapsed;
     outline: none;
     border: none;
     border-top: $boder-menu;
@@ -194,13 +194,13 @@
 
   @media (min-width: $tablet) {
     .content {
-      width: 64px;
+      width: $sidebar-collapsed;
     }
   }
 
   @media (min-width: $desktop) {
     .content {
-      width: 256px;
+      width: $sidebar;
       grid-template-rows: repeat(4, min-content) 1fr 54px;
     }
 
@@ -230,7 +230,7 @@
       }
 
       @media (min-width: $tablet) {
-        width: 256px;
+        width: $sidebar;
       }
 
       @media (max-width: $desktop) {
