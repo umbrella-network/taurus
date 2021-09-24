@@ -14,18 +14,22 @@
     outline: none;
     border: none;
     background: rgba(0, 0, 0, 0);
-    svg {
-      transition: width 250ms ease, height 250ms ease;
+    display: grid;
+    align-items: start;
+    justify-items: start;
+
+    img {
+      width: 16px;
+      height: 16px;
+      opacity: 0.75;
+      transition: width 250ms ease, height 250ms ease, opacity 250ms ease;
     }
 
     &--copied {
-      svg {
-        width: 16px;
-        height: 16px;
-
-        rect {
-          fill: $primary-dark;
-        }
+      img {
+        width: 15px;
+        height: 15px;
+        opacity: 1;
       }
     }
   }

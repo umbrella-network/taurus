@@ -1,0 +1,63 @@
+@import '../../../assets/variables';
+
+.radio {
+  display: grid;
+  grid-template-rows: repeat(2, min-content);
+  grid-gap: $spacing;
+
+  &__label {
+    font-family: $title-font-family;
+    font-size: $smaller;
+    color: $text-weak;
+    font-weight: 700;
+  }
+
+  &__options {
+    display: grid;
+    grid-gap: $spacing-table;
+
+    .radio-option {
+      display: grid;
+      grid-gap: $spacing-table;
+      grid-template-columns: 20px max-content;
+      align-items: center;
+
+      label {
+        font-family: $font-family;
+        color: $text-weak;
+        font-size: $tinier;
+      }
+
+      .circle {
+        background: $background-lighter;
+        border: $border-input;
+        width: 20px;
+        height: 20px;
+        border-radius: 20px;
+        transition: background 250ms ease;
+
+        &::after {
+          content: "";
+          position: absolute;
+          background: $background-lighter;
+          width: 6px;
+          height: 6px;
+          border-radius: 6px;
+          left: calc(100% - 12px);
+          top: calc(100% - 12px);
+        }
+      }
+
+      &--checked {
+        .circle {
+          background: $primary;
+          position: relative;
+        }
+      }
+    }
+
+    input {
+      display: none;
+    }
+  }
+}

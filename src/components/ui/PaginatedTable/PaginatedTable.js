@@ -117,42 +117,50 @@ function PaginatedTable({ properties, data, dataPerPage }) {
     }
   };
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [data]);
+
   return (
     <div ref={tableRef} className="paginated-table">
-      <table>
-        <thead>
-          <tr>
-            {properties.map((property, index) => (
-              <th key={`$tr ${index} ${property.key}`}>
-                {property.description ? (
-                  <Info
-                    position={
-                      properties.indexOf(property) === properties.length - 1
-                        ? "center"
-                        : "left"
-                    }
-                    title={property.label}
-                    content={<p>{property.description}</p>}
-                  >
-                    <p>{property.label}</p>
-                  </Info>
-                ) : (
-                  property.label
-                )}
-              </th>
+      {isEmpty(displayedData) ? (
+        <p className="paginated-table__empty-state value">Nothing to show</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              {properties.map((property, index) => (
+                <th key={`$tr ${index} ${property.key}`}>
+                  {property.description ? (
+                    <Info
+                      position={
+                        properties.indexOf(property) === properties.length - 1
+                          ? "center"
+                          : "left"
+                      }
+                      title={property.label}
+                      content={<p>{property.description}</p>}
+                    >
+                      <p>{property.label}</p>
+                    </Info>
+                  ) : (
+                    property.label
+                  )}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {displayedData.map((item, index) => (
+              <TableRow
+                key={`${JSON.stringify(item)} tr ${index}`}
+                item={item}
+                properties={properties}
+              />
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {displayedData.map((item, index) => (
-            <TableRow
-              key={`${JSON.stringify(item)} tr ${index}`}
-              item={item}
-              properties={properties}
-            />
-          ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      )}
       <Pagination
         callback={paginationCallback}
         maxPages={maxPages}

@@ -7,3 +7,8 @@ export { default as SearchBar } from "./SearchBar/SearchBar";
 export { default as Heading } from "./Heading/Heading";
 export { default as Card } from "./Card/Card";
 export { default as Info } from "./Info/Info";
+export { default as Toggle } from "./Toggle/Toggle";
+export { default as Select } from "./Select/Select";
+export { default as Dropdown } from "./Dropdown/Dropdown";
+export { default as Checkbox } from "./Checkbox/Checkbox";
+export { default as Radio } from "./Radio/Radio";

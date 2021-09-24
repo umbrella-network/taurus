@@ -7,6 +7,7 @@ $background-pop-ups: #F6F9FB;
 $background-list: #E8EAEB;
 $background-option: #C4C4C4;
 $background-table: #F7FAFE;
+$background-dark: #CBD5DF;
 $separator: #161B43;
 $highlight: #00D483;
 $text: #000;
@@ -54,7 +55,7 @@ $spacing-larger: 64px;
 $spacing-large: 42px;
 $spacing-medium: 32px;
 $spacing: 24px;
-$spacing-small: 18px;
+$spacing-small: 16px;
 $spacing-smaller: 12px;
 $spacing-table: 8px;
 $spacing-tiny: 6px;
@@ -79,18 +80,19 @@ $sidebar: 256px;
 
   &::-webkit-scrollbar-track {
     border-radius: $border-radius-large;
-    background-color: white;
+    background-color: $background-dark;
   }
 
   &::-webkit-scrollbar-thumb {
     border-radius: $border-radius-large;
-    background-color: $text-weaker;
+    background-color: $text-weak;
+    height: 34px;
   }
 
   &::-webkit-scrollbar {
-    margin-left: $spacing-tiny;
-    width: $spacing-tiny;
-    height: $spacing-tiny;
-    background-color: white;
+    border-radius: $border-radius-large;
+    margin-left: 9px;
+    width: 9px;
+    background-color: $background-dark;
   }
 }

@@ -1,0 +1,49 @@
+@import '../../../assets/variables';
+
+.dropdown {
+  display: grid;
+  position: relative;
+  height: 48px;
+
+  &__button {
+    display: grid;
+    border: none;
+    outline: none;
+    background: white;
+    grid-template-columns: max-content 1fr;
+    grid-gap: $spacing-smaller;
+    padding: $spacing-smaller $spacing;
+    align-items: center;
+    justify-items: center;
+    cursor: pointer;
+    border-radius: $border-radius-large;
+    transition: background 250ms ease;
+
+    &:hover {
+      background: $background-table;
+    }
+
+    svg {
+      path {
+        fill: $text-weak;
+      }
+
+      transform: rotate(-90deg);
+    }
+  }
+
+  &__children {
+    display: none;
+  }
+
+  &--open {
+    .dropdown__children {
+      z-index: 5;
+      top: calc(100% + #{$spacing-small});
+      display: initial;
+      position: absolute;
+      border-radius: $border-radius-large;
+      box-shadow: $box-shadow;
+    }
+  }
+}

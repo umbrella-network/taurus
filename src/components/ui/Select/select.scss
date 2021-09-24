@@ -1,0 +1,47 @@
+@import '../../../assets/variables';
+
+.select {
+  width: 292px;
+  height: 304px;
+  display: grid;
+  grid-auto-flow: row;
+  grid-auto-rows: min-content;
+  background: white;
+  padding: $spacing $spacing-small;
+  grid-gap: $spacing-table;
+  border-radius: $border-radius-large;
+
+  &__title {
+    font-family: $title-font-family;
+    font-size: $smaller;
+    color: $text-weak;
+    font-weight: 700;
+
+    span {
+      font-family: $secondary-font-family;
+      font-weight: 400;
+    }
+  }
+
+  &__search {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    grid-gap: $spacing-table;
+    align-items: center;
+
+    .search-bar {
+      width: 233px;
+    }
+  }
+
+  &__keys {
+    max-height: 182px;
+    overflow: auto;
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: min-content;
+    grid-gap: $spacing-table;
+
+    @extend %scroll;
+  }
+}
