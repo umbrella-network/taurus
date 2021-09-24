@@ -6,16 +6,24 @@
   grid-template-rows: 36px 1fr;
   padding: 0 $spacing;
   grid-gap: $spacing-medium;
+  justify-self: center;
+  width: 100vw;
 
   @media(min-width: $tablet) {
+    width: calc(100vw - #{$sidebar-collapsed});
+    max-width: 674px;
     padding: $spacing-large $spacing-medium;
+  }
+
+  @media (min-width: $desktop) {
+    width: calc(100vw - #{$sidebar});
+    max-width: 1110px;
   }
 
   &__table {
     justify-self: center;
     justify-items: center;
     width: 100%;
-    max-width: 674px;
 
     @media (min-width: $mobile-large) {
       .paginated-table {
@@ -46,10 +54,9 @@
     }
 
     @media (min-width: $desktop) {
-      height: 100%;
       width: 100%;
-      max-width: 1110px;
-      max-height: 440px;
+      max-width: calc(100vw - #{$spacing * 2 });
+      height: 440px;
 
       .paginated-table {
         margin-bottom: 0;
