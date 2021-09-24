@@ -1,13 +1,55 @@
-.search-bar {
-  justify-self: center;
-  width: 100%;
-  max-width: 280px;
+@import '../../../assets/variables';
 
-  @media (min-width: 768px) {
-    max-width: 320px;
+.search-bar {
+  background: white;
+  border-radius: $border-radius-large;
+  display: grid;
+  grid-gap: $spacing-smaller;
+  grid-template-columns: 24px 1fr;
+  padding: $spacing-smaller $spacing-small;
+  height: 48px;
+
+  @media (min-width: $desktop) {
+    padding: $spacing-small $spacing;
   }
 
-  @media (min-width: 1069px) {
-    max-width: 640px;
+  &--dark {
+    background: $background;
+  }
+
+  &--slim {
+    border-radius: 0;
+    border-bottom: $boder-menu;
+    grid-template-columns: 1fr;
+    padding: $spacing-tiny 0;
+    height: 34px;
+
+    svg {
+      display: none;
+    }
+  }
+
+  input {
+    border: none;
+    outline: none;
+    font-family: $font-family;
+    font-size: $tiny;
+    padding: 0;
+
+    @media (min-width: $desktop) {
+      font-size: $tinier;
+    }
+
+    &::placeholder {
+      color: $text-weak;
+      font-family: $font-family;
+      font-size: $tinier;
+    }
+
+    &:focus {
+      &::placeholder {
+        color: white;
+      }
+    }
   }
 }

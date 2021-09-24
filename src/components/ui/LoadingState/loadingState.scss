@@ -9,6 +9,10 @@
   height: 100%;
 
   img {
-    width: 240px;
+    width: 200px;
+
+    @media(min-width: $mobile-large) {
+      width: 240px;
+    }
   }
 }

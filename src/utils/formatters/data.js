@@ -68,7 +68,7 @@ function formatLeaf(data, block) {
     blockId: block.blockId,
     chainAddress: block.chainAddress,
     chainAddressScanUrl: `${process.env.REACT_APP_SCAN_URL}/${block.chainAddress}`,
-    isLeaf: true,
+    isL2: true,
   };
 }
 

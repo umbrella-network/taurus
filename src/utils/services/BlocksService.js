@@ -7,7 +7,6 @@ const authorization = (token) => {
 
 async function request(
   url,
-  dispatch,
   successCallback,
   rejectedCallback,
   params = {}
@@ -38,11 +37,10 @@ async function request(
 
 const get = async (
   url,
-  dispatch,
   successCallback,
   rejectCallback,
   params
-) => request(url, dispatch, successCallback, rejectCallback, params);
+) => request(url, successCallback, rejectCallback, params);
 
 export async function fetchBlocks(
   successCallback,
@@ -52,24 +50,22 @@ export async function fetchBlocks(
 ) {
   const offset = page * limit;
 
-  get(`${apiUrl}/blocks`, dispatch, successCallback, rejectedCallback, {
+  get(`${apiUrl}/blocks`, successCallback, rejectedCallback, {
     limit,
     offset,
   });
 }
 
-export async function fetchLeaves(dispatch, blockId) {
-  get(`${apiUrl}/blocks/${blockId}/leaves`, dispatch, undefined, undefined);
+export async function fetchLeaves(blockId, successCallback) {
+  get(`${apiUrl}/blocks/${blockId}/leaves`, successCallback);
 }
 
 export async function fetchLatestLeaves(
-  dispatch,
   successCallback,
   rejectedCallback
 ) {
   const latestBlockResponse = await get(
     `${apiUrl}/blocks`,
-    undefined,
     undefined,
     rejectedCallback,
     {
@@ -81,29 +77,27 @@ export async function fetchLatestLeaves(
 
   get(
     `${apiUrl}/blocks/${latestBlockId}/leaves`,
-    dispatch,
     successCallback,
     rejectedCallback
   );
 }
 
-export async function fetchFCD(dispatch, successCallback, rejectedCallback) {
-  get(`${apiUrl}/fcds`, dispatch, successCallback, rejectedCallback);
+export async function fetchFCD(successCallback, rejectedCallback) {
+  get(`${apiUrl}/fcds`, successCallback, rejectedCallback);
 }
 
-export async function fetchProof(dispatch, successCallback, rejectedCallback) {
-  get(`${apiUrl}/proofs`, dispatch, successCallback, rejectedCallback);
+export async function fetchProof(successCallback, rejectedCallback) {
+  get(`${apiUrl}/proofs`, successCallback, rejectedCallback);
 }
 
 export async function fetchBlock(
   id,
-  dispatch,
   successCallback,
   rejectedCallback
 ) {
-  get(`${apiUrl}/blocks/${id}`, dispatch, successCallback, rejectedCallback);
+  get(`${apiUrl}/blocks/${id}`, successCallback, rejectedCallback);
 }
 
-export async function fetchInfo(dispatch, successCallback, rejectedCallback) {
-  get(`${apiUrl}/info`, dispatch, successCallback, rejectedCallback);
+export async function fetchInfo(successCallback, rejectedCallback) {
+  get(`${apiUrl}/info`, successCallback, rejectedCallback);
 }

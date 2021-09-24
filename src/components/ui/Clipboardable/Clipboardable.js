@@ -37,7 +37,7 @@ function Clipboardable({ text, disabled, children, ...rest }) {
           disabled={disabled}
           onClick={handleClick}
         >
-          <Clipboard />
+          <img src={Clipboard} alt="" />
         </button>
       </CopyToClipboard>
     </div>

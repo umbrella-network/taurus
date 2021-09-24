@@ -5,6 +5,12 @@
   grid-gap: $spacing-small;
   width: 100%;
 
+  &__empty-state {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+  }
+
   .value {
     font-size: $tiny;
     font-family: $font-family;
