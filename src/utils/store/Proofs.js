@@ -170,7 +170,7 @@ export function firstClassDataFulfilled(payload) {
     type: FIRSTCLASSDATA_FULFILLED,
     payload: {
       list: payload.sort((a, b) =>
-        a._id.localeCompare(b._id, undefined, { numeric: true })
+        a.key.localeCompare(b.key, undefined, { numeric: true })
       ),
     },
   };

@@ -12,8 +12,6 @@ import { truncate, valueToToken } from "@Formatters";
 import { fetchBlock, fetchBlocks } from "@Services";
 import { readableAgeFromTimestamp } from "@Utils";
 
-import { shouldFallback } from "@Constants";
-
 import {
   useBlocks,
   blockRequested,
@@ -173,7 +171,7 @@ function BlocksTable() {
             >
               <Box>
                 <Button
-                  disabled={shouldFallback || isFirstPage}
+                  disabled={isFirstPage}
                   plain
                   label={
                     <Text size={isMobile ? "xsmall" : "medium"}>
@@ -187,7 +185,7 @@ function BlocksTable() {
 
               <Box direction="row" justify="center" gap="medium">
                 <Button
-                  disabled={shouldFallback || isFirstPage}
+                  disabled={isFirstPage}
                   plain
                   icon={<Previous />}
                   onClick={previousPage}
@@ -196,7 +194,6 @@ function BlocksTable() {
                   {`Page ${currentPage + 1}`}
                 </Text>
                 <Button
-                  disabled={shouldFallback}
                   plain
                   icon={<Next />}
                   onClick={nextPage}
