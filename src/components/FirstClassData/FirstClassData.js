@@ -43,7 +43,7 @@ function FirstClassData() {
   return (
     <Grid justify="center" fill rows={["34px", "auto"]} gap="large">
       <Heading>First Class Data</Heading>
-      {isLoading || isEmpty(displayedItems) ? (
+      {isLoading ? (
         <LoadingState />
       ) : (
         <Grid fill rows={["min-content", "auto"]} gap="large">

@@ -1,10 +1,6 @@
 import axios from "axios";
 
-import { apiUrl, chainId, tokenAuth, isForeignChain } from "@Constants";
-
-const blocksUrl = isForeignChain
-  ? `${apiUrl}/foreign-blocks/${chainId}`
-  : `${apiUrl}/blocks`;
+import { apiUrl, chainId, tokenAuth } from "@Constants";
 
 const authorization = (token) => {
   return { headers: { Authorization: `Bearer ${token}` } };
@@ -74,7 +70,7 @@ export async function fetchBlocks(
 ) {
   const offset = page * limit;
 
-  get(blocksUrl, dispatch, successCallback, rejectedCallback, {
+  get(`${apiUrl}/blocks`, dispatch, successCallback, rejectedCallback, {
     limit,
     offset,
   });
@@ -90,7 +86,7 @@ export async function fetchLatestLeaves(
   rejectedCallback
 ) {
   const latestBlockResponse = await get(
-    blocksUrl,
+    `${apiUrl}/blocks`,
     undefined,
     undefined,
     rejectedCallback,
@@ -123,7 +119,7 @@ export async function fetchBlock(
   successCallback,
   rejectedCallback
 ) {
-  get(`${blocksUrl}/${id}`, dispatch, successCallback, rejectedCallback);
+  get(`${apiUrl}/blocks/${id}`, dispatch, successCallback, rejectedCallback);
 }
 
 export async function fetchInfo(dispatch, successCallback, rejectedCallback) {
