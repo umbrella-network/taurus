@@ -48,7 +48,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
-      - name: Build BSC
+      - name: Build ETH
         run: yarn build
         env:
           REACT_APP_BLOCKS_API: ${{ secrets.REACT_APP_BLOCKS_API_ETH_SBX }}
