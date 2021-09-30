@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { Card } from "grommet";
 
-import { KeyValuePairs, ScanUrl, LoadingState } from "@Ui";
+import { KeyValuePairs, LoadingState } from "@Ui";
 import { truncate, valueToToken } from "@Formatters";
 import { formatTimestamp, readableAgeFromTimestamp } from "@Utils";
 
@@ -76,16 +76,15 @@ function Details({ block, leaves, isLoading }) {
             {
               key: "root",
               value: truncate(root),
+              clipboardable: true,
+              clipboardableValue: root,
             },
             {
               key: "minter",
-              childValue: (
-                <ScanUrl
-                  style={{ textAlign: "end" }}
-                  address={minter}
-                  text={truncate(minter)}
-                />
-              ),
+              value: truncate(minter),
+              clipboardable: true,
+              clipboardableValue: minter,
+
             },
             {
               key: "staked",
