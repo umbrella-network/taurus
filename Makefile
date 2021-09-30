@@ -8,6 +8,8 @@ DURATION := 900
 AWS_REGION := us-east-2
 ETH_CLOUDFRONT := E2J1Z3UVJ0WBNS
 BSC_CLOUDFRONT := E1Q0XCIKYCHTHZ
+ETH_CLOUDFRONT_SBX := E2XOPE0XC4MDU
+BSC_CLOUDFRONT_SBX := E2WE2QUJJKY66W
 
 
 default: dev-eth
@@ -35,5 +37,18 @@ dev-s3-bsc-sync:
 	@aws --profile umb-staging s3 cp build/index.html s3://umb-taurus-bsc-frontend-app --cache-control "no-cache, no-store, must-revalidate"
 	@aws --profile umb-staging cloudfront create-invalidation --paths "/*" --distribution-id $(BSC_CLOUDFRONT) --no-cli-pager > /dev/null
 
+sbx-s3-eth-sync:
+	@aws --profile umb-staging s3 sync build/ s3://umb-taurus-eth-sbx-frontend-app --cache-control "max-age=86400" --delete --only-show-errors
+	@aws --profile umb-staging s3 cp build/index.html s3://umb-taurus-eth-sbx-frontend-app --cache-control "no-cache, no-store, must-revalidate"
+	@aws --profile umb-staging cloudfront create-invalidation --paths "/*" --distribution-id $(ETH_CLOUDFRONT_SBX) --no-cli-pager > /dev/null
+
+sbx-s3-bsc-sync:
+	@aws --profile umb-staging s3 sync build/ s3://umb-taurus-bsc-sbx-frontend-app --cache-control "max-age=86400" --delete --only-show-errors
+	@aws --profile umb-staging s3 cp build/index.html s3://umb-taurus-bsc-sbx-frontend-app --cache-control "no-cache, no-store, must-revalidate"
+	@aws --profile umb-staging cloudfront create-invalidation --paths "/*" --distribution-id $(BSC_CLOUDFRONT_SBX) --no-cli-pager > /dev/null
+
 dev-eth: build-s3 update-stg dev-s3-eth-sync
 dev-bsc: build-s3 update-stg dev-s3-bsc-sync
+
+sbx-eth: build-s3 update-stg sbx-s3-eth-sync
+sbx-bsc: build-s3 update-stg sbx-s3-bsc-sync

@@ -13,7 +13,7 @@
           "@Formatters": "./src/utils/formatters",
           "@Utils": "./src/utils",
           "@Store": "./src/utils/store",
-          "@Mocks": "./src/utils/mocks"
+          "@Constants": "./src/utils/constants"
         }
       }
     ]
