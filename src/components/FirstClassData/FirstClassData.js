@@ -43,7 +43,7 @@ function FirstClassData() {
   return (
     <Grid justify="center" fill rows={["34px", "auto"]} gap="large">
       <Heading>First Class Data</Heading>
-      {isLoading || isEmpty(displayedItems) ? (
+      {isLoading ? (
         <LoadingState />
       ) : (
         <Grid fill rows={["min-content", "auto"]} gap="large">
@@ -53,7 +53,7 @@ function FirstClassData() {
             close={() => setIsSearching(false)}
             items={list}
             filterCallback={setFilteredItems}
-            searchTerm="_id"
+            searchTerm="key"
           />
           <Grid
             justifyContent="center"
@@ -64,7 +64,7 @@ function FirstClassData() {
               gridGap: "24px 12px",
             }}
           >
-            {displayedItems.map(({ _id: key, value, dataTimestamp }) => (
+            {displayedItems.map(({ key = "", value, dataTimestamp }) => (
               <Card key={key} style={{ minHeight: "172px" }}>
                 <CardHeader
                   pad="small"

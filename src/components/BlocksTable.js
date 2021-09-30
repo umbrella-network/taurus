@@ -171,10 +171,7 @@ function BlocksTable() {
             >
               <Box>
                 <Button
-                  disabled={
-                    Boolean(process.env.REACT_APP_SHOULD_FALLBACK === "true") ||
-                    isFirstPage
-                  }
+                  disabled={isFirstPage}
                   plain
                   label={
                     <Text size={isMobile ? "xsmall" : "medium"}>
@@ -188,10 +185,7 @@ function BlocksTable() {
 
               <Box direction="row" justify="center" gap="medium">
                 <Button
-                  disabled={
-                    Boolean(process.env.REACT_APP_SHOULD_FALLBACK === "true") ||
-                    isFirstPage
-                  }
+                  disabled={isFirstPage}
                   plain
                   icon={<Previous />}
                   onClick={previousPage}
@@ -200,9 +194,6 @@ function BlocksTable() {
                   {`Page ${currentPage + 1}`}
                 </Text>
                 <Button
-                  disabled={Boolean(
-                    process.env.REACT_APP_SHOULD_FALLBACK === "true"
-                  )}
                   plain
                   icon={<Next />}
                   onClick={nextPage}
