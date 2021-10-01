@@ -62,7 +62,11 @@ function Validators({ votes }) {
               {Object.keys(votes)?.map((address) => (
                 <TableRow key={address} border="bottom">
                   <TableCell scope="row">
-                    <ScanUrl address={address} text={truncate(address)} />
+                    <ScanUrl
+                      forceBsc={true}
+                      address={address}
+                      text={truncate(address)}
+                    />
                   </TableCell>
                   <TableCell border="left">
                     <Clipboardable size="small" text={votes[address]}>
