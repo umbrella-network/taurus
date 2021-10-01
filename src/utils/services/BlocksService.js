@@ -57,7 +57,6 @@ const get = async (
   dispatch,
   successCallback,
   rejectCallback,
-  fallback,
   params
 ) => request(url, dispatch, successCallback, rejectCallback, params);
 
