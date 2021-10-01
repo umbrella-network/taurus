@@ -13,7 +13,6 @@ async function request(
   rejectedCallback,
   params = {}
 ) {
-  console.log(params);
   try {
     const response = await axios.get(url, {
       ...authorization(tokenAuth),
@@ -58,7 +57,6 @@ const get = async (
   dispatch,
   successCallback,
   rejectCallback,
-  fallback,
   params
 ) => request(url, dispatch, successCallback, rejectCallback, params);
 
