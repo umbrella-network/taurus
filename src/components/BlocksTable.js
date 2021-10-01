@@ -22,7 +22,7 @@ import {
   blocksRequestRejected,
 } from "@Store";
 
-import { ScanUrl, LoadingState } from "@Ui";
+import { LoadingState } from "@Ui";
 import { isSizeMobile } from "@Utils";
 
 function BlocksTable() {
@@ -89,9 +89,7 @@ function BlocksTable() {
     { property: "root", render: (datum) => truncate(datum.root) },
     {
       property: "minter",
-      render: (datum) => (
-        <ScanUrl address={datum.minter} text={truncate(datum.minter)} />
-      ),
+      render: (datum) => truncate(datum.minter),
     },
     {
       property: "staked",
