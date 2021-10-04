@@ -12,10 +12,12 @@ const propTypes = {
   currentPage: PropTypes.number.isRequired,
   setCurrentPage: PropTypes.func.isRequired,
   callback: PropTypes.func,
+  infinite: PropTypes.bool,
 };
 
 const defaultProps = {
   callback: () => {},
+  infinite: false,
 };
 
 function Pagination({
@@ -23,6 +25,7 @@ function Pagination({
   currentPage,
   setCurrentPage,
   callback,
+  infinite,
 }) {
   const pageBreak = 3;
   const [paginationRange, setPaginationRange] = useState([1]);
@@ -33,10 +36,10 @@ function Pagination({
   const multipleRangeGroups = maxPages > pageBreak;
 
   const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === maxPages || maxPages === 0;
+  const isLastPage = !infinite && (currentPage === maxPages || maxPages === 0);
 
   useEffect(() => {
-    callback();
+    callback(currentPage);
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [currentPage]);
 
@@ -56,11 +59,11 @@ function Pagination({
   function handleChange({ target: { value } }) {
     const maxPagesLength = String(maxPages).length;
     const valueLength = String(value).length;
-    const isLengthValid = maxPagesLength >= valueLength;
+    const isLengthValid = maxPagesLength >= valueLength || infinite;
     const isNumbersOnly = value.match(/^([+]?[1-9]\d*)$/);
 
     if (isLengthValid && isNumbersOnly) {
-      const page = parseInt(value) > maxPages ? maxPages : value;
+      const page = parseInt(value) < maxPages || infinite ? value : maxPages;
 
       setPageInputValue(page);
     } else if (isEmpty(value)) {
@@ -75,13 +78,18 @@ function Pagination({
   }
 
   function handlePrevious() {
-    const previousPage = currentPage - 1;
+    const previousPage = currentPage >= 1 ? currentPage - 1 : 1;
 
     setCurrentPage(previousPage);
   }
 
   function goToPageFromInput() {
-    if (!isEmpty(pageInputValue) && pageInputValue <= maxPages) {
+    const shouldGoToPage =
+      !isEmpty(pageInputValue) &&
+      pageInputValue <= maxPages &&
+      pageInputValue >= 1;
+
+    if (shouldGoToPage || infinite) {
       const parsedPage = parseInt(pageInputValue);
       setCurrentPage(parsedPage);
     }
@@ -100,18 +108,19 @@ function Pagination({
         >
           <Arrow />
         </button>
-        {paginationRange?.map((page) => (
-          <button
-            className={classnames("pagination__button", {
-              "pagination__button--current-page": page === currentPage,
-            })}
-            key={`${JSON.stringify(setCurrentPage)} ${page} pagination`}
-            onClick={() => setCurrentPage(page)}
-            aria-label={`Go to page ${page}`}
-          >
-            <p>{page}</p>
-          </button>
-        ))}
+        {!infinite &&
+          paginationRange?.map((page) => (
+            <button
+              className={classnames("pagination__button", {
+                "pagination__button--current-page": page === currentPage,
+              })}
+              key={`${JSON.stringify(setCurrentPage)} ${page} pagination`}
+              onClick={() => setCurrentPage(page)}
+              aria-label={`Go to page ${page}`}
+            >
+              <p>{page}</p>
+            </button>
+          ))}
         <button
           className={classnames(
             "pagination__button pagination__button--right",
