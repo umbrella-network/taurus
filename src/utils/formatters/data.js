@@ -95,3 +95,6 @@ export function formatDatapairs(firstClassData, leaves, block) {
 
   return mergeFirstClassWithLeafs(formattedFCD, formattedLeafs);
 }
+
+export const readableProof = (data) =>
+  data.proof ? arrayToString(data.proof) : undefined;

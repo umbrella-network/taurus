@@ -1,0 +1,90 @@
+@import '../../assets/variables';
+
+.leave-layer {
+  @media(min-width: $desktop) {
+    height: 737px;
+    width: 940px;
+  }
+
+  grid-gap: $spacing;
+
+  &__body {
+    display: grid;
+    grid-gap: $spacing-table;
+    grid-template-rows: repeat(2, min-content) 360px;
+
+    .key-value-pairs {
+      padding: 0;
+
+      .value {
+        &--full {
+          display: none;
+        }
+
+        &--truncated {
+          display: initial;
+        }
+      }
+    }
+
+    .proof-copy {
+      display: grid;
+      display: grid;
+      grid-template-columns: 79px max-content;
+      grid-column-gap: $spacing;
+
+      p {
+        font-family: $font-family;
+        color: $text-weak;
+        font-weight: 700;
+        font-size: $tinier;
+      }
+
+      .clipboardable > button {
+        cursor: pointer;
+        width: 120px;
+        font-size: $tinier;
+        font-family: $font-family;
+        color: $primary;
+      }
+
+      @media (min-width: $mobile-large) {
+        grid-template-columns: 105px max-content;
+
+        p {
+          font-size: $tiny;
+        }
+
+        .clipboardable > button {
+          font-size: $tiny;
+        }
+      }
+    }
+  }
+
+  .proof {
+    @extend %scroll;
+    height: 100%;
+    width: 100%;
+    background: $background;
+    font-family: $font-family;
+    color: $primary-dark;
+    padding: $spacing-smaller $spacing-small 0;
+    margin-top: $spacing-tiny;
+    font-size: $tinier;
+    line-height: 24px;
+    word-break: break-word;
+    overflow: auto;
+    width: 100%;
+    white-space: pre;
+
+    @media (min-width: $tablet) {
+      font-size: $tiny;
+      padding: $spacing $spacing-large 0;
+    }
+
+    @media(min-width: $desktop) {
+      height: 360px;
+    }
+  }
+}

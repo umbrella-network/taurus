@@ -14,7 +14,8 @@
           "@Utils": "./src/utils",
           "@Store": "./src/utils/store",
           "@Urls": "./src/utils/urls",
-          "@Hooks": "./src/utils/hooks"
+          "@Hooks": "./src/utils/hooks",
+          "@Types": "./src/utils/types"
         }
       }
     ]

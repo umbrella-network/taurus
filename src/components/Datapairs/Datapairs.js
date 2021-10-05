@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { arrayToString } from "@Formatters";
+import { readableProof } from "@Formatters";
 
 import { ArrowHamburger, Close } from "@Images";
 
@@ -26,9 +26,6 @@ const typeLabel = (data) =>
   [data.isFCD && "First-class", data.isL2 && "Layer 2"]
     .filter((value) => value)
     .join("/");
-
-const readableProof = (data) =>
-  data.proof ? arrayToString(data.proof) : undefined;
 
 const L2 = "L2";
 const FCD = "FCD";

@@ -11,13 +11,15 @@ import "./clipboardable.scss";
 const propTypes = {
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   disabled: PropTypes.bool,
+  label: PropTypes.string,
 };
 
 const defaultProps = {
   disabled: false,
+  label: undefined,
 };
 
-function Clipboardable({ text, disabled, children, ...rest }) {
+function Clipboardable({ text, disabled, children, label, ...rest }) {
   const [hasCopied, setHasCopied] = useState(false);
   const copiedCallback = debounce(setHasCopied, 250);
 
@@ -37,7 +39,7 @@ function Clipboardable({ text, disabled, children, ...rest }) {
           disabled={disabled}
           onClick={handleClick}
         >
-          <img src={Clipboard} alt="" />
+          {label ?? <img src={Clipboard} alt="" />}
         </button>
       </CopyToClipboard>
     </div>

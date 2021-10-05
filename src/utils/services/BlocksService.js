@@ -56,8 +56,8 @@ export async function fetchBlocks(
   });
 }
 
-export async function fetchLeaves(blockId, successCallback) {
-  get(`${apiUrl}/blocks/${blockId}/leaves`, successCallback);
+export async function fetchLeaves(blockId, successCallback, rejectCallback) {
+  get(`${apiUrl}/blocks/${blockId}/leaves`, successCallback, rejectCallback);
 }
 
 export async function fetchLatestLeaves(

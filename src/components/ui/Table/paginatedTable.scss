@@ -4,6 +4,7 @@
   display: grid;
   grid-gap: $spacing-small;
   width: 100%;
+  grid-template-rows: 1fr 74px;
 
   &__empty-state {
     display: grid;
@@ -20,19 +21,22 @@
     text-overflow: ellipsis;
     display: grid;
     grid-gap: $spacing-table;
+    line-height: 20px;
 
     &--primary, &--highlight {
       color: $primary;
     }
 
-    a {
-      text-decoration: none;
-      color: $highlight;
-      font-weight: bold;
+    &--clickable {
+      cursor: pointer;
+    }
 
-      &:hover {
-        color: $success;
-      }
+    &--url {
+      color: $highlight;
+    }
+
+    &--full {
+      display: none;
     }
 
     p {
@@ -84,68 +88,103 @@
     }
   }
 
-  @media (min-width: $desktop) {
-    background: white;
-    padding: $spacing 0;
-    grid-template-rows: 1fr 32px;
+@mixin forced-table {
+  background: white;
+  padding: $spacing 0;
+  grid-gap: $spacing;
+
+  .pagination {
+    padding: 0 $spacing;
+  }
+
+  table {
+    width: 100%;
+    border-spacing: 0;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, min-content);
     grid-gap: $spacing;
 
-    .pagination {
-      padding: 0 $spacing;
-    }
+    thead, tbody {
+      display: grid;
 
-    table {
-      width: 100%;
-      border-spacing: 0;
+      tr {
+        padding: 0;
+        display: grid;
+        grid-gap: $spacing-tiny;
+        align-items: center;
+        box-shadow: none;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
 
-      thead, tbody {
-        display: table;
+        td {
+          font-size: $tinier;
+          line-height: 13px;
 
-        tr {
-          display: table;
-          background: initial;
-          box-shadow: none;
-          border-radius: initial;
-          padding: initial;
-
-          th:first-child, td:first-child {
+          &:first-child {
             padding-left: $spacing;
           }
 
-          th:last-child, td:last-child {
+          &:last-child {
+            text-align: center;
+            justify-items: center;
             padding-right: $spacing;
           }
         }
       }
+    }
 
-      thead {
-        tr > th {
-          padding-bottom: $spacing;
-          text-align: start;
-          font-family: $font-family;
-          font-weight: 700;
-          color: $primary-dark;
-          font-size: $label;
+    thead {
+      height: 24px;
+
+      tr > th {
+        text-align: start;
+        font-family: $font-family;
+        font-weight: 700;
+        color: $primary-dark;
+        font-size: $label;
+
+        &:first-child {
+          padding-left: $spacing;
+        }
+
+        &:last-child {
+          padding-right: $spacing;
+          text-align: center;
         }
       }
+    }
 
-      tbody {
-        tr:nth-child(odd) {
-          background: $background-table;
-        }
+    tbody {
+      display: grid;
+      grid-auto-flow: row;
+      grid-auto-rows: 48px;
+      grid-gap: 0;
 
-        .value--primary {
-          font-weight: 700;
-        }
+      tr:nth-child(odd) {
+        background: $background-table;
+      }
 
-        tr {
-          td {
-            span {
-              display: none;
-            }
+      .value--primary {
+        font-weight: 700;
+      }
+
+      tr {
+        td {
+          span {
+            display: none;
           }
         }
       }
     }
+  }
+}
+
+  &--mobile-table {
+    @include forced-table;
+  }
+
+  @media (min-width: $desktop) {
+    grid-template-rows: 1fr 32px;
+    @include forced-table;
   }
 }
