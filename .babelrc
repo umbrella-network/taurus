@@ -13,6 +13,7 @@
           "@Formatters": "./src/utils/formatters",
           "@Utils": "./src/utils",
           "@Store": "./src/utils/store",
+          "@Urls": "./src/utils/urls",
           "@Hooks": "./src/utils/hooks"
         }
       }

@@ -6,33 +6,23 @@ import { Clipboardable, Info } from "@Ui";
 
 import { slice, isEmpty } from "ramda";
 
+import { properties } from "./propertiesPropType";
+
 import Pagination from "./Pagination";
 
 import "./paginatedTable.scss";
-
-const properties = PropTypes.arrayOf(
-  PropTypes.shape({
-    key: PropTypes.string,
-    valueCallback: PropTypes.func,
-    label: PropTypes.string,
-    truncate: PropTypes.bool,
-    clipboardable: PropTypes.bool,
-    description: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    primary: PropTypes.bool,
-    urlKey: PropTypes.string,
-    highlight: PropTypes.bool,
-  })
-).isRequired;
 
 const propTypes = {
   data: PropTypes.array,
   properties,
   dataPerPage: PropTypes.number,
+  pageChangeCallback: PropTypes.func,
 };
 
 const defaultProps = {
   data: [],
   dataPerPage: 10,
+  pageChangeCallback: undefined,
 };
 
 const tableRowPropTypes = {
@@ -58,10 +48,12 @@ function TableRow({ item, properties }) {
         }
 
         const formattedValue = property.truncate ? truncate(value, 4) : value;
+        const hasUrl = property.urlKey || property.urlPrefix;
+        const url = item[property.urlKey] ?? `${property.urlPrefix}/${value}`;
 
-        const displayedValue = property.urlKey ? (
+        const displayedValue = hasUrl ? (
           <a
-            href={item[property.urlKey]}
+            href={url}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -92,9 +84,11 @@ function TableRow({ item, properties }) {
   );
 }
 
-function PaginatedTable({ properties, data, dataPerPage }) {
-  const [displayedData, setDisplayedData] = useState([]);
+function PaginatedTable({ properties, data, dataPerPage, pageChangeCallback }) {
+  const [segmentedData, setSegmentedData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const isInfinite = Boolean(pageChangeCallback);
 
   const items = data;
 
@@ -108,18 +102,24 @@ function PaginatedTable({ properties, data, dataPerPage }) {
     const dataRangeEnd = currentPage * dataPerPage;
 
     const pageData = slice(dataRangeStart, dataRangeEnd, items);
-    setDisplayedData(pageData);
+    setSegmentedData(pageData);
   }, [currentPage, items, dataPerPage]);
 
-  const paginationCallback = () => {
+  const paginationCallback = (currentPage) => {
     if (tableRef.current) {
       tableRef.current.scrollIntoView({ behavior: "smooth" });
     }
+
+    isInfinite && pageChangeCallback(currentPage);
   };
 
   useEffect(() => {
-    setCurrentPage(1);
-  }, [data]);
+    if (!isInfinite) {
+      setCurrentPage(1);
+    }
+  }, [data, isInfinite]);
+
+  const displayedData = isInfinite ? data : segmentedData;
 
   return (
     <div ref={tableRef} className="paginated-table">
@@ -166,6 +166,7 @@ function PaginatedTable({ properties, data, dataPerPage }) {
         maxPages={maxPages}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        infinite={isInfinite}
       />
     </div>
   );

@@ -1,5 +1,6 @@
 import axios from "axios";
-import { apiUrl, chainId, tokenAuth } from "@Constants";
+import { chainId, tokenAuth } from "@Constants";
+import { apiUrl } from "@Urls";
 
 const authorization = (token) => {
   return { headers: { Authorization: `Bearer ${token}` } };
@@ -44,13 +45,12 @@ const get = async (
 
 export async function fetchBlocks(
   successCallback,
-  rejectedCallback,
   page = 0,
   limit = 15
 ) {
   const offset = page * limit;
 
-  get(`${apiUrl}/blocks`, successCallback, rejectedCallback, {
+  get(`${apiUrl}/blocks`, successCallback, undefined, {
     limit,
     offset,
   });

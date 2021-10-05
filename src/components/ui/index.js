@@ -1,7 +1,8 @@
 export { default as Clipboardable } from "./Clipboardable/Clipboardable";
 export { default as Sidebar } from "./Sidebar/Sidebar";
-export { default as PaginatedTable } from "./PaginatedTable/PaginatedTable";
-export { default as Pagination } from "./PaginatedTable/Pagination";
+export { default as PaginatedTable } from "./Table/PaginatedTable";
+export { default as LazyTable } from "./Table/LazyTable";
+export { default as Pagination } from "./Table/Pagination";
 export { default as LoadingState } from "./LoadingState/LoadingState";
 export { default as SearchBar } from "./SearchBar/SearchBar";
 export { default as Heading } from "./Heading/Heading";

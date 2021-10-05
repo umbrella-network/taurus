@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { Datapairs } from "@Components";
+import { Datapairs, BlockIndex } from "@Components";
 import { BlocksProvider, ProofsProvider } from "@Store";
 import { Sidebar } from "@Ui";
 
@@ -17,6 +17,7 @@ function MainContent() {
           <Switch>
             <Route path="/blocks">
               <BlocksProvider>
+                <BlockIndex />
               </BlocksProvider>
             </Route>
 
