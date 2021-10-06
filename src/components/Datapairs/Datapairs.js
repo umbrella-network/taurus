@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { readableProof } from "@Formatters";
-
+import { HeaderCards } from "@Components";
 import { ArrowHamburger, Close } from "@Images";
 
 import {
@@ -70,6 +70,7 @@ function Datapairs() {
         Datapairs
         <span>{isLoading ? "Loading..." : `${list.length} pairs`}</span>
       </Heading>
+      <HeaderCards />
       <div
         className={classnames("datapairs__filters", {
           "datapairs__filters--open": isFilterOpen,

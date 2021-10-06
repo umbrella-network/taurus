@@ -46,6 +46,7 @@ function PaginatedTable({
   const maxPages = Math.ceil(dataLength / dataPerPage) || 0;
 
   const tableRef = useRef();
+  const isInitial = useRef(true);
 
   useEffect(() => {
     const dataRangeStart = (currentPage - 1) * dataPerPage;
@@ -56,9 +57,11 @@ function PaginatedTable({
   }, [currentPage, items, dataPerPage]);
 
   const paginationCallback = (currentPage) => {
-    if (tableRef.current) {
+    if (tableRef.current && !isInitial.current) {
       tableRef.current.scrollIntoView({ behavior: "smooth" });
     }
+
+    isInitial.current = false;
 
     isInfinite && pageChangeCallback(currentPage);
   };

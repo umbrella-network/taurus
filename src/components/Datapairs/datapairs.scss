@@ -4,13 +4,13 @@
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
-  grid-template-rows: 36px 96px 1fr;
+  grid-template-rows: 36px min-content 96px 1fr;
   padding: 0 $spacing-smaller;
   grid-gap: $spacing-medium;
   justify-self: center;
 
   @media(min-width: $tablet) {
-    grid-template-rows: 36px 48px 1fr;
+    grid-template-rows: 36px min-content 48px 1fr;
     max-width: 674px;
     padding: $spacing-large $spacing-medium;
   }

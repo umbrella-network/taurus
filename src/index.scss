@@ -47,6 +47,7 @@ main {
     display: grid;
     overflow: auto;
     grid-row-start: 2;
+    @extend %scroll;
 
     @media(min-width: $tablet) {
       grid-column-start: 2;
