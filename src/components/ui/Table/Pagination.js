@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { Arrow } from "@Images";
-
 import { range, isEmpty, splitEvery } from "ramda";
 
 import "./pagination.scss";
@@ -28,6 +27,7 @@ function Pagination({
   infinite,
 }) {
   const pageBreak = 3;
+  const isInitial = useRef(true);
   const [paginationRange, setPaginationRange] = useState([1]);
   const pageGroups = splitEvery(pageBreak, range(1, maxPages + 1));
 
@@ -39,7 +39,11 @@ function Pagination({
   const isLastPage = !infinite && (currentPage === maxPages || maxPages === 0);
 
   useEffect(() => {
-    callback(currentPage);
+    if (isInitial.current && !infinite) {
+      isInitial.current = false;
+    } else {
+      callback(currentPage);
+    }
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [currentPage]);
 

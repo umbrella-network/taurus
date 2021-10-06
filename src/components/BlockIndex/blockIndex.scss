@@ -51,7 +51,7 @@
     @media (max-width: $desktop) {
       border: none;
       box-shadow: none;
-      background: rgba(0, 0, 0, 0);
+      background: $transparent;
       border-radius: 0;
     }
 
@@ -64,44 +64,8 @@
         margin-bottom: 0;
         border-radius: $border-radius-large;
 
-        table {
-          grid-template-columns: 1fr;
-          grid-template-rows: repeat(2, min-content);
-          grid-gap: $spacing;
-
-          thead {
-            height: 24px;
-
-            th {
-              padding-bottom: 0;
-
-              &:last-child {
-                text-align: center;
-              }
-            }
-          }
-
-          tr {
-            display: grid;
-            grid-gap: $spacing-tiny;
-            grid-template-columns: 1fr repeat(3, 100px) repeat(3, 1fr);
-            align-items: center;
-
-            td {
-              font-size: $tinier;
-              line-height: 13px;
-
-              &:last-child {
-                text-align: center;
-              }
-            }
-          }
-
-          tbody {
-            display: grid;
-            grid-template-rows: repeat(10, 48px);
-            grid-gap: 0;
-          }
+        table tr {
+          grid-template-columns: 1fr repeat(3, 120px) repeat(3, 1fr);
         }
       }
     }

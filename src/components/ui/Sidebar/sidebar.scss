@@ -2,14 +2,14 @@
 
 .sidebar {
   display: grid;
-  background: rgba(0, 0, 0, 0);
+  background: $transparent;
   filter: drop-shadow(4px 0px 16px rgba(16, 30, 115, 0.08));
   z-index: 1;
   position: absolute;
   height: 73px;
 
   * {
-    background: rgba(0, 0, 0, 0);
+    background: $transparent;
   }
 
   .content {

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const properties = PropTypes.arrayOf(
+export const tableProperties = PropTypes.arrayOf(
   PropTypes.shape({
     key: PropTypes.string,
     valueCallback: PropTypes.func,
@@ -12,5 +12,6 @@ export const properties = PropTypes.arrayOf(
     urlKey: PropTypes.string,
     highlight: PropTypes.bool,
     urlPrefix: PropTypes.string,
+    onClick: PropTypes.func,
   })
 ).isRequired;

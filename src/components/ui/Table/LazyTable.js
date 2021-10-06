@@ -3,21 +3,9 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import { PaginatedTable, LoadingState } from "@Ui";
 
-import "./lazyTable.scss";
+import { tableProperties as properties } from "@Types";
 
-const properties = PropTypes.arrayOf(
-  PropTypes.shape({
-    key: PropTypes.string,
-    valueCallback: PropTypes.func,
-    label: PropTypes.string,
-    truncate: PropTypes.bool,
-    clipboardable: PropTypes.bool,
-    description: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    primary: PropTypes.bool,
-    urlKey: PropTypes.string,
-    highlight: PropTypes.bool,
-  })
-).isRequired;
+import "./lazyTable.scss";
 
 const propTypes = {
   properties,

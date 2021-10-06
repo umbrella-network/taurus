@@ -27,6 +27,7 @@ function BlockIndex() {
               label: "Block ID",
               primary: true,
               highlight: true,
+              urlPrefix: "/blocks",
             },
             {
               key: "root",

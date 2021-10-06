@@ -1,0 +1,13 @@
+@import '../../../assets/variables';
+
+.url {
+  text-decoration: none;
+  color: $highlight;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: $title-font-family;
+
+  &:hover {
+    color: $success;
+  }
+}

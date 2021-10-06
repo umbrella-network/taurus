@@ -1,0 +1,67 @@
+@import "../../../assets/variables";
+
+.layer {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  overflow: auto;
+  z-index: 5;
+  @extend %scroll;
+
+  @media (min-width: $tablet) {
+    overflow: hidden;
+  }
+
+  &__overlay {
+    @extend .layer;
+    background: $primary-dark;
+    opacity: 0.91;
+  }
+
+  &__card {
+    display: grid;
+    position: absolute;
+    grid-template-rows: min-content 1fr;
+    z-index: 6;
+    border-radius: 0;
+    width: 100%;
+    padding: $spacing $spacing-small;
+    @extend %scroll;
+
+    &--fill {
+      height: 100%;
+    }
+
+    @media (min-width: $tablet) {
+      max-height: calc(100% - 64px);
+      overflow: auto;
+      width: 560px;
+      height: initial;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: $border-radius-large;
+    }
+
+    .layer-card-header {
+      display: grid;
+      grid-template-columns: 1fr 30px;
+      align-items: center;
+
+      .heading {
+        font-size: $large;
+        text-align: center;
+      }
+
+      button {
+        border: none;
+        outline: none;
+        background: $transparent;
+        justify-self: end;
+        cursor: pointer;
+      }
+    }
+  }
+}

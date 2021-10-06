@@ -1,0 +1,72 @@
+@import '../../../assets/variables';
+
+.key-value-pairs {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  grid-column-gap: $spacing;
+  grid-row-gap: $spacing-table;
+  grid-auto-rows: min-content;
+  padding: $spacing $spacing-small;
+
+  @media (min-width: $tablet) {
+    padding: $spacing;
+  }
+
+  span, .value {
+    font-family: $font-family;
+  }
+
+  span, .value, .url {
+    font-size: $tinier;
+
+    @media (min-width: $mobile-large) {
+      font-size: $tiny;
+    }
+  }
+
+  span {
+    grid-column-start: 1;
+    color: $text-weak;
+    font-weight: 700;
+  }
+
+  .value {
+    grid-column-start: 2;
+    color: $text-weak;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &--primary, &--highlight {
+      color: $primary;
+    }
+
+    &--clickable {
+      cursor: pointer;
+    }
+
+    &--url {
+      color: $highlight;
+    }
+
+    &--full {
+      display: none;
+    }
+
+    @media (min-width: $desktop) {
+      &--full {
+        display: initial;
+      }
+
+      &--truncated {
+        display: none;
+      }
+    }
+
+    p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
