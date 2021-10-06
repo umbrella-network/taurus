@@ -29,3 +29,4 @@ export { default as Clipboard } from "./clipboard.svg";
 export { ReactComponent as Check } from "./check.svg";
 export { ReactComponent as ArrowHamburger } from "./ArrowHamburger.svg";
 export { ReactComponent as ArrowAlt } from "./ArrowAlt.svg";
+export { default as CheckedCircle } from "./CheckedCircle.svg";

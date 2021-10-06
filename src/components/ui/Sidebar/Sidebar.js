@@ -43,7 +43,7 @@ const options = [
     icon: Stack,
     hoverIcon: StackAlt,
     path: "/datapairs",
-    matches: ["/datapairs"],
+    matches: ["/datapairs", "/"],
   },
   {
     label: "Blocks",

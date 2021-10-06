@@ -37,14 +37,24 @@ function Pagination({
   const isFirstPage = currentPage === 1;
   const isLastPage = !infinite && (currentPage === maxPages || maxPages === 0);
 
-/* eslint-disable-next-line react-hooks/exhaustive-deps */
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
   useEffect(() => callback(currentPage), [currentPage]);
+
+  const infinitePaginationRange = (currentPage) => {
+    if (currentPage === 1) {
+      return [1, 2, 3];
+    } else {
+      return [currentPage - 1, currentPage, currentPage + 1];
+    }
+  };
 
   useEffect(() => {
     if (multipleRangeGroups) {
       setPaginationRange(
         pageGroups.find((pageGroup) => pageGroup.includes(currentPage))
       );
+    } else if (infinite) {
+      setPaginationRange(infinitePaginationRange(currentPage));
     } else {
       setPaginationRange(pageGroups[0]);
     }
@@ -105,19 +115,18 @@ function Pagination({
         >
           <Arrow />
         </button>
-        {!infinite &&
-          paginationRange?.map((page) => (
-            <button
-              className={classnames("pagination__button", {
-                "pagination__button--current-page": page === currentPage,
-              })}
-              key={`${JSON.stringify(setCurrentPage)} ${page} pagination`}
-              onClick={() => setCurrentPage(page)}
-              aria-label={`Go to page ${page}`}
-            >
-              <p>{page}</p>
-            </button>
-          ))}
+        {paginationRange?.map((page) => (
+          <button
+            className={classnames("pagination__button", {
+              "pagination__button--current-page": page === currentPage,
+            })}
+            key={`${JSON.stringify(setCurrentPage)} ${page} pagination`}
+            onClick={() => setCurrentPage(page)}
+            aria-label={`Go to page ${page}`}
+          >
+            <p>{page}</p>
+          </button>
+        ))}
         <button
           className={classnames(
             "pagination__button pagination__button--right",

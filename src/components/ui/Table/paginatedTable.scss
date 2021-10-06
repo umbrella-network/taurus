@@ -19,9 +19,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: grid;
-    grid-gap: $spacing-table;
-    line-height: 20px;
+    line-height: 24px;
 
     &--primary, &--highlight {
       color: $primary;
@@ -125,8 +123,6 @@
           }
 
           &:last-child {
-            text-align: center;
-            justify-items: center;
             padding-right: $spacing;
           }
         }
@@ -149,7 +145,6 @@
 
         &:last-child {
           padding-right: $spacing;
-          text-align: center;
         }
       }
     }
