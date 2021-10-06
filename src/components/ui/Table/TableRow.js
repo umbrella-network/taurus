@@ -66,7 +66,7 @@ function Content({ item, properties, paired }) {
             })}
             title={value}
           >
-            {formattedValue}
+            {value}
           </p>
         ));
 

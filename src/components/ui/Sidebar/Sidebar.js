@@ -131,11 +131,11 @@ function Sidebar() {
         <Menu />
       </button>
       <div className="content">
-        <div className="sidebar__header sidebar__link">
-          <a href="/">
+        <div aria-label="Home" className="sidebar__header sidebar__link">
+          <button onClick={() => handleClick({ path: "/", matches: [] })}>
             <img src={UmbrellaIcon} alt="" />
             <img src={UmbrellaTypography} className="typography" alt="" />
-          </a>
+          </button>
           <button aria-label="Close sidebar" onClick={close} className="close">
             <Close />
           </button>

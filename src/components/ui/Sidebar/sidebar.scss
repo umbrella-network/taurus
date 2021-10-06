@@ -53,7 +53,10 @@
     align-items: center;
     padding: $spacing $spacing 0;
 
-    a {
+    button {
+      border: none;
+      outline: none;
+      background: $transparent;
       display: grid;
       grid-gap: $spacing-tiniest;
       align-items: center;

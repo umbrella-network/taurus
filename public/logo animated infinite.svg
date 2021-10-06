@@ -1,19 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 347.25 270.67" width="341.25" height="266.67">
 	<defs>
 		<linearGradient id="grd1" gradientUnits="userSpaceOnUse"  x1="465.715" y1="208.626" x2="555.459" y2="53.186">
-			<stop offset="0" stop-color="#0054a6"  />
-			<stop offset="0.485" stop-color="#0054a6"  />
-			<stop offset="1" stop-color="#008fd4"  />
-			<stop offset="1" stop-color="#008fd4"  />
+			<stop offset="0" stop-color="#2B28B7"  />
+			<stop offset="0.485" stop-color="#00D483"  />
+			<stop offset="1" stop-color="#00D483"  />
+			<stop offset="1" stop-color="#00D483"  />
 		</linearGradient>
 		<clipPath clipPathUnits="userSpaceOnUse" id="cp1">
 			<path d="M-119 -533L1214.33 -533L1214.33 800.33L-119 800.33L-119 -533Z" />
 		</clipPath>
 		<linearGradient id="grd2" gradientUnits="userSpaceOnUse"  x1="116.601" y1="247.315" x2="246.979" y2="21.494">
-			<stop offset="0" stop-color="#0054a6"  />
-			<stop offset="0.485" stop-color="#0054a6"  />
-			<stop offset="1" stop-color="#008fd4"  />
-			<stop offset="1" stop-color="#008fd4"  />
+			<stop offset="0" stop-color="#2B28B7"  />
+			<stop offset="0.485" stop-color="#00D483"  />
+			<stop offset="1" stop-color="#00D483"  />
+			<stop offset="1" stop-color="#00D483"  />
 		</linearGradient>
 	</defs>
 	<style>

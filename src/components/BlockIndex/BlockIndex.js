@@ -20,6 +20,7 @@ function BlockIndex() {
       <Heading>Blocks</Heading>
       <Card className="block-index__table">
         <LazyTable
+          queryPage
           fetchCallback={fetchCallback}
           properties={[
             {

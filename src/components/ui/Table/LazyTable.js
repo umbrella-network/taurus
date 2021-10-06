@@ -11,13 +11,15 @@ const propTypes = {
   properties,
   dataPerPage: PropTypes.number,
   fetchCallback: PropTypes.func.isRequired,
+  queryPage: PropTypes.bool,
 };
 
 const defaultProps = {
   dataPerPage: 10,
+  queryPage: false,
 };
 
-function LazyTable({ properties, fetchCallback, dataPerPage }) {
+function LazyTable({ properties, fetchCallback, dataPerPage, queryPage }) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -36,6 +38,7 @@ function LazyTable({ properties, fetchCallback, dataPerPage }) {
       className={classnames("lazy-table", { "lazy-table--loading": isLoading })}
     >
       <PaginatedTable
+        queryPage={queryPage}
         data={data}
         properties={properties}
         pageChangeCallback={pageChangeCallback}

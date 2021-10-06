@@ -134,6 +134,7 @@ function Datapairs() {
         ) : (
           <PaginatedTable
             data={dataPairsListByType}
+            queryPage
             properties={[
               {
                 key: "key",

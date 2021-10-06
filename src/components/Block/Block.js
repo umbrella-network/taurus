@@ -98,6 +98,7 @@ function Block() {
                     label: "Root",
                     truncate: true,
                     highlight: true,
+                    clipboardable: true,
                   },
                   {
                     label: "Minter",
