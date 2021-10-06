@@ -9,29 +9,27 @@ function MainContent() {
   return (
     <main>
       <Router>
+        <Sidebar />
+
         <BlocksProvider>
-          <Sidebar />
+          <ProofsProvider>
+            <div className="main-content">
+              <Switch>
+                <Route path="/blocks/:id">
+                  <Block />
+                </Route>
+
+                <Route path="/blocks">
+                  <BlockIndex />
+                </Route>
+
+                <Route path={["/datapairs", "/"]}>
+                  <Datapairs />
+                </Route>
+              </Switch>
+            </div>
+          </ProofsProvider>
         </BlocksProvider>
-
-        <div className="main-content">
-          <Switch>
-            <Route path="/blocks/:id">
-              <Block />
-            </Route>
-
-            <Route path="/blocks">
-              <BlocksProvider>
-                <BlockIndex />
-              </BlocksProvider>
-            </Route>
-
-            <Route path={["/datapairs", "/"]}>
-              <ProofsProvider>
-                <Datapairs />
-              </ProofsProvider>
-            </Route>
-          </Switch>
-        </div>
       </Router>
     </main>
   );

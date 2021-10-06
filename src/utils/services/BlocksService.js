@@ -45,12 +45,13 @@ const get = async (
 
 export async function fetchBlocks(
   successCallback,
+  rejectedCallback,
   page = 0,
   limit = 15
 ) {
   const offset = page * limit;
 
-  get(`${apiUrl}/blocks`, successCallback, undefined, {
+  get(`${apiUrl}/blocks`, successCallback, rejectedCallback, {
     limit,
     offset,
   });

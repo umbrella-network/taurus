@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { Arrow } from "@Images";
@@ -27,7 +27,6 @@ function Pagination({
   infinite,
 }) {
   const pageBreak = 3;
-  const isInitial = useRef(true);
   const [paginationRange, setPaginationRange] = useState([1]);
   const pageGroups = splitEvery(pageBreak, range(1, maxPages + 1));
 
@@ -38,14 +37,8 @@ function Pagination({
   const isFirstPage = currentPage === 1;
   const isLastPage = !infinite && (currentPage === maxPages || maxPages === 0);
 
-  useEffect(() => {
-    if (isInitial.current && !infinite) {
-      isInitial.current = false;
-    } else {
-      callback(currentPage);
-    }
-    /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  }, [currentPage]);
+/* eslint-disable-next-line react-hooks/exhaustive-deps */
+  useEffect(() => callback(currentPage), [currentPage]);
 
   useEffect(() => {
     if (multipleRangeGroups) {

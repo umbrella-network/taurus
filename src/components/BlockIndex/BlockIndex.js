@@ -1,5 +1,5 @@
 import React from "react";
-
+import { HeaderCards } from "@Components";
 import { LazyTable, Heading, Card } from "@Ui";
 
 import { fetchBlocks } from "@Services";
@@ -12,12 +12,13 @@ import "./blockIndex.scss";
 
 function BlockIndex() {
   const fetchCallback = (page, callback) => {
-    fetchBlocks(callback, page, 10);
+    fetchBlocks(callback, undefined, page - 1, 10);
   };
 
   return (
     <div className="block-index">
       <Heading>Blocks</Heading>
+      <HeaderCards />
       <Card className="block-index__table">
         <LazyTable
           fetchCallback={fetchCallback}
