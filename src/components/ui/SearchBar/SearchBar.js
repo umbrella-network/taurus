@@ -15,12 +15,16 @@ const propTypes = {
   matchingKey: PropTypes.string.isRequired,
   type: PropTypes.oneOf(["dark", "slim", "regular"]),
   className: PropTypes.string,
+  keyWordsCallback: PropTypes.func,
+  error: PropTypes.bool,
 };
 
 const defaultProps = {
   placeholder: "Search...",
   type: "regular",
   className: undefined,
+  keyWordsCallback: () => {},
+  error: false,
 };
 
 function SearchBar({
@@ -30,6 +34,8 @@ function SearchBar({
   matchingKey,
   type,
   className,
+  keyWordsCallback,
+  error,
 }) {
   const [keyWords, setKeyWords] = useState([]);
   const [value, setValue] = React.useState("");
@@ -60,6 +66,7 @@ function SearchBar({
       callback(items);
     }
 
+    keyWordsCallback(keyWords);
     /* eslint-disable-next-line */
   }, [keyWords]);
 
@@ -68,6 +75,7 @@ function SearchBar({
       className={classnames("search-bar", {
         [`search-bar--${type}`]: type,
         [className]: className,
+        "search-bar--error": error,
       })}
     >
       <Search />

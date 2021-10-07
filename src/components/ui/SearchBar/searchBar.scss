@@ -19,7 +19,6 @@
 
   &--slim {
     border-radius: 0;
-    border-bottom: $boder-menu;
     grid-template-columns: 1fr;
     padding: $spacing-tiny 0;
     height: 34px;
@@ -50,6 +49,12 @@
       &::placeholder {
         color: white;
       }
+    }
+  }
+
+  &--error {
+    input {
+      color: $error;
     }
   }
 }

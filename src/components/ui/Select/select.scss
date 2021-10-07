@@ -28,9 +28,24 @@
     grid-template-columns: 20px 1fr;
     grid-gap: $spacing-table;
     align-items: center;
+    position: relative;
 
     .search-bar {
       width: 233px;
+    }
+
+    .error {
+      font-family: $font-family;
+      color: $error;
+      font-size: $tinier;
+      position: absolute;
+      width: 88px;
+      right: 9px;
+      top: 6px;
+      background: white;
+      z-index: 1;
+      padding: $spacing-tiny;
+      border-radius: $border-radius-large;
     }
   }
 

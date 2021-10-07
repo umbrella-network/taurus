@@ -21,6 +21,9 @@ function Select({ items, callback, matchingKey, placeholder, title }) {
   const [selected, setSelected] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [filteredItems, setFilteredItems] = useState(items);
+  const [keyWords, setKeyWords] = useState([]);
+
+  const isSearchEmpty = !isEmpty(keyWords) && isEmpty(filteredItems);
 
   const handleSelectAll = () => setSelectAll(!selectAll);
 
@@ -59,12 +62,20 @@ function Select({ items, callback, matchingKey, placeholder, title }) {
         <span>{` (${selected.length}/${items.length})`}</span>
       </p>
       <div className="select__search">
+        {isSearchEmpty && (
+          <p className="error">
+            *Key doesn't exist, please use the scroll bar, radio selection,
+            and/or check the format
+          </p>
+        )}
         <Checkbox checked={selectAll} handleChange={handleSelectAll} />
         <SearchBar
           items={items}
           matchingKey={matchingKey}
           callback={setFilteredItems}
           placeholder={placeholder}
+          error={isSearchEmpty}
+          keyWordsCallback={setKeyWords}
           type="slim"
         />
       </div>
