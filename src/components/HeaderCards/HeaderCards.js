@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { useBlocks, usePrices } from "@Store";
+import { usePrices } from "@Store";
 import { valueToToken } from "@Formatters";
 import { Card } from "@Ui";
 import { BlocksAltComponent, StackAltComponent, Shield, Staked } from "@Images";
@@ -12,16 +12,11 @@ import "./headerCards.scss";
 
 function HeaderCards() {
   const {
-    state: { blocks },
-  } = useBlocks();
-
-  const {
     state: {
+      proof: { block },
       datapairs: { list },
     },
   } = usePrices();
-
-  const [block] = blocks;
 
   const [latestBlock, setLatestBlock] = useState("Loading...");
   const [datapairs, setDatapairs] = useState("Loading...");
