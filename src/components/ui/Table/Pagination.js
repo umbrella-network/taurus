@@ -63,6 +63,7 @@ function Pagination({
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [currentPage, maxPages]);
 
+
   function handleChange({ target: { value } }) {
     const maxPagesLength = String(maxPages).length;
     const valueLength = String(value).length;

@@ -4,6 +4,8 @@ import { slice, isEmpty } from "ramda";
 
 import classnames from "classnames";
 
+import { useHistory, useLocation } from "react-router-dom";
+
 import { Info } from "@Ui";
 
 import { tableProperties as properties } from "@Types";
@@ -19,13 +21,15 @@ const propTypes = {
   dataPerPage: PropTypes.number,
   pageChangeCallback: PropTypes.func,
   mobileTable: PropTypes.bool,
+  queryPage: PropTypes.bool,
 };
 
 const defaultProps = {
   data: [],
   dataPerPage: 10,
   pageChangeCallback: undefined,
-  mobileTable: false
+  mobileTable: false,
+  queryPage: false,
 };
 
 function PaginatedTable({
@@ -34,19 +38,26 @@ function PaginatedTable({
   dataPerPage,
   pageChangeCallback,
   mobileTable,
+  queryPage,
 }) {
-  const [segmentedData, setSegmentedData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const isInfinite = Boolean(pageChangeCallback);
-
   const items = data;
 
   const dataLength = items.length;
   const maxPages = Math.ceil(dataLength / dataPerPage) || 0;
 
+  const isInfinite = Boolean(pageChangeCallback);
+
+  const query = new URLSearchParams(useLocation().search);
+  const history = useHistory();
+
+  const pageFromQuery = parseInt(query.get("page"));
+
+  const [segmentedData, setSegmentedData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const tableRef = useRef();
   const isInitial = useRef(true);
+  const hasSetPaginationFromQuery = useRef(false);
 
   useEffect(() => {
     const dataRangeStart = (currentPage - 1) * dataPerPage;
@@ -67,10 +78,30 @@ function PaginatedTable({
   };
 
   useEffect(() => {
-    if (!isInfinite) {
+    if (queryPage && (hasSetPaginationFromQuery.current || currentPage > 1)) {
+      const currentPath = history.location.pathname;
+      history.replace(`${currentPath}?page=${currentPage}`);
+    }
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (!isInfinite && (hasSetPaginationFromQuery.current || !queryPage)) {
       setCurrentPage(1);
     }
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [data, isInfinite]);
+
+  useEffect(() => {
+    const isPageValid =
+      !isNaN(pageFromQuery) && (pageFromQuery <= maxPages || isInfinite);
+
+    if (queryPage && isPageValid && !hasSetPaginationFromQuery.current) {
+      hasSetPaginationFromQuery.current = true;
+      setCurrentPage(pageFromQuery);
+    }
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, [maxPages]);
 
   const displayedData = isInfinite ? data : segmentedData;
 
@@ -125,6 +156,7 @@ function PaginatedTable({
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         infinite={isInfinite}
+        queryPage={queryPage}
       />
     </div>
   );
