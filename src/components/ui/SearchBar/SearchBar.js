@@ -1,111 +1,86 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { isEmpty, uniq } from "ramda";
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 
-import Select from "react-select";
+import PropTypes from "prop-types";
+import classnames from "classnames";
+import { debounce } from "lodash";
+import { isEmpty } from "ramda";
+import { Search } from "@Images";
 
 import "./searchBar.scss";
 
 const propTypes = {
-  items: PropTypes.array,
-  filterCallback: PropTypes.func,
-  isSearching: PropTypes.bool,
-  open: PropTypes.func,
-  close: PropTypes.func,
-  searchTerm: PropTypes.string,
+  placeholder: PropTypes.string,
+  callback: PropTypes.func.isRequired,
+  items: PropTypes.array.isRequired,
+  matchingKey: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(["dark", "slim", "regular"]),
+  className: PropTypes.string,
+  keyWordsCallback: PropTypes.func,
+  error: PropTypes.bool,
 };
 
 const defaultProps = {
-  items: [],
-  isSearching: false,
-  open: () => {},
-  close: () => {},
-  filterCallback: () => {},
-  searchTerm: undefined,
+  placeholder: "Search...",
+  type: "regular",
+  className: undefined,
+  keyWordsCallback: () => {},
+  error: false,
 };
 
 function SearchBar({
+  placeholder,
+  callback,
   items,
-  filterCallback,
-  searchTerm,
-  isSearching,
-  open,
-  close,
+  matchingKey,
+  type,
+  className,
+  keyWordsCallback,
+  error,
 }) {
-  const query = new URLSearchParams(useLocation().search);
-  const [selectValue, setSelectValue] = useState([]);
+  const [keyWords, setKeyWords] = useState([]);
+  const [value, setValue] = React.useState("");
 
-  const history = useHistory();
+  const handleValueChange = useCallback((value) => {
+    setKeyWords(value.split(" ").filter((value) => !isEmpty(value)));
+  }, []);
+
+  const valueChangeCallback = useRef(
+    debounce((value) => handleValueChange(value), 500)
+  ).current;
+
+  const handleChange = ({ target: { value } }) => {
+    setValue(value);
+    valueChangeCallback(value);
+  };
 
   useEffect(() => {
-    const queryItems = query.get("keys");
-
-    if (queryItems && !isEmpty(queryItems)) {
-      const parsedQueryItems = queryItems
-        .split(",")
-        .map((item) => ({ label: item }));
-
-      handleChange(parsedQueryItems);
+    if (!isEmpty(keyWords)) {
+      callback(
+        items.filter((item) =>
+          new RegExp(keyWords.join("|"), "i").test(
+            matchingKey ? item[matchingKey] : item
+          )
+        )
+      );
+    } else {
+      callback(items);
     }
 
-    /*eslint-disable-next-line */
-  }, [items]);
-
-  function valueFromItem(item) {
-    return searchTerm ? item[searchTerm] : item;
-  }
-
-  const options = items.map((item) => ({
-    label: valueFromItem(item),
-    value: valueFromItem(item),
-  }));
-
-  const handleUrl = (selectedItems) => {
-    const currentPath = history.location.pathname;
-    const nextPathname = isEmpty(selectedItems)
-      ? currentPath
-      : `${currentPath}?keys=${selectedItems.sort().toString()}`;
-
-    history.replace(nextPathname);
-  };
-
-  const handleChange = (selected) => {
-    setSelectValue(uniq(selected));
-    const selectedItems = Array.isArray(selected)
-      ? selected.map(({ label }) => label)
-      : [selected.label];
-
-    const filteredItems = items.filter((item) =>
-      selectedItems.includes(valueFromItem(item))
-    );
-
-    handleUrl(selectedItems);
-    filterCallback(filteredItems);
-  };
+    keyWordsCallback(keyWords);
+    /* eslint-disable-next-line */
+  }, [keyWords]);
 
   return (
-    <Select
-      isMulti
-      isSearchable
-      placeholder="Select pairs..."
-      options={options}
-      className="search-bar"
-      onChange={handleChange}
-      theme={(theme) => ({
-        ...theme,
-        borderRadius: "6px",
-        colors: {
-          ...theme.colors,
-          primary: "#1988F7",
-        },
+    <div
+      className={classnames("search-bar", {
+        [`search-bar--${type}`]: type,
+        [className]: className,
+        "search-bar--error": error,
       })}
-      blurInputOnSelect={false}
-      menuIsOpen={isSearching}
-      onFocus={open}
-      onBlur={close}
-      value={selectValue}
-    />
+    >
+      <Search />
+      <input value={value} placeholder={placeholder} onInput={handleChange} />
+    </div>
   );
 }
 

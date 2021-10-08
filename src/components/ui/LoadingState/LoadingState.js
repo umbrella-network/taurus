@@ -1,12 +1,13 @@
 import React from "react";
-import { Grid, Image } from "grommet";
 import { Loading } from "@Images";
+
+import "./loadingState.scss";
 
 function LoadingState() {
   return (
-    <Grid justifyContent="center" fill alignContent="center" gap="medium">
-      <Image src={Loading} style={{ width: "280px" }} />
-    </Grid>
+    <div className="loading-state">
+      <img src={Loading} alt="" />
+    </div>
   );
 }
 

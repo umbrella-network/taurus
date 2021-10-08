@@ -1,0 +1,19 @@
+.lazy-table {
+  .loading-state {
+    display: none;
+  }
+
+  &--loading {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+
+    .loading-state {
+      display: initial;
+    }
+
+    .paginated-table {
+      display: none;
+    }
+  }
+}

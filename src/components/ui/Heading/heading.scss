@@ -1,0 +1,29 @@
+@import '../../../assets/variables';
+
+.heading {
+  display: grid;
+  grid-gap: $spacing-tiny;
+  font-family: $title-font-family;
+  color: $primary-dark;
+  font-size: $smaller;
+  line-height: 18px;
+  align-items: center;
+
+  @media (min-width: $mobile-large) {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+  }
+
+  span {
+    font-family: $secondary-font-family;
+    color: $text-weaker;
+    font-size: $tiny;
+    font-weight: 700;
+  }
+
+  @media (min-width: $desktop) {
+    grid-gap: $spacing-small;
+    line-height: 36px;
+    font-size: $large;
+  }
+}
