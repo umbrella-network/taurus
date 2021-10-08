@@ -10,9 +10,14 @@ import "./dropdown.scss";
 
 const propTypes = {
   title: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };
 
-function Dropdown({ title, children }) {
+const defaultProps = {
+  className: undefined,
+};
+
+function Dropdown({ title, children, className }) {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const close = () => setIsOpen(false);
@@ -22,7 +27,10 @@ function Dropdown({ title, children }) {
   return (
     <div
       ref={ref}
-      className={classnames("dropdown", { "dropdown--open": isOpen })}
+      className={classnames("dropdown", {
+        "dropdown--open": isOpen,
+        [className]: className,
+      })}
     >
       <button className="dropdown__button" onClick={toggle}>
         {title}
@@ -39,5 +47,6 @@ function Dropdown({ title, children }) {
 }
 
 Dropdown.propTypes = propTypes;
+Dropdown.defaultProps = defaultProps;
 
 export default Dropdown;

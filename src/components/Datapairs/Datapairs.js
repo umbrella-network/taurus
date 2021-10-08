@@ -10,10 +10,8 @@ import {
   LoadingState,
   PaginatedTable,
   SearchBar,
-  Toggle,
   Select,
   Dropdown,
-  Radio,
 } from "@Ui";
 
 import { usePrices } from "@Store";
@@ -27,24 +25,14 @@ const typeLabel = (data) =>
     .filter((value) => value)
     .join("/");
 
-const L2 = "L2";
-const FCD = "FCD";
+const L2 = { type: "Layer 2" };
+const FCD = { type: "First class" };
 
-const radioButtons = [
-  {
-    label: "First-class",
-    value: FCD,
-  },
-  {
-    label: "Layer 2",
-    value: L2,
-  },
-];
+const dataTypes = [L2, FCD];
 
 function Datapairs() {
-  const [isL2, setIsL2] = useState(true);
-  const isFCD = !isL2;
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [selectedDataTypes, setSelectedDataTypes] = useState(dataTypes);
 
   const {
     state: {
@@ -56,12 +44,10 @@ function Datapairs() {
 
   useEffect(() => setFilteredItems(list), [list]);
 
-  const handleL2 = ({ target: { checked } }) => setIsL2(checked);
-
-  const handleL2Radio = (value) => setIsL2(value === L2);
-
   const dataPairsListByType = filteredItems.filter(
-    (dataPair) => dataPair.isL2 === isL2 || dataPair.isFCD === isFCD
+    (dataPair) =>
+      (selectedDataTypes.includes(L2) && dataPair.isL2) ||
+      (selectedDataTypes.includes(FCD) && dataPair.isFCD)
   );
 
   return (
@@ -92,9 +78,10 @@ function Datapairs() {
           matchingKey="key"
           items={list}
         />
-        <Dropdown title="Key">
+        <Dropdown title="Key" className="key-select">
           <div>
             <Select
+              className="key-select"
               title="Key"
               callback={setFilteredItems}
               matchingKey="key"
@@ -103,20 +90,19 @@ function Datapairs() {
             />
           </div>
         </Dropdown>
-        <Toggle
-          checked={isL2}
-          handleChange={handleL2}
-          checkedLabel="Layer 2"
-          checkedAcronym="L2"
-          uncheckedLabel="First Class"
-          uncheckedAcronym="FCD"
-        />
-        <Radio
-          handleChange={handleL2Radio}
-          options={radioButtons}
-          value={isL2 ? "L2" : "FCD"}
-          label="Type"
-        />
+        <Dropdown title="Type" className="type-select">
+          <div>
+            <Select
+              searchable={false}
+              startSelected
+              keepOne
+              title="Type"
+              callback={setSelectedDataTypes}
+              matchingKey="type"
+              items={dataTypes}
+            />
+          </div>
+        </Dropdown>
         <button onClick={() => setIsFilterOpen(false)} className="save-button">
           Save
         </button>

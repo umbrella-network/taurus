@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { Datapairs, BlockIndex, Block } from "@Components";
-import { BlocksProvider, ProofsProvider } from "@Store";
+import { ProofsProvider } from "@Store";
 import { Sidebar } from "@Ui";
 
 function MainContent() {

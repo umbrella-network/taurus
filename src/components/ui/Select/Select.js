@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+
 import { SearchBar, Checkbox } from "@Ui";
+
 import { isEmpty } from "ramda";
 
 import "./select.scss";
@@ -11,15 +13,32 @@ const propTypes = {
   matchingKey: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   title: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  searchable: PropTypes.bool,
+  startSelected: PropTypes.bool,
+  keepOne: PropTypes.bool,
 };
 
 const defaultProps = {
   placeholder: "Search...",
+  searchable: true,
+  startSelected: false,
+  keepOne: false,
 };
 
-function Select({ items, callback, matchingKey, placeholder, title }) {
-  const [selected, setSelected] = useState([]);
-  const [selectAll, setSelectAll] = useState(false);
+function Select({
+  items,
+  callback,
+  matchingKey,
+  placeholder,
+  title,
+  className,
+  searchable,
+  startSelected,
+  keepOne,
+}) {
+  const [selected, setSelected] = useState(startSelected ? items : []);
+  const [selectAll, setSelectAll] = useState(startSelected);
   const [filteredItems, setFilteredItems] = useState(items);
   const [keyWords, setKeyWords] = useState([]);
 
@@ -51,7 +70,9 @@ function Select({ items, callback, matchingKey, placeholder, title }) {
     if (!selected.includes(item)) {
       setSelected(Array.from(new Set([...selected, item])));
     } else {
-      setSelected(selected.filter((selectedItem) => selectedItem !== item));
+      if (!(keepOne && selected.length === 1)) {
+        setSelected(selected.filter((selectedItem) => selectedItem !== item));
+      }
     }
   };
 
@@ -61,24 +82,26 @@ function Select({ items, callback, matchingKey, placeholder, title }) {
         {title}
         <span>{` (${selected.length}/${items.length})`}</span>
       </p>
-      <div className="select__search">
-        {isSearchEmpty && (
-          <p className="error">
-            *Key doesn't exist, please use the scroll bar, radio selection,
-            and/or check the format
-          </p>
-        )}
-        <Checkbox checked={selectAll} handleChange={handleSelectAll} />
-        <SearchBar
-          items={items}
-          matchingKey={matchingKey}
-          callback={setFilteredItems}
-          placeholder={placeholder}
-          error={isSearchEmpty}
-          keyWordsCallback={setKeyWords}
-          type="slim"
-        />
-      </div>
+      {searchable && (
+        <div className="select__search">
+          {isSearchEmpty && (
+            <p className="error">
+              *Key doesn't exist, please use the scroll bar, radio selection,
+              and/or check the format
+            </p>
+          )}
+          <Checkbox checked={selectAll} handleChange={handleSelectAll} />
+          <SearchBar
+            items={items}
+            matchingKey={matchingKey}
+            callback={setFilteredItems}
+            placeholder={placeholder}
+            error={isSearchEmpty}
+            keyWordsCallback={setKeyWords}
+            type="slim"
+          />
+        </div>
+      )}
       <div className="select__keys">
         {displayedList.map((item) => (
           <Checkbox
