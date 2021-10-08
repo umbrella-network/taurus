@@ -13,7 +13,6 @@ import {
 import { readableProof, leafToString, keyToHex, arrayToReadableJSON } from "@Formatters";
 
 import { scanUrl } from "@Urls";
-
 import { fetchLeaves } from "@Services";
 
 import "./leaves.scss";
@@ -78,11 +77,13 @@ function Leaves({ block, id, leavesLengthCallback }) {
                 {
                   key: "value",
                   label: "Value (bytes)",
+                  clipboardable: true,
                   truncate: true
                 },
                 {
                   key: "blockId",
                   label: "Block ID",
+                  clipboardable: true,
                 },
               ]}
             />
@@ -117,6 +118,14 @@ function Leaves({ block, id, leavesLengthCallback }) {
                 description:
                   "This is the price (or any other type of data that we are supporting)",
               },
+                {
+                  label: "Key (bytes)",
+                  valueCallback: (value) =>
+                    keyToHex(value.key),
+                  description: "This is the byte representation of the Key",
+                  truncate: true,
+                  clipboardable: true,
+                },
               {
                 key: "value",
                 label: "Value (Bytes)",
