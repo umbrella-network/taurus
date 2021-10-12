@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Redesign
 
+## [0.8.3] - 2021-10-12
+### Added
+
+- Makefile and github actions updated with polygon deployment
 ## [0.8.2] - 2021-09-30
 
 ### Fix
