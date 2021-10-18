@@ -29,6 +29,59 @@
     line-height: 19px;
   }
 
+  .error-state {
+    justify-self: center;
+    align-self: center;
+
+    .card {
+      grid-gap: $spacing-small;
+      grid-template-rows: repeat(2, min-content);
+      padding: $spacing-large $spacing-small;
+    }
+
+    &__message {
+      display: grid;
+      align-items: center;
+      grid-gap: $spacing-tiny;
+      padding-bottom: $spacing-small;
+
+      @media(min-width: $mobile-large) {
+        grid-template-rows: 1fr;
+        grid-template-columns: min-content max-content;
+      }
+
+      svg {
+        justify-self: center;
+      }
+
+      svg rect {
+        fill: $error;
+      }
+
+      p {
+        font-family: $font-family;
+        font-size: $tiny;
+        font-weight: 300;
+        color: $text-weak;
+
+        span {
+          color: $error;
+          font-weight: 500;
+        }
+
+        @media(min-width: $mobile-large) {
+          font-size: $smaller;
+        }
+      }
+
+      border-bottom: 1px solid $error;
+    }
+
+    a {
+      text-align: center;
+    }
+  }
+
   &__header {
     display: grid;
     grid-template-columns: min-content max-content;
