@@ -35,27 +35,32 @@ function Content({ item, properties, paired }) {
     const formattedValue = property.truncate ? truncate(value, 4) : value;
     const hasUrl = property.urlKey || property.urlPrefix;
     const url = item[property.urlKey] ?? `${property.urlPrefix}/${value}`;
+    const title = item[property.titleKey] ?? value;
+
     const valuesToRender = [
       {
         className: "value--truncated",
         value: formattedValue,
+        title,
       },
       {
         className: "value--full",
         value: value,
+        title,
       },
     ];
 
     const displayedValue = hasUrl
-      ? valuesToRender.map(({ value, className }) => (
+      ? valuesToRender.map(({ value, title, className }) => (
           <Url
             key={`url for ${value} ${className}`}
             className={`value value--url ${className}`}
             label={value}
             url={url}
+            title={title}
           />
         ))
-      : valuesToRender.map(({ value, className }) => (
+      : valuesToRender.map(({ value, title, className }) => (
           <p
             key={`p for ${value} ${className}`}
             className={classnames("value", {
@@ -64,7 +69,7 @@ function Content({ item, properties, paired }) {
               "value--clickable": property.onClick,
               [className]: className,
             })}
-            title={value}
+            title={title}
           >
             {value}
           </p>

@@ -111,11 +111,13 @@ function Block() {
                     label: "Staked",
                     valueCallback: (value) =>
                       valueToToken({ value: value.staked, truncate: true }),
+                    titleKey: "staked",
                   },
                   {
                     label: "Power",
                     valueCallback: (value) =>
                       valueToToken({ value: value.power, truncate: true }),
+                    titleKey: "power",
                   },
                 ]}
               />

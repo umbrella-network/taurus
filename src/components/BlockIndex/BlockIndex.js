@@ -56,11 +56,13 @@ function BlockIndex() {
               label: "Staked",
               valueCallback: (value) => valueToToken({ value: value.staked, truncate: true }),
               description: "This is the amount that has been staked during this block",
+              titleKey: "staked",
             },
             {
               label: "Power",
               valueCallback: (value) => valueToToken({ value: value.power, truncate: true }),
               description: "This is the amount that the validator staked in the most recent block",
+              titleKey: "power",
             },
             {
               label: "Age",

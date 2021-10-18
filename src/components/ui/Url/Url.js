@@ -9,13 +9,15 @@ const propTypes = {
   url: PropTypes.string.isRequired,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   className: PropTypes.string,
+  title: PropTypes.string,
 };
 
 const defaultProps = {
   className: undefined,
+  title: undefined,
 };
 
-function Url({ url, label, className }) {
+function Url({ url, label, className, title }) {
   const isInternal = url.startsWith("/");
   const history = useHistory();
   const rest = isInternal
@@ -28,6 +30,7 @@ function Url({ url, label, className }) {
       className={classnames("url", { [className]: className })}
       {...rest}
       onClick={handleClick}
+      title={title}
     >
       {label}
     </a>

@@ -13,5 +13,6 @@ export const tableProperties = PropTypes.arrayOf(
     highlight: PropTypes.bool,
     urlPrefix: PropTypes.string,
     onClick: PropTypes.func,
+    titleKey: PropTypes.string,
   })
 ).isRequired;
