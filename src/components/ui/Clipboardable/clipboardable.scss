@@ -1,0 +1,26 @@
+@import '../../../assets/variables';
+
+.clipboardable {
+  display: grid;
+  align-items: center;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  grid-gap: $tiniest;
+
+  &__button {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background: $transparent;
+    display: grid;
+    align-items: start;
+    justify-items: start;
+
+    img {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

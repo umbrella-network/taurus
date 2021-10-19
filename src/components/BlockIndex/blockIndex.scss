@@ -1,0 +1,73 @@
+@import '../../assets/variables';
+
+.block-index {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  grid-template-rows: 36px min-content 1fr;
+  padding: 0 $spacing-smaller;
+  grid-gap: $spacing-medium;
+  justify-self: center;
+
+  @media(min-width: $tablet) {
+    max-width: 674px;
+    padding: $spacing-large $spacing-medium;
+  }
+
+  @media (min-width: $desktop) {
+    max-width: 1110px;
+  }
+
+  &__table {
+    width: 100%;
+    justify-self: center;
+    justify-items: center;
+
+    .lazy-table {
+      width: 100%;
+    }
+
+    @media (min-width: $mobile-large) {
+      .paginated-table {
+        margin-bottom: $spacing-small;
+
+        table tr td {
+          font-size: $tinier;
+          font-size: $tiny;
+        }
+      }
+    }
+
+    @media (max-width: $tablet) {
+      .paginated-table {
+        .pagination__navigation {
+          .navigation, p {
+            margin-bottom: $spacing-small;
+          }
+        }
+      }
+    }
+
+    @media (max-width: $desktop) {
+      border: none;
+      box-shadow: none;
+      background: $transparent;
+      border-radius: 0;
+    }
+
+    @media (min-width: $desktop) {
+      width: 100%;
+      max-width: 1110px;
+      height: 650px;
+
+      .paginated-table {
+        margin-bottom: 0;
+        border-radius: $border-radius-large;
+
+        table tr {
+          grid-template-columns: 1fr repeat(3, 120px) repeat(3, 1fr);
+        }
+      }
+    }
+  }
+}

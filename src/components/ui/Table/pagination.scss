@@ -1,0 +1,170 @@
+@import '../../../assets/variables';
+
+.pagination {
+  display: grid;
+  height: 32px;
+  align-items: center;
+  justify-items: center;
+  grid-gap: $spacing-tiny;
+
+  @media(min-width: $tablet) {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    grid-gap: $spacing-tiniest;
+  }
+
+  &__buttons {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min-content;
+    grid-gap: $spacing-tiniest;
+  }
+
+  &__button {
+    grid-row-start: 1;
+    user-select: none;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    border: $boder-menu;
+    border-radius: $border-radius-large;
+    background: white;
+    width: 32px;
+    height: 32px;
+    transition: background 250ms ease;
+
+    svg {
+      path {
+        fill: $primary-dark;
+      }
+    }
+
+    p {
+      transition: color 250ms ease;
+      font-family: $font-family;
+      color: $primary-dark;
+      font-size: $tinier;
+      font-weight: 400;
+    }
+
+    &:hover {
+      background: $background-light;
+    }
+
+    &--current-page {
+      background: $primary;
+      pointer-events: none;
+
+      p {
+        color: white;
+      }
+
+      &:hover {
+        background: $primary;
+
+        p {
+          color: white;
+        }
+      }
+    }
+
+    &--disabled {
+      &:hover {
+        cursor: initial;
+        background: white;
+      }
+
+      svg {
+        path {
+          fill: $background-light;
+        }
+      }
+    }
+
+    &--right {
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &__divider {
+    display: none;
+
+    @media (min-width: $tablet) {
+      display: initial;
+      margin: 0 $spacing-tiny;
+      border-radius: $border-radius-large;
+      background: $primary-dark;
+      height: 27px;
+      width: 2px;
+      align-self: center;
+    }
+  }
+
+  &__navigation {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    grid-gap: $spacing-smaller;
+    align-items: center;
+    grid-row-start: 2;
+
+    @media(min-width: $tablet) {
+      grid-row-start: 1;
+    }
+
+    p {
+      font-size: $tinier;
+      font-family: $font-family;
+      color: $primary-dark;
+    }
+
+    .navigation {
+      display: grid;
+      grid-template-columns: 32px 16px;
+      border: $boder-menu;
+      border-radius: $border-radius-large;
+      padding: $spacing-tiny;
+      height: 32px;
+      background: white;
+
+      &__input, &__button {
+        user-select: none;
+        text-decoration: none;
+        outline: none;
+        border: none;
+        border-radius: 0;
+        background: white;
+      }
+
+      &__input {
+        font-size: $tinier;
+        font-family: $font-family;
+        color: $primary-dark;
+        text-align: center;
+
+        &::placeholder {
+          color: $background-light;
+          font-size: $tinier;
+        }
+      }
+
+      &__button {
+        cursor: pointer;
+        display: grid;
+        transition: background 250ms ease;
+        align-items: center;
+        justify-items: center;
+
+        svg {
+          transform: rotate(180deg);
+
+          path {
+            fill: $primary-dark;
+          }
+        }
+      }
+    }
+  }
+}

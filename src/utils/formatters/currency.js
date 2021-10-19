@@ -5,6 +5,8 @@ export function valueToToken({
   token = "UMB",
   truncate = false,
   precision = 18,
+  floatDecimals = 18,
+  toFloat = false,
 }) {
   const valueText = `${value}`;
   const [integer, decimals] = splitAt(precision * -1, valueText);
@@ -16,9 +18,12 @@ export function valueToToken({
   const paddedDecimals = decimals.padStart(precision, "0");
 
   const formattedInteger = isDecimalNumber ? "0" : integer;
-  const formattedDecimals = truncate
+  const trucatedDecimals = truncate
     ? `${splitAt(decimalsToTruncate + 2, paddedDecimals)[0]}...`
     : paddedDecimals;
 
-  return `${formattedInteger}.${formattedDecimals} ${token}`;
+  const [formattedDecimals] = splitAt(floatDecimals, trucatedDecimals);
+  const parsedValue = `${formattedInteger}.${formattedDecimals}`;
+
+  return toFloat ? parseFloat(parsedValue) : `${parsedValue} ${token}`;
 }

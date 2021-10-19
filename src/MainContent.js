@@ -1,61 +1,35 @@
-import React, { useContext } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { Box, Grid, ResponsiveContext } from "grommet";
-
-import { BlocksTable, FirstClassData, LayerTwoData } from "@Components";
-import { BlocksProvider, ProofsProvider } from "@Store";
-import { HeaderContent, FooterContent } from "@Ui";
-import { isSizeMobile } from "@Utils";
-import { isIOS } from "react-device-detect";
+import { Datapairs, BlockIndex, Block } from "@Components";
+import { ProofsProvider } from "@Store";
+import { Sidebar } from "@Ui";
 
 function MainContent() {
-  const size = useContext(ResponsiveContext);
-  const isMobile = isSizeMobile(size);
-
   return (
-    <Grid
-      fill
-      rows={["max-content", "minmax(max-content, auto)", "min-content"]}
-    >
+    <main>
       <Router>
-        <BlocksProvider>
-          <HeaderContent />
-        </BlocksProvider>
+        <Sidebar />
 
-        <Box
-          align="center"
-          background="light-1"
-          gap="2rem"
-          pad="medium"
-          style={isIOS ? { width: "100vw" } : { width: "100%" }}
-        >
-          <Box fill width={{ max: "1366px" }}>
+        <ProofsProvider>
+          <div className="main-content">
             <Switch>
-              <Route path="/first-class-data">
-                <ProofsProvider>
-                  <FirstClassData />
-                </ProofsProvider>
+              <Route path="/blocks/:id">
+                <Block />
               </Route>
 
-              <Route path="/layer-2-data">
-                <ProofsProvider>
-                  <LayerTwoData />
-                </ProofsProvider>
+              <Route path="/blocks">
+                <BlockIndex />
               </Route>
 
-              <Route path={["/blocks/:id", "/"]}>
-                <BlocksProvider>
-                  <BlocksTable />
-                </BlocksProvider>
+              <Route path={["/datapairs", "/"]}>
+                <Datapairs />
               </Route>
             </Switch>
-          </Box>
-        </Box>
-
-        {!isMobile && <FooterContent />}
+          </div>
+        </ProofsProvider>
       </Router>
-    </Grid>
+    </main>
   );
 }
 

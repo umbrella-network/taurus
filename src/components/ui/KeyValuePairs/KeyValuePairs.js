@@ -1,56 +1,26 @@
 import React from "react";
+
 import PropTypes from "prop-types";
 
-import { Box, Text } from "grommet";
+import { tableProperties as properties } from "@Types";
 
-import { Clipboardable } from "@Ui";
+import { TableRow } from "@Ui";
 
-const KeyPropTypes = {
-  text: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-};
-
-function KeyText({ text }) {
-  return <Text weight={400}>{text}</Text>;
-}
+import "./keyValuePairs.scss";
 
 const propTypes = {
-  items: PropTypes.array.isRequired,
+  item: PropTypes.object.isRequired,
+  properties,
 };
 
-function KeyValuePairs({ items, ...rest }) {
+function KeyValuePairs({ item, properties }) {
   return (
-    <Box direction="column" {...rest}>
-      {items.map(
-        ({
-          key,
-          value = undefined,
-          childValue = undefined,
-          clipboardable = false,
-          clipboardableValue = undefined,
-        }) => (
-          <Box direction="row" justify="between" key={key}>
-            {clipboardable ? (
-              <Clipboardable size="small" text={clipboardableValue ?? value}>
-                <KeyText text={key} />
-              </Clipboardable>
-            ) : (
-              <KeyText text={key} />
-            )}
-            {childValue ? (
-              childValue
-            ) : (
-              <Text key={`value-for-${key}`} textAlign="end" weight={200}>
-                {value}
-              </Text>
-            )}
-          </Box>
-        )
-      )}
-    </Box>
+    <div className="key-value-pairs">
+      <TableRow item={item} properties={properties} paired />
+    </div>
   );
 }
 
-KeyText.propTypes = KeyPropTypes;
 KeyValuePairs.propTypes = propTypes;
 
 export default KeyValuePairs;

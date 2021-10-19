@@ -1,4 +1,4 @@
-export { default as BlocksTable } from "./BlocksTable";
-export { default as LayerTwoData } from "./LayerTwoData/LayerTwoData";
+export { default as Datapairs } from "./Datapairs/Datapairs";
+export { default as BlockIndex } from "./BlockIndex/BlockIndex";
 export { default as Block } from "./Block/Block";
-export { default as FirstClassData } from "./FirstClassData/FirstClassData";
+export { default as HeaderCards } from "./HeaderCards/HeaderCards";

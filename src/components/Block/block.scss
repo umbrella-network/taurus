@@ -1,0 +1,130 @@
+@import '../../assets/variables';
+
+.block {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  grid-template-rows: 36px 1fr;
+  padding: 0 $spacing-smaller;
+  grid-gap: $spacing-medium;
+  justify-self: center;
+
+  @media(min-width: $tablet) {
+    max-width: 674px;
+    padding: $spacing-large $spacing-medium;
+  }
+
+  @media (min-width: $desktop) {
+    max-width: 1110px;
+  }
+
+  .loading-state {
+    justify-self: center;
+    align-self: center;
+    grid-row-start: 2;
+  }
+
+  .heading {
+    font-size: $smaller;
+    line-height: 19px;
+  }
+
+  .error-state {
+    justify-self: center;
+    align-self: center;
+
+    .card {
+      grid-gap: $spacing-small;
+      grid-template-rows: repeat(2, min-content);
+      padding: $spacing-large $spacing-small;
+    }
+
+    &__message {
+      display: grid;
+      align-items: center;
+      grid-gap: $spacing-tiny;
+      padding-bottom: $spacing-small;
+
+      @media(min-width: $mobile-large) {
+        grid-template-rows: 1fr;
+        grid-template-columns: min-content max-content;
+      }
+
+      svg {
+        justify-self: center;
+      }
+
+      svg rect {
+        fill: $error;
+      }
+
+      p {
+        font-family: $font-family;
+        font-size: $tiny;
+        font-weight: 300;
+        color: $text-weak;
+
+        span {
+          color: $error;
+          font-weight: 500;
+        }
+
+        @media(min-width: $mobile-large) {
+          font-size: $smaller;
+        }
+      }
+
+      border-bottom: 1px solid $error;
+    }
+
+    a {
+      text-align: center;
+    }
+  }
+
+  &__header {
+    display: grid;
+    grid-template-columns: min-content max-content;
+    grid-gap: $spacing-smaller;
+
+    button {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      background: $transparent;
+    }
+  }
+
+  &__body {
+    display: grid;
+    grid-gap: $spacing-small;
+
+    .validators, .leaves {
+      margin-bottom: $spacing-table;
+      background: $transparent;
+      box-shadow: none;
+    }
+
+    @media (min-width: $desktop) {
+      .leaves {
+        height: 440px;
+      }
+
+      .validators, .leaves {
+        margin-bottom: $spacing-table;
+        box-shadow: $box-shadow;
+        background: white;
+
+        > div {
+          border-radius: $border-radius-large;
+        }
+      }
+
+      .validators {
+        tr {
+          grid-template-columns: 300px max-content;
+        }
+      }
+    }
+  }
+}

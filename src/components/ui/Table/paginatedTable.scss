@@ -1,0 +1,189 @@
+@import '../../../assets/variables';
+
+.paginated-table {
+  display: grid;
+  grid-gap: $spacing-small;
+  width: 100%;
+  height: 100%;
+  grid-template-rows: 1fr 74px;
+
+  &__empty-state {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .value {
+    font-size: $tiny;
+    font-family: $font-family;
+    color: $text-weak;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 24px;
+    display: grid;
+
+    &--primary, &--highlight {
+      color: $primary;
+    }
+
+    &--clickable {
+      cursor: pointer;
+    }
+
+    &--url {
+      color: $highlight;
+    }
+
+
+    p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+
+    &--full {
+      display: none !important;
+    }
+
+    span {
+      font-family: $secondary-font-family;
+      font-weight: 700;
+      color: $primary-dark;
+    }
+  }
+
+  table {
+    display: grid;
+    grid-gap: $spacing-small;
+
+    thead {
+      display: none;
+    }
+
+    tbody {
+      display: grid;
+      grid-gap: $spacing-small;
+      width: 100%;
+
+      tr {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        background: white;
+        box-shadow: $box-shadow;
+        border-radius: $border-radius-large;
+        padding: $spacing $spacing-small;
+        grid-column-gap: $spacing-small;
+        grid-row-gap: $spacing-smaller;
+
+        @media (min-width: $mobile-large) {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+
+        @media (min-width: $tablet) {
+          padding: $spacing-medium $spacing;
+          grid-column-gap: $spacing;
+          grid-row-gap: $spacing-small;
+        }
+      }
+    }
+  }
+
+@mixin forced-table {
+  background: white;
+  padding: $spacing 0;
+  grid-gap: $spacing;
+
+  .pagination {
+    padding: 0 $spacing;
+  }
+
+  table {
+    width: 100%;
+    border-spacing: 0;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, min-content);
+    grid-gap: $spacing;
+
+    thead, tbody {
+      display: grid;
+
+      tr {
+        padding: 0;
+        display: grid;
+        grid-gap: $spacing-tiny;
+        align-items: center;
+        box-shadow: none;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+
+        td {
+          font-size: $tinier;
+          line-height: 13px;
+
+          &:first-child {
+            padding-left: $spacing;
+          }
+
+          &:last-child {
+            padding-right: $spacing;
+          }
+        }
+      }
+    }
+
+    thead {
+      height: 24px;
+
+      tr > th {
+        text-align: start;
+        font-family: $font-family;
+        font-weight: 700;
+        color: $primary-dark;
+        font-size: $label;
+
+        &:first-child {
+          padding-left: $spacing;
+        }
+
+        &:last-child {
+          padding-right: $spacing;
+        }
+      }
+    }
+
+    tbody {
+      display: grid;
+      grid-auto-flow: row;
+      grid-auto-rows: 48px;
+      grid-gap: 0;
+
+      tr:nth-child(odd) {
+        background: $background-table;
+      }
+
+      .value--primary {
+        font-weight: 700;
+      }
+
+      tr {
+        td {
+          span {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+  &--mobile-table {
+    @include forced-table;
+  }
+
+  @media (min-width: $desktop) {
+    grid-template-rows: 1fr 32px;
+    @include forced-table;
+  }
+}
