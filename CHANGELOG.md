@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Fix
 
 - Address typo
+- Datapairs table item labeling and formatting
 
 ## [1.0.0] - 2021-10-08
 

@@ -50,10 +50,12 @@ export function arrayToString(array = []) {
 function formatFCD(data) {
   return {
     value: data.value.toString(),
-    key: data._id,
-    keyHex: keyToHex(data._id),
+    id: data._id,
+    key: data.key,
+    keyHex: keyToHex(data.key),
     dataTimestamp: data.dataTimestamp,
     isFCD: true,
+    type: "First class",
   };
 }
 
@@ -61,6 +63,7 @@ function formatLeaf(data, block) {
   return {
     value: leafToString(data.value, data.key),
     valueBytes: data.value,
+    id: data._id,
     key: data.key,
     keyHex: keyToHex(data.key),
     proof: data.proof,
@@ -69,23 +72,14 @@ function formatLeaf(data, block) {
     chainAddress: block.chainAddress,
     chainAddressScanUrl: `${process.env.REACT_APP_SCAN_URL}/${block.chainAddress}`,
     isL2: true,
+    type: "Layer 2",
   };
 }
 
 function mergeFirstClassWithLeafs(firstClassData, leaves) {
-  const mergedData = leaves.map((leaf) => {
-    const duplicateFCD =
-      firstClassData.find(({ key }) => key === leaf.key) ?? {};
-
-    return {
-      ...duplicateFCD,
-      ...leaf,
-    };
-  });
-
   return sortBy(
     prop("key"),
-    uniqBy(prop("key"), [...firstClassData, ...mergedData])
+    uniqBy(prop("id"), [...firstClassData, ...leaves])
   );
 }
 

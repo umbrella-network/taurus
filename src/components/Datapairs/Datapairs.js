@@ -20,11 +20,6 @@ import classnames from "classnames";
 
 import "./datapairs.scss";
 
-const typeLabel = (data) =>
-  [data.isFCD && "First-class", data.isL2 && "Layer 2"]
-    .filter((value) => value)
-    .join("/");
-
 const L2 = { type: "Layer 2" };
 const FCD = { type: "First class" };
 
@@ -136,7 +131,7 @@ function Datapairs() {
                   "This is the price (or any other type of data that we are supporting)",
               },
               {
-                valueCallback: typeLabel,
+                key: "type",
                 label: "Type",
                 description: (
                   <>
