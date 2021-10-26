@@ -141,7 +141,7 @@ function Block() {
               data={parsedVoters}
               properties={[
                 {
-                  label: "Adress",
+                  label: "Address",
                   urlPrefix: bscScanUrl,
                   key: "address",
                   truncate: true,
