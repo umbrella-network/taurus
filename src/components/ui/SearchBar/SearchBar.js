@@ -41,7 +41,11 @@ function SearchBar({
   const [value, setValue] = React.useState("");
 
   const handleValueChange = useCallback((value) => {
-    setKeyWords(value.split(" ").filter((value) => !isEmpty(value)));
+    setKeyWords(
+      value
+        .split(/(?=[^-])\W/)
+        .filter((value) => !isEmpty(value))
+    );
   }, []);
 
   const valueChangeCallback = useRef(
