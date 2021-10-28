@@ -20,16 +20,20 @@ const propTypes = {
   properties,
   dataPerPage: PropTypes.number,
   pageChangeCallback: PropTypes.func,
+  callback: PropTypes.func,
   mobileTable: PropTypes.bool,
   queryPage: PropTypes.bool,
+  shouldGoToFirstPage: PropTypes.bool,
 };
 
 const defaultProps = {
   data: [],
   dataPerPage: 10,
   pageChangeCallback: undefined,
+  callback: () => {},
   mobileTable: false,
   queryPage: false,
+  shouldGoToFirstPage: false,
 };
 
 function PaginatedTable({
@@ -37,8 +41,10 @@ function PaginatedTable({
   data,
   dataPerPage,
   pageChangeCallback,
+  callback,
   mobileTable,
   queryPage,
+  shouldGoToFirstPage,
 }) {
   const items = data;
 
@@ -102,6 +108,20 @@ function PaginatedTable({
     }
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [maxPages]);
+
+  useEffect(() => {
+    if (!isInitial.current) {
+      callback();
+    }
+
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (shouldGoToFirstPage && !isInitial.current) {
+      setCurrentPage(1);
+    }
+  }, [shouldGoToFirstPage]);
 
   const displayedData = isInfinite ? data : segmentedData;
 
