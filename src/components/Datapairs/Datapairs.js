@@ -28,6 +28,7 @@ const dataTypes = [L2, FCD];
 function Datapairs() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedDataTypes, setSelectedDataTypes] = useState(dataTypes);
+  const [goToFirstPage, setGoToFirstPage] = useState(false);
 
   const {
     state: {
@@ -38,6 +39,11 @@ function Datapairs() {
   const [filteredItems, setFilteredItems] = useState(list);
 
   useEffect(() => setFilteredItems(list), [list]);
+
+  const handleListFilter = (filteredList) => {
+    setFilteredItems(filteredList);
+    setGoToFirstPage(true);
+  };
 
   const dataPairsListByType = filteredItems.filter(
     (dataPair) =>
@@ -69,7 +75,7 @@ function Datapairs() {
         <SearchBar
           className="datapairs-key-search"
           placeholder="Start typing to filter results..."
-          callback={setFilteredItems}
+          callback={handleListFilter}
           matchingKey="key"
           items={list}
         />
@@ -78,7 +84,7 @@ function Datapairs() {
             <Select
               className="key-select"
               title="Key"
-              callback={setFilteredItems}
+              callback={handleListFilter}
               matchingKey="key"
               items={list}
               placeholder="Search for key..."
@@ -117,6 +123,8 @@ function Datapairs() {
           <PaginatedTable
             data={dataPairsListByType}
             queryPage
+            shouldGoToFirstPage={goToFirstPage}
+            callback={() => setGoToFirstPage(false)}
             properties={[
               {
                 key: "key",
