@@ -1,0 +1,48 @@
+@import '../../assets/variables';
+
+.chain-select {
+  width: 200px;
+
+  .dropdown__button {
+    box-shadow: 1px 1px 5px rgba(16, 30, 115, 0.08);
+    background-color: $background-light;
+    border-radius: 100px;
+    height: 48px;
+    width: 200px;
+    grid-template-columns: 1fr 24px;
+  }
+
+  &--open {
+    .chain-select__chains {
+      display: grid;
+      grid-auto-rows: 48px;
+    }
+  }
+
+  &__chains {
+    box-shadow: 1px 1px 5px rgba(16, 30, 115, 0.08);
+    background-color: white;
+    border-radius: 4px;
+    width: 200px;
+
+    .url {
+      padding: $spacing-tiny $spacing-smaller;
+      color: $primary;
+      font-size: $tiny;
+      display: grid;
+      align-content: center;
+
+      &:hover {
+        background-color: $background-light;
+      }
+
+      &:first-child {
+        border-radius: 4px 4px 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 0 4px 4px;
+      }
+    }
+  }
+}
