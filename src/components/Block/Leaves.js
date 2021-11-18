@@ -6,6 +6,8 @@ import {
   PaginatedTable,
   Card,
   Heading,
+  Select,
+  Dropdown,
   Layer,
   KeyValuePairs,
   Clipboardable,
@@ -28,6 +30,8 @@ function Leaves({ block, id, leavesLengthCallback }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(undefined);
 
+  const [filteredItems, setFilteredItems] = useState(leaves ?? []);
+
   const [currentLeaf, setCurrentLeaf] = useState(undefined);
   const close = () => setCurrentLeaf(undefined);
 
@@ -39,6 +43,12 @@ function Leaves({ block, id, leavesLengthCallback }) {
 
   /* eslint-disable-next-line */
   }, [leaves, error]);
+
+  useEffect(() => {
+    if (leaves) {
+      setFilteredItems(leaves);
+    }
+  }, [leaves]);
 
   /* eslint-disable-next-line */
   useEffect(() => fetchLeaves(id, setLeaves, setError), []);
@@ -95,6 +105,18 @@ function Leaves({ block, id, leavesLengthCallback }) {
           </div>
         </Layer>
       )}
+      <Dropdown title="Key" className="key-select">
+        <div>
+          <Select
+            className="key-select"
+            title="Key"
+            callback={setFilteredItems}
+            matchingKey="key"
+            items={leaves ?? []}
+            placeholder="Search for key..."
+          />
+        </div>
+      </Dropdown>
       <Heading>
         Block {id} Layer 2 data{" "}
         {Boolean(leaves?.length) && <span>{leaves.length} total</span>}
@@ -103,7 +125,7 @@ function Leaves({ block, id, leavesLengthCallback }) {
         {isLoading && <LoadingState />}
         {!isLoading && !error && (
           <PaginatedTable
-            data={leaves}
+            data={filteredItems}
             properties={[
               {
                 key: "key",

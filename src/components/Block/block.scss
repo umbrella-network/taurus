@@ -105,6 +105,11 @@
       box-shadow: none;
     }
 
+    .key-select {
+      display: grid;
+      grid-template-columns: min-content;
+    }
+
     @media (min-width: $desktop) {
       .leaves {
         height: 440px;
