@@ -43,6 +43,16 @@ main {
     grid-template-columns: 256px 1fr;
   }
 
+  > .chain-select {
+    position: absolute;
+    right: $spacing-small;
+    top: $spacing;
+
+    @media(min-width: $tablet) {
+      display: none;
+    }
+  }
+
   .main-content {
     display: grid;
     overflow: auto;
