@@ -17,7 +17,7 @@ function BlockIndex() {
 
   return (
     <div className="block-index">
-      <Heading>Blocks</Heading>
+      <Heading primary>Blocks</Heading>
       <HeaderCards />
       <Card className="block-index__table">
         <LazyTable
