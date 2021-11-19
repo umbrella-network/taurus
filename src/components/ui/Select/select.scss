@@ -32,7 +32,9 @@
 
     .search-bar {
       width: 233px;
-      border-bottom: $boder-menu;
+      border: $boder-menu;
+      padding: $spacing-tiny;
+      border-radius: $border-radius-large;
     }
 
     .error {
