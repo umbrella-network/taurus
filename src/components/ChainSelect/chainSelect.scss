@@ -10,6 +10,26 @@
     height: 48px;
     width: 200px;
     grid-template-columns: 1fr 24px;
+    font-family: $title-font-family;
+    color: white;
+    background-color: $primary;
+
+    svg {
+      path {
+        fill: white;
+      }
+    }
+
+    &:hover {
+      color: $primary;
+      background-color: white;
+
+      svg {
+        path {
+          fill: $primary;
+        }
+      }
+    }
   }
 
   &--open {
@@ -33,7 +53,8 @@
       align-content: center;
 
       &:hover {
-        background-color: $background-light;
+        color: white;
+        background-color: $primary;
       }
 
       &:first-child {
