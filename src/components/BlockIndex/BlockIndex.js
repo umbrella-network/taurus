@@ -67,6 +67,7 @@ function BlockIndex() {
             {
               label: "Age",
               valueCallback: (value) => readableAgeFromTimestamp(value.dataTimestamp),
+              titleKey: "dataTimestamp",
             }
           ]}
         />
