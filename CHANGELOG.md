@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Chain selection
 - Search bar to block leaves keys
+- Border to select search
+- Add timestamp to age title
+- Add timestamp to block
 
 ## [1.1.3] - 2021-11-11
 
