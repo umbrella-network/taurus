@@ -3,11 +3,9 @@ import React from "react";
 import { Dropdown, Url } from "@Ui";
 import { scanForChain } from "@Urls";
 import {
-  testnet,
-  mainnet,
   currentChain,
-  chainNetwork,
-  isDev,
+  currentNetwork,
+  environment,
   availableChains,
 } from "@Constants";
 
@@ -21,14 +19,14 @@ function ChainSelect() {
   return (
     <Dropdown
       className="chain-select"
-      title={`${currentChain} ${chainNetwork}`}
+      title={`${currentChain} ${currentNetwork}`}
     >
       <div className="chain-select__chains">
         {chains.map((chain) => (
           <Url
             secondary
             url={scanForChain(chain.symbol)}
-            label={`${chain.name} ${isDev ? testnet : mainnet}`}
+            label={`${chain.name} ${chain[environment]}`}
             key={`${JSON.stringify(chain)}-explorer-dropdown`}
           />
         ))}
