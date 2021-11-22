@@ -33,16 +33,6 @@ export function keyToHex(key) {
   }
 }
 
-export function leafToString(value, key) {
-  try {
-    const stringValue = LeafValueCoder.decode(value, key);
-    return stringValue;
-  } catch (error) {
-    console.log(`error decoding ${key}: `, error);
-    return "";
-  }
-}
-
 export function arrayToString(array = []) {
   return `[${array.map((e) => `"${e}"`).join()}]`;
 }
@@ -51,7 +41,7 @@ function formatFCD(data) {
   return {
     value: data.value.toString(),
     id: data._id,
-    key: data.key,
+    key: LeafValueCoder.printableKey(data.key),
     keyHex: keyToHex(data.key),
     dataTimestamp: data.dataTimestamp,
     isFCD: true,
@@ -59,12 +49,12 @@ function formatFCD(data) {
   };
 }
 
-function formatLeaf(data, block) {
+export function formatLeaf(data, block) {
   return {
-    value: leafToString(data.value, data.key),
+    value: LeafValueCoder.printableValue(data.value, data.key),
     valueBytes: data.value,
     id: data._id,
-    key: data.key,
+    key: LeafValueCoder.printableKey(data.key),
     keyHex: keyToHex(data.key),
     proof: data.proof,
     dataTimestamp: block.dataTimestamp,
