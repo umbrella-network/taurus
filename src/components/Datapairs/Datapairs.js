@@ -53,7 +53,7 @@ function Datapairs() {
 
   return (
     <div className="datapairs">
-      <Heading>
+      <Heading primary>
         Datapairs
         <span>{isLoading ? "Loading..." : `${list.length} pairs`}</span>
       </Heading>

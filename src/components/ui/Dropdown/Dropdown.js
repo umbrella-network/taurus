@@ -30,6 +30,7 @@ function Dropdown({ title, children, className }) {
       className={classnames("dropdown", {
         "dropdown--open": isOpen,
         [className]: className,
+        [`${className}--open`]: className && isOpen,
       })}
     >
       <button className="dropdown__button" onClick={toggle}>

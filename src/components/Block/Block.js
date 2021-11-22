@@ -87,6 +87,11 @@ function Block() {
                     readableAgeFromTimestamp(value.dataTimestamp),
                 },
                 {
+                  label: "Timestamp",
+                  key: "dataTimestamp",
+                  clipboardable: true,
+                },
+                {
                   label: "L2 data pairs",
                   valueCallback: () => leavesLength,
                 },

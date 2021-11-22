@@ -4,18 +4,18 @@
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
-  grid-template-rows: 36px 1fr;
+  grid-template-rows: 48px 1fr;
   padding: 0 $spacing-smaller;
   grid-gap: $spacing-medium;
   justify-self: center;
 
   @media(min-width: $tablet) {
-    max-width: 674px;
+    max-width: $content-tablet;
     padding: $spacing-large $spacing-medium;
   }
 
   @media (min-width: $desktop) {
-    max-width: 1110px;
+    max-width: $content;
   }
 
   .loading-state {
@@ -103,6 +103,11 @@
       margin-bottom: $spacing-table;
       background: $transparent;
       box-shadow: none;
+    }
+
+    .key-select {
+      display: grid;
+      grid-template-columns: min-content;
     }
 
     @media (min-width: $desktop) {
