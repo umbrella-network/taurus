@@ -7,6 +7,7 @@ import {
   currentNetwork,
   environment,
   availableChains,
+  mainnet,
 } from "@Constants";
 
 import "./chainSelect.scss";
@@ -26,7 +27,7 @@ function ChainSelect() {
           <Url
             secondary
             url={scanForChain(chain.symbol)}
-            label={`${chain.name} ${chain[environment]}`}
+            label={`${chain.name} ${chain[environment] ?? mainnet}`}
             key={`${JSON.stringify(chain)}-explorer-dropdown`}
           />
         ))}

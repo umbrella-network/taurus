@@ -1,7 +1,7 @@
 import { isEmpty } from "ramda";
 
 const baseChain = "bsc";
-const mainnet = "Mainnet"
+export const mainnet = "Mainnet"
 
 const chain = process.env.REACT_APP_FOREIGN_CHAIN_ID;
 
