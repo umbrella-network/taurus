@@ -13,6 +13,8 @@
     font-family: $title-font-family;
     color: white;
     background-color: $primary;
+    grid-gap: 0;
+    padding: $spacing-small;
 
     svg {
       path {
