@@ -1,4 +1,11 @@
-export const chainId = process.env.REACT_APP_FOREIGN_CHAIN_ID;
+import { isEmpty } from "ramda";
+
+const baseChain = "bsc";
+const mainnet = "Mainnet"
+
+const chain = process.env.REACT_APP_FOREIGN_CHAIN_ID;
+
+export const chainId = chain && !isEmpty(chain) ? chain : baseChain;
 export const tokenAuth = process.env.REACT_APP_TOKEN_AUTH;
 
 export const devEnvironments = ["dev", "sbx"];
@@ -10,7 +17,7 @@ export const environment = devEnvironments.find((environment) =>
 export const isDev = devEnvironments.includes(environment);
 
 export const availableChains = {
-  undefined: {
+  bsc: {
     name: "BSC",
     symbol: "bsc",
     dev: "Testnet",
@@ -41,4 +48,4 @@ export const availableChains = {
 };
 
 export const currentChain = availableChains[chainId].name;
-export const currentNetwork = availableChains[chainId][environment];
+export const currentNetwork = availableChains[chainId][environment] ?? mainnet;
