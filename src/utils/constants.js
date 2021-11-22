@@ -44,6 +44,7 @@ export const availableChains = {
     dev: "Testnet",
     sbx: "Testnet",
     prod: "Mainnet",
+    devOnly: true,
   },
 };
 

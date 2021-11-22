@@ -8,13 +8,14 @@ import {
   environment,
   availableChains,
   mainnet,
+  isDev,
 } from "@Constants";
 
 import "./chainSelect.scss";
 
 function ChainSelect() {
   const chains = Object.values(availableChains).filter(
-    ({ name }) => name !== currentChain
+    ({ name, devOnly = false }) => name !== currentChain && (isDev || !devOnly)
   );
 
   return (
