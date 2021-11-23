@@ -12,7 +12,8 @@ import {
   KeyValuePairs,
   Clipboardable,
 } from "@Ui";
-import { readableProof, leafToString, keyToHex, arrayToReadableJSON } from "@Formatters";
+
+import { readableProof, formatLeaf, arrayToReadableJSON } from "@Formatters";
 
 import { scanUrl } from "@Urls";
 import { fetchLeaves } from "@Services";
@@ -35,13 +36,17 @@ function Leaves({ block, id, leavesLengthCallback }) {
   const [currentLeaf, setCurrentLeaf] = useState(undefined);
   const close = () => setCurrentLeaf(undefined);
 
+  const handleLeaves = (leaves) => {
+    setLeaves(leaves.map((leaf) => formatLeaf(leaf, block)));
+  };
+
   useEffect(() => {
     if (leaves || error) {
       setIsLoading(false);
       leavesLengthCallback(leaves.length);
     }
 
-  /* eslint-disable-next-line */
+    /* eslint-disable-next-line */
   }, [leaves, error]);
 
   useEffect(() => {
@@ -51,7 +56,7 @@ function Leaves({ block, id, leavesLengthCallback }) {
   }, [leaves]);
 
   /* eslint-disable-next-line */
-  useEffect(() => fetchLeaves(id, setLeaves, setError), []);
+  useEffect(() => fetchLeaves(id, handleLeaves, setError), []);
 
   return (
     <>
@@ -74,21 +79,20 @@ function Leaves({ block, id, leavesLengthCallback }) {
                   label: "Key",
                 },
                 {
-                  valueCallback: (data) => leafToString(data.value, data.key),
                   label: "Value",
+                  key: "value",
                 },
                 {
                   label: "Key (bytes)",
-                  valueCallback: (value) =>
-                    keyToHex(value.key),
+                  key: "keyHex",
                   truncate: true,
                   clipboardable: true,
                 },
                 {
-                  key: "value",
+                  key: "valueBytes",
                   label: "Value (bytes)",
                   clipboardable: true,
-                  truncate: true
+                  truncate: true,
                 },
                 {
                   key: "blockId",
@@ -99,7 +103,10 @@ function Leaves({ block, id, leavesLengthCallback }) {
             />
             <div className="proof-copy">
               <p>Proof</p>
-              <Clipboardable text={readableProof(currentLeaf)} label="Click to copy" />
+              <Clipboardable
+                text={readableProof(currentLeaf)}
+                label="Click to copy"
+              />
             </div>
             <p className="proof">{arrayToReadableJSON(currentLeaf.proof)}</p>
           </div>
@@ -135,21 +142,20 @@ function Leaves({ block, id, leavesLengthCallback }) {
                 onClick: setCurrentLeaf,
               },
               {
-                valueCallback: (data) => leafToString(data.value, data.key),
                 label: "Value",
+                key: "value",
                 description:
                   "This is the price (or any other type of data that we are supporting)",
               },
-                {
-                  label: "Key (bytes)",
-                  valueCallback: (value) =>
-                    keyToHex(value.key),
-                  description: "This is the byte representation of the Key",
-                  truncate: true,
-                  clipboardable: true,
-                },
               {
-                key: "value",
+                label: "Key (bytes)",
+                key: "keyHex",
+                description: "This is the byte representation of the Key",
+                truncate: true,
+                clipboardable: true,
+              },
+              {
+                key: "valueBytes",
                 label: "Value (Bytes)",
                 description: "This is the byte representation of the Value",
                 highlight: true,
