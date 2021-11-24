@@ -28,7 +28,13 @@
     }
 
     &--clickable {
+      font-weight: 500;
+      color: $primary;
       cursor: pointer;
+
+      &:hover {
+        color: $primary-dark;
+      }
     }
 
     &--url {
