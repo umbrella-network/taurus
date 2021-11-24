@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
+import { List } from "react-virtualized";
 import { SearchBar, Checkbox } from "@Ui";
 
 import { isEmpty } from "ramda";
@@ -103,14 +104,30 @@ function Select({
         </div>
       )}
       <div className="select__keys">
-        {displayedList.map((item) => (
-          <Checkbox
-            key={`${JSON.stringify(item)} select`}
-            checked={selected.includes(item)}
-            handleChange={() => handleValueChange(item)}
-            label={matchingKey ? item[matchingKey] : item}
-          />
-        ))}
+        <List
+          height={180}
+          rowHeight={28}
+          width={260}
+          rowCount={displayedList.length}
+          overscanRowCount={20}
+          rowRenderer={({ index, style }) => {
+            const item = displayedList[index];
+
+            return (
+              <div
+                key={`${JSON.stringify(item)} select`}
+                className="checkbox-container"
+                style={style}
+              >
+                <Checkbox
+                  checked={selected.includes(item)}
+                  handleChange={() => handleValueChange(item)}
+                  label={matchingKey ? item[matchingKey] : item}
+                />
+              </div>
+            );
+          }}
+        />
       </div>
     </div>
   );
