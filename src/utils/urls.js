@@ -1,4 +1,4 @@
-import { environment, isDev } from "@Constants";
+import { environment, isDev, PRODUCTION } from "@Constants";
 
 export const apiUrl = process.env.REACT_APP_BLOCKS_API;
 export const scanUrl = process.env.REACT_APP_SCAN_URL;
@@ -7,7 +7,9 @@ export const bscScanUrl = isDev
   : "https://bscscan.com/address";
 
 export const scanForChain = (chain) => {
-  const urlModifiers = ["explorer", chain, environment].filter(
+  const urlEnv = environment !== PRODUCTION && environment;
+
+  const urlModifiers = ["explorer", chain, urlEnv].filter(
     (element) => element
   );
 
