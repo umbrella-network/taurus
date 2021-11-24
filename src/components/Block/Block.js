@@ -71,7 +71,6 @@ function Block() {
                 {
                   key: "chainAddress",
                   label: "Chain Address",
-                  primary: true,
                   urlPrefix: scanUrl,
                   truncate: true,
                   clipboardable: true,
@@ -79,7 +78,6 @@ function Block() {
                 {
                   key: "blockId",
                   label: "Block ID",
-                  highlight: true,
                 },
                 {
                   label: "Age",
@@ -107,7 +105,6 @@ function Block() {
                   key: "root",
                   label: "Root",
                   truncate: true,
-                  highlight: true,
                   clipboardable: true,
                 },
                 {

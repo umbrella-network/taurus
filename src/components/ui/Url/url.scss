@@ -2,12 +2,12 @@
 
 .url {
   text-decoration: none;
-  color: $highlight;
-  font-weight: bold;
+  color: $primary;
+  font-weight: 500;
   cursor: pointer;
-  font-family: $title-font-family;
+  font-family: $font-family;
 
   &:hover {
-    color: $success;
+    color: $primary-dark;
   }
 }

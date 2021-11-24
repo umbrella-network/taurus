@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 
 import { usePrices } from "@Store";
 import { valueToToken } from "@Formatters";
-import { Card } from "@Ui";
+import { Card, Url } from "@Ui";
 import { BlocksAltComponent, StackAltComponent, Shield, Staked } from "@Images";
 
 import { isEmpty } from "ramda";
 import millify from "millify";
 
 import "./headerCards.scss";
+
+const loading = "Loading...";
 
 function HeaderCards() {
   const {
@@ -18,10 +20,10 @@ function HeaderCards() {
     },
   } = usePrices();
 
-  const [latestBlock, setLatestBlock] = useState("Loading...");
-  const [datapairs, setDatapairs] = useState("Loading...");
-  const [validators, setValidators] = useState("Loading...");
-  const [staked, setStaked] = useState("Loading...");
+  const [latestBlock, setLatestBlock] = useState(loading);
+  const [datapairs, setDatapairs] = useState(loading);
+  const [validators, setValidators] = useState(loading);
+  const [staked, setStaked] = useState(loading);
 
   useEffect(() => {
     if (block) {
@@ -51,11 +53,13 @@ function HeaderCards() {
     {
       label: "Latest block",
       value: latestBlock,
+      url: `/blocks/${latestBlock}`,
       icon: <BlocksAltComponent />,
     },
     {
       label: "Total datapairs",
       value: datapairs,
+      url: "/datapairs",
       icon: <StackAltComponent />,
     },
     {
@@ -72,11 +76,15 @@ function HeaderCards() {
 
   return (
     <div className="header-cards">
-      {data.map(({ value, label, icon }) => (
+      {data.map(({ value, label, icon, url }) => (
         <Card key={`${value} card ${label}`} className="header-cards__card">
           {icon}
           <p className="header-card__label">{label}</p>
-          <p className="header-card__value">{value}</p>
+          {url && value !== loading ? (
+            <Url className="header-card__value" label={value} url={url} />
+          ) : (
+            <p className="header-card__value">{value}</p>
+          )}
         </Card>
       ))}
     </div>
