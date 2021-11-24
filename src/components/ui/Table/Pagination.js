@@ -63,7 +63,6 @@ function Pagination({
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [currentPage, maxPages]);
 
-
   function handleChange({ target: { value } }) {
     const maxPagesLength = String(maxPages).length;
     const valueLength = String(value).length;
@@ -91,7 +90,9 @@ function Pagination({
     setCurrentPage(previousPage);
   }
 
-  function goToPageFromInput() {
+  function goToPageFromInput(event) {
+    event.preventDefault();
+
     const shouldGoToPage =
       !isEmpty(pageInputValue) &&
       pageInputValue <= maxPages &&
@@ -145,7 +146,7 @@ function Pagination({
       <div className="pagination__divider" />
       <div className="pagination__navigation">
         <p>Go To:</p>
-        <div className="navigation">
+        <form className="navigation" onSubmit={goToPageFromInput}>
           <input
             className="navigation__input"
             value={pageInputValue}
@@ -159,7 +160,7 @@ function Pagination({
           >
             <Arrow />
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
