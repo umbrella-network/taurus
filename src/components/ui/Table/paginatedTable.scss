@@ -24,7 +24,7 @@
     display: grid;
 
     &--primary, &--highlight {
-      color: $primary;
+      color: $primary-dark;
     }
 
     &--clickable {
@@ -32,9 +32,8 @@
     }
 
     &--url {
-      color: $highlight;
+      color: $primary;
     }
-
 
     p {
       white-space: nowrap;
@@ -164,7 +163,7 @@
       }
 
       .value--primary {
-        font-weight: 700;
+        font-weight: 400;
       }
 
       tr {

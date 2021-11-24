@@ -164,7 +164,6 @@ function Datapairs() {
                   "Only Layer 2 requires this information and it can be used to find the address of the blockchain that this key was checked on",
                 truncate: true,
                 clipboardable: true,
-                highlight: true,
               },
               {
                 key: "keyHex",
@@ -177,7 +176,6 @@ function Datapairs() {
                 key: "valueBytes",
                 label: "Value (Bytes)",
                 description: "This is the byte representation of the Value",
-                highlight: true,
                 truncate: true,
                 clipboardable: true,
               },

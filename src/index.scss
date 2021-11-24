@@ -16,12 +16,12 @@
 
   &::selection {
     color: white;
-    background: $highlight;
+    background: $primary;
   }
 
   &::-moz-selection {
     color: white;
-    background: $highlight;
+    background: $primary;
   }
 }
 

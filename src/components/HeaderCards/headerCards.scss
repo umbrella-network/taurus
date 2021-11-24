@@ -40,9 +40,8 @@
         grid-row: 1;
       }
 
-      &__value {
+      &__value, a {
         font-family: $secondary-font-family;
-        color: $primary;
         font-size: $smaller;
         grid-column: 2;
         grid-row: 2;
