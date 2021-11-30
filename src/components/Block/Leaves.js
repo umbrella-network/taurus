@@ -138,7 +138,6 @@ function Leaves({ block, id, leavesLengthCallback }) {
                 key: "key",
                 label: "Key",
                 description: "This is the name of the cryptocurrency pair",
-                primary: true,
                 onClick: setCurrentLeaf,
               },
               {
