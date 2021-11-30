@@ -24,17 +24,22 @@
     display: grid;
 
     &--primary, &--highlight {
-      color: $primary;
+      color: $primary-dark;
     }
 
     &--clickable {
+      font-weight: 500;
+      color: $primary;
       cursor: pointer;
+
+      &:hover {
+        color: $primary-dark;
+      }
     }
 
     &--url {
-      color: $highlight;
+      color: $primary;
     }
-
 
     p {
       white-space: nowrap;
@@ -164,7 +169,7 @@
       }
 
       .value--primary {
-        font-weight: 700;
+        font-weight: 400;
       }
 
       tr {
