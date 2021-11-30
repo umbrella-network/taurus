@@ -24,7 +24,12 @@ function Content({ item, properties, paired }) {
     const value = item[key] ?? (hasCallback && property.valueCallback(item));
 
     if (!value || isEmpty(value)) {
-      return (
+      return paired ? (
+        <>
+          <span>{label}</span>
+          <p className="value">N/A</p>
+        </>
+      ) : (
         <td key={`${label} td ${JSON.stringify(item)}`} className="value">
           <span>{label}</span>
           N/A
