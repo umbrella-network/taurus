@@ -31,6 +31,10 @@
       display: none;
     }
 
+    .datapairs-key-search {
+      z-index: 1;
+    }
+
     .dropdown {
       width: 100px;
     }
@@ -77,7 +81,7 @@
         width: 100%;
         background: white;
         grid-template-columns: 1fr;
-        grid-template-rows: 40px 48px 256px min-content 1fr;
+        grid-template-rows: 40px min-content min-content 1fr;
         z-index: 10;
         left: 0;
         padding: $spacing-medium $spacing-smaller;
@@ -114,11 +118,19 @@
         .datapairs-key-search {
           display: grid;
           grid-row-start: 2;
-          background: $background;
+          padding: 0;
+          height: 270px;
+
+          &--open {
+            box-shadow: none;
+          }
+
+          .select__title {
+            opacity: 1;
+          }
 
           input {
             width: 100%;
-            background: $background;
           }
         }
 
@@ -139,6 +151,7 @@
 
         .save-button {
           display: initial;
+          z-index: 2;
           border: none;
           background: $primary;
           height: 48px;
@@ -154,7 +167,7 @@
 
     @media (min-width: $tablet) {
       grid-template-rows: min-content;
-      grid-template-columns: max-content min-content min-content;
+      grid-template-columns: max-content min-content;
 
       .datapairs-key-search {
         grid-column-start: 1;

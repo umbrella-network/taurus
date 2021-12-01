@@ -9,7 +9,6 @@ import {
   Card,
   LoadingState,
   PaginatedTable,
-  SearchBar,
   Select,
   Dropdown,
 } from "@Ui";
@@ -72,25 +71,15 @@ function Datapairs() {
             <Close />
           </button>
         </div>
-        <SearchBar
+        <Select
+          title="Keys"
           className="datapairs-key-search"
-          placeholder="Start typing to filter results..."
+          placeholder="Start typing to filter keys..."
           callback={handleListFilter}
           matchingKey="key"
+          full
           items={list}
         />
-        <Dropdown title="Key" className="key-select">
-          <div>
-            <Select
-              className="key-select"
-              title="Key"
-              callback={handleListFilter}
-              matchingKey="key"
-              items={list}
-              placeholder="Search for key..."
-            />
-          </div>
-        </Dropdown>
         <Dropdown title="Type" className="type-select">
           <div>
             <Select

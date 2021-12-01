@@ -8,6 +8,7 @@
   grid-template-columns: 24px 1fr;
   padding: $spacing-smaller $spacing-small;
   height: 48px;
+  align-items: center;
 
   @media (min-width: $desktop) {
     padding: $spacing-small $spacing;

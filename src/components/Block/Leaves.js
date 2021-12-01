@@ -7,7 +7,6 @@ import {
   Card,
   Heading,
   Select,
-  Dropdown,
   Layer,
   KeyValuePairs,
   Clipboardable,
@@ -112,18 +111,17 @@ function Leaves({ block, id, leavesLengthCallback }) {
           </div>
         </Layer>
       )}
-      <Dropdown title="Key" className="key-select">
-        <div>
-          <Select
-            className="key-select"
-            title="Key"
-            callback={setFilteredItems}
-            matchingKey="key"
-            items={leaves ?? []}
-            placeholder="Search for key..."
-          />
-        </div>
-      </Dropdown>
+      <div className="select-wrapper">
+        <Select
+          className="key-select"
+          title="Key"
+          callback={setFilteredItems}
+          matchingKey="key"
+          items={leaves ?? []}
+          placeholder="Search for key..."
+          full
+        />
+      </div>
       <Heading>
         Block {id} Layer 2 data{" "}
         {Boolean(leaves?.length) && <span>{leaves.length} total</span>}
