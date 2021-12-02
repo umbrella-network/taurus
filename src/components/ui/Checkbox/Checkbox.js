@@ -8,6 +8,7 @@ import "./checkbox.scss";
 const propTypes = {
   checked: PropTypes.bool,
   handleChange: PropTypes.func,
+  handleClick: PropTypes.func,
   readOnly: PropTypes.bool,
   label: PropTypes.string,
 };
@@ -15,13 +16,14 @@ const propTypes = {
 const defaultProps = {
   checked: false,
   handleChange: () => {},
+  handleClick: () => {},
   readOnly: false,
   label: undefined,
 };
 
-function Checkbox({ checked, label, handleChange, readOnly }) {
+function Checkbox({ checked, label, handleChange, handleClick, readOnly }) {
   return (
-    <label className="checkbox">
+    <label className="checkbox" onClick={handleClick}>
       <div
         className={classnames("checkbox__visible", {
           "checkbox__visible--checked": checked,

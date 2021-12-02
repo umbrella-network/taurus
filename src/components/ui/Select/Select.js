@@ -11,6 +11,8 @@ import { SearchBar, Checkbox } from "@Ui";
 
 import { isEmpty } from "ramda";
 
+import { xor } from "lodash";
+
 import "./select.scss";
 
 const propTypes = {
@@ -48,18 +50,16 @@ function Select({
   full,
   unfilteredItemCount,
 }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [selected, setSelected] = useState(startSelected ? items : []);
-  const [selectAll, setSelectAll] = useState(startSelected);
   const [filteredItems, setFilteredItems] = useState(items);
   const [keyWords, setKeyWords] = useState([]);
   const isSearchEmpty = !isEmpty(keyWords) && isEmpty(filteredItems);
 
   const ref = useClickOutsideListenerRef(() => setIsOpen(false));
 
-  const handleSelectAll = () => setSelectAll(!selectAll);
-
   const displayedList = isEmpty(filteredItems) ? items : filteredItems;
+  const allSelected = xor(selected, displayedList).length === 0;
 
   useEffect(() => {
     const selectedItems = items.filter((item) => selected.includes(item));
@@ -69,15 +69,16 @@ function Select({
     /* eslint-disable-next-line */
   }, [selected]);
 
-  useEffect(() => {
-    if (selectAll) {
+  const handleSelectAll = () => {
+    const difference = displayedList.filter((item) => !selected.includes(item));
+    const includesAllInSelection = difference.length === 0;
+
+    if (!includesAllInSelection) {
       setSelected(Array.from(new Set([...selected, ...displayedList])));
     } else {
-      setSelected([]);
+      setSelected(selected.filter((item) => !displayedList.includes(item)));
     }
-
-    /* eslint-disable-next-line */
-  }, [selectAll]);
+  };
 
   const handleValueChange = (item) => {
     if (!selected.includes(item)) {
@@ -128,9 +129,9 @@ function Select({
       {searchable && (
         <div className="select__select-all">
           <Checkbox
-            checked={selectAll}
+            checked={allSelected}
             label="Select all"
-            handleChange={handleSelectAll}
+            handleClick={handleSelectAll}
           />
         </div>
       )}
