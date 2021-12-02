@@ -16,6 +16,7 @@ import {
   ContactAlt,
   Menu,
   Close,
+  UmbSocial,
   Twitter,
   Github,
   Medium,
@@ -81,6 +82,11 @@ const socialMedia = [
     label: "Github",
     icon: Github,
     url: "https://github.com/umbrella-network",
+  },
+  {
+    label: "Main website",
+    icon: UmbSocial,
+    url: "https://umb.network/",
   },
   {
     label: "Medium",

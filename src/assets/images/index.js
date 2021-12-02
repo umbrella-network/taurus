@@ -21,6 +21,7 @@ export { default as Medium } from "./medium.svg";
 export { default as Github } from "./github.svg";
 export { default as Telegram } from "./telegram.svg";
 export { default as Twitter } from "./twitter.svg";
+export { default as UmbSocial } from "./umb-social.svg";
 export { ReactComponent as Collapse } from "./collapse.svg";
 export { ReactComponent as Menu } from "./menu.svg";
 export { ReactComponent as Close } from "./close.svg";
