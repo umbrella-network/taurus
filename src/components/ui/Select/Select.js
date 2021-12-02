@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import { List } from "react-virtualized";
+import classnames from "classnames";
+
+import { useClickOutsideListenerRef } from "@Hooks";
+
+import { List, AutoSizer } from "react-virtualized";
+
 import { SearchBar, Checkbox } from "@Ui";
 
 import { isEmpty } from "ramda";
+
+import { xor } from "lodash";
 
 import "./select.scss";
 
@@ -18,6 +25,8 @@ const propTypes = {
   searchable: PropTypes.bool,
   startSelected: PropTypes.bool,
   keepOne: PropTypes.bool,
+  full: PropTypes.bool,
+  unfilteredItemCount: PropTypes.number,
 };
 
 const defaultProps = {
@@ -25,6 +34,7 @@ const defaultProps = {
   searchable: true,
   startSelected: false,
   keepOne: false,
+  unfilteredItemCount: undefined,
 };
 
 function Select({
@@ -37,17 +47,19 @@ function Select({
   searchable,
   startSelected,
   keepOne,
+  full,
+  unfilteredItemCount,
 }) {
+  const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(startSelected ? items : []);
-  const [selectAll, setSelectAll] = useState(startSelected);
   const [filteredItems, setFilteredItems] = useState(items);
   const [keyWords, setKeyWords] = useState([]);
-
   const isSearchEmpty = !isEmpty(keyWords) && isEmpty(filteredItems);
 
-  const handleSelectAll = () => setSelectAll(!selectAll);
+  const ref = useClickOutsideListenerRef(() => setIsOpen(false));
 
   const displayedList = isEmpty(filteredItems) ? items : filteredItems;
+  const allSelected = xor(selected, displayedList).length === 0;
 
   useEffect(() => {
     const selectedItems = items.filter((item) => selected.includes(item));
@@ -57,15 +69,16 @@ function Select({
     /* eslint-disable-next-line */
   }, [selected]);
 
-  useEffect(() => {
-    if (selectAll) {
+  const handleSelectAll = () => {
+    const difference = displayedList.filter((item) => !selected.includes(item));
+    const includesAllInSelection = difference.length === 0;
+
+    if (!includesAllInSelection) {
       setSelected(Array.from(new Set([...selected, ...displayedList])));
     } else {
-      setSelected([]);
+      setSelected(selected.filter((item) => !displayedList.includes(item)));
     }
-
-    /* eslint-disable-next-line */
-  }, [selectAll]);
+  };
 
   const handleValueChange = (item) => {
     if (!selected.includes(item)) {
@@ -78,56 +91,79 @@ function Select({
   };
 
   return (
-    <div className="select">
-      <p className="select__title">
-        {title}
-        <span>{` (${selected.length}/${items.length})`}</span>
-      </p>
+    <div
+      className={classnames("select", {
+        [className]: className,
+        "select--full": full,
+        "select--open": isOpen,
+        [`${className}--open`]: className && isOpen,
+      })}
+      ref={ref}
+    >
       {searchable && (
         <div className="select__search">
-          {isSearchEmpty && (
+          {isSearchEmpty && (!full || isOpen) && (
             <p className="error">
               *Key doesn't exist, please use the scroll bar, radio selection,
               and/or check the format
             </p>
           )}
-          <Checkbox checked={selectAll} handleChange={handleSelectAll} />
           <SearchBar
+            onFocus={() => setIsOpen(true)}
             items={items}
             matchingKey={matchingKey}
             callback={setFilteredItems}
             placeholder={placeholder}
             error={isSearchEmpty}
             keyWordsCallback={setKeyWords}
-            type="slim"
+          />
+        </div>
+      )}
+      <p className="select__title">
+        {title}
+        <span>{` (${selected.length}/${
+          unfilteredItemCount ?? items.length
+        })`}</span>
+      </p>
+
+      {searchable && (
+        <div className="select__select-all">
+          <Checkbox
+            checked={allSelected}
+            label="Select all"
+            handleClick={handleSelectAll}
           />
         </div>
       )}
       <div className="select__keys">
-        <List
-          height={180}
-          rowHeight={28}
-          width={260}
-          rowCount={displayedList.length}
-          overscanRowCount={20}
-          rowRenderer={({ index, style }) => {
-            const item = displayedList[index];
+        <AutoSizer>
+          {({ width }) => (
+            <List
+              height={182}
+              rowHeight={28}
+              width={width}
+              rowCount={displayedList.length}
+              overscanRowCount={20}
+              rowRenderer={({ index, style }) => {
+                const item = displayedList[index];
 
-            return (
-              <div
-                key={`${JSON.stringify(item)} select`}
-                className="checkbox-container"
-                style={style}
-              >
-                <Checkbox
-                  checked={selected.includes(item)}
-                  handleChange={() => handleValueChange(item)}
-                  label={matchingKey ? item[matchingKey] : item}
-                />
-              </div>
-            );
-          }}
-        />
+                return (
+                  <div
+                    key={`${JSON.stringify(item)} select`}
+                    className="checkbox-container"
+                    style={style}
+                  >
+                    <Checkbox
+                      checked={selected.includes(item)}
+                      handleChange={() => handleValueChange(item)}
+                      label={matchingKey ? item[matchingKey] : item}
+                    />
+                  </div>
+                );
+              }}
+            />
+          )}
+        </AutoSizer>
       </div>
     </div>
   );

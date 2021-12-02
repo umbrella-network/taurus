@@ -2,14 +2,35 @@
 
 .select {
   width: 292px;
-  height: 304px;
+  height: 302px;
   display: grid;
   grid-auto-flow: row;
   grid-auto-rows: min-content;
   background: white;
-  padding: $spacing $spacing-small;
   grid-gap: $spacing-table;
   border-radius: $border-radius-large;
+  padding: $spacing $spacing-small;
+  height: 304px;
+
+  &--full {
+    padding: $spacing-small $spacing;
+    height: 48px;
+    overflow: hidden;
+    transition: height 125ms;
+
+    .select__title {
+      opacity: 0;
+    }
+  }
+
+  &--open {
+    box-shadow: $box-shadow;
+    height: 302px;
+
+    .select__title {
+      opacity: 1;
+    }
+  }
 
   &__title {
     font-family: $title-font-family;
@@ -31,10 +52,10 @@
     position: relative;
 
     .search-bar {
-      width: 233px;
-      border: $boder-menu;
-      padding: $spacing-tiny;
+      padding: 0;
+      width: 250px;
       border-radius: $border-radius-large;
+      height: 20px;
     }
 
     .error {
@@ -43,8 +64,8 @@
       font-size: $tinier;
       position: absolute;
       width: 88px;
-      right: 9px;
-      top: 6px;
+      right: 32px;
+      top: 18px;
       background: white;
       z-index: 1;
       padding: $spacing-tiny;

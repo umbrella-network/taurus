@@ -105,10 +105,19 @@
       box-shadow: none;
     }
 
-    .key-select {
-      display: grid;
-      grid-template-columns: min-content;
+    .select-wrapper {
+      position: relative;
+      height: 48px;
+
+      .key-select {
+        display: grid;
+        grid-template-columns: min-content;
+        grid-template-columns: 1fr;
+        position: absolute;
+        z-index: 1;
+      }
     }
+
 
     @media (min-width: $desktop) {
       .leaves {
