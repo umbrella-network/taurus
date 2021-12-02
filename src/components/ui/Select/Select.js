@@ -50,7 +50,7 @@ function Select({
   full,
   unfilteredItemCount,
 }) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(startSelected ? items : []);
   const [filteredItems, setFilteredItems] = useState(items);
   const [keyWords, setKeyWords] = useState([]);
