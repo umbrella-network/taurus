@@ -11,8 +11,6 @@ import { SearchBar, Checkbox } from "@Ui";
 
 import { isEmpty } from "ramda";
 
-import { xor } from "lodash";
-
 import "./select.scss";
 
 const propTypes = {
@@ -59,7 +57,9 @@ function Select({
   const ref = useClickOutsideListenerRef(() => setIsOpen(false));
 
   const displayedList = isEmpty(filteredItems) ? items : filteredItems;
-  const allSelected = xor(selected, displayedList).length === 0;
+  const allSelected =
+    !isEmpty(selected) &&
+    displayedList.every((item) => selected.includes(item));
 
   useEffect(() => {
     const selectedItems = items.filter((item) => selected.includes(item));
