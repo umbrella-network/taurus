@@ -17,6 +17,7 @@ const propTypes = {
   className: PropTypes.string,
   keyWordsCallback: PropTypes.func,
   error: PropTypes.bool,
+  onFocus: PropTypes.func,
 };
 
 const defaultProps = {
@@ -25,6 +26,7 @@ const defaultProps = {
   className: undefined,
   keyWordsCallback: () => {},
   error: false,
+  onFocus: undefined,
 };
 
 function SearchBar({
@@ -36,6 +38,7 @@ function SearchBar({
   className,
   keyWordsCallback,
   error,
+  onFocus,
 }) {
   const [keyWords, setKeyWords] = useState([]);
   const [value, setValue] = React.useState("");
@@ -43,7 +46,7 @@ function SearchBar({
   const handleValueChange = useCallback((value) => {
     setKeyWords(
       value
-        .split(/(?=[^-])\W/)
+        .split(/(?=[^-:])\W/)
         .filter((value) => !isEmpty(value))
     );
   }, []);
@@ -83,7 +86,7 @@ function SearchBar({
       })}
     >
       <Search />
-      <input value={value} placeholder={placeholder} onInput={handleChange} />
+      <input onFocus={onFocus} value={value} placeholder={placeholder} onInput={handleChange} />
     </div>
   );
 }

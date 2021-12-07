@@ -18,8 +18,10 @@
 
   span, .value, .url {
     font-size: $tinier;
+    width: 100px;
 
     @media (min-width: $mobile-large) {
+      width: 100%;
       font-size: $tiny;
     }
   }
