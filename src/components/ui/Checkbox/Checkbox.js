@@ -23,14 +23,15 @@ const defaultProps = {
 
 function Checkbox({ checked, label, handleChange, handleClick, readOnly }) {
   return (
-    <label className="checkbox" onClick={handleClick}>
+    <label className="checkbox">
       <div
         className={classnames("checkbox__visible", {
           "checkbox__visible--checked": checked,
         })}
       />
-      {Boolean(label) && <p>{label}</p>}
+      {Boolean(label) && <p onClick={handleClick}>{label}</p>}
       <input
+        onClick={handleClick}
         type="checkbox"
         className="checkbox__input"
         checked={checked}

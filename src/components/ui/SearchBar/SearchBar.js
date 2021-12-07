@@ -46,7 +46,7 @@ function SearchBar({
   const handleValueChange = useCallback((value) => {
     setKeyWords(
       value
-        .split(/(?=[^-])\W/)
+        .split(/(?=[^-:])\W/)
         .filter((value) => !isEmpty(value))
     );
   }, []);
