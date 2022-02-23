@@ -45,6 +45,13 @@ export const availableChains = {
     sbx: "Testnet",
     [PRODUCTION]: "Mainnet",
   },
+  arbitrum: {
+    name: "Arbitrum",
+    symbol: "arbitrum",
+    dev: "Testnet",
+    sbx: "Testnet",
+    [PRODUCTION]: "Mainnet",
+  },
 };
 
 const currentChain =
