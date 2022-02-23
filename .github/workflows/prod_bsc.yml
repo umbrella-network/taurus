@@ -23,7 +23,6 @@ jobs:
           REACT_APP_BLOCKS_API: ${{ secrets.REACT_APP_BLOCKS_API_BSC_PROD }}
           REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_BSC_PROD }}
           REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_BSC_PROD }}
-          REACT_APP_SHOULD_FALLBACK: false
 
       - name: Upload environment to be used by the next job
         uses: actions/upload-artifact@v2
