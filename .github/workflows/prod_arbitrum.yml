@@ -1,8 +1,8 @@
-name: prod_deployment_polygon
+name: prod_deployment_arbitrum
 on:
   workflow_dispatch:
 jobs:
-  build_polygon:
+  build_arbitrum:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
@@ -17,29 +17,29 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
-      - name: Build polygon
+      - name: Build arbitrum
         run: yarn build
         env:
-          REACT_APP_BLOCKS_API: ${{ secrets.REACT_APP_BLOCKS_API_POLYGON_PROD }}
-          REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_POLYGON_PROD }}
-          REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_POLYGON_PROD }}
-          REACT_APP_FOREIGN_CHAIN_ID: ${{ secrets.REACT_APP_FOREIGN_CHAIN_ID_POLYGON_PROD }}
+          REACT_APP_BLOCKS_API: ${{ secrets.REACT_APP_BLOCKS_API_ARBITRUM_PROD }}
+          REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_ARBITRUM_PROD }}
+          REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_ARBITRUM_PROD }}
+          REACT_APP_FOREIGN_CHAIN_ID: ${{ secrets.REACT_APP_FOREIGN_CHAIN_ID_ARBITRUM_PROD }}
 
       - name: Upload environment to be used by the next job
         uses: actions/upload-artifact@v2
         with:
-          name: build_polygon
+          name: build_arbitrum
           path: build
           retention-days: 1
-  
-  push_polygon:
-    needs: build_polygon
+
+  push_arbitrum:
+    needs: build_arbitrum
     runs-on: ubuntu-latest
     steps:
       - name: Retrieve build
         uses: actions/download-artifact@v2
         with:
-          name: build_polygon
+          name: build_arbitrum
           path: build-download
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -50,9 +50,9 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          aws s3 sync build-download/ s3://${{ secrets.AWS_S3_BUCKET_POLYGON_PROD }} --cache-control "max-age=86400" --delete --only-show-errors
-          aws s3 cp build-download/index.html s3://${{ secrets.AWS_S3_BUCKET_POLYGON_PROD }} --cache-control "no-cache, no-store, must-revalidate"
+          aws s3 sync build-download/ s3://${{ secrets.AWS_S3_BUCKET_ARBITRUM_PROD }} --cache-control "max-age=86400" --delete --only-show-errors
+          aws s3 cp build-download/index.html s3://${{ secrets.AWS_S3_BUCKET_ARBITRUM_PROD }} --cache-control "no-cache, no-store, must-revalidate"
 
       - name: Invalidate Cache
         run: |
-          aws cloudfront create-invalidation --paths "/*" --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_POLYGON_PROD }}
+          aws cloudfront create-invalidation --paths "/*" --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_ARBITRUM_PROD }}
