@@ -53,6 +53,7 @@ jobs:
           REACT_APP_BLOCKS_API: ${{ secrets.REACT_APP_BLOCKS_API_BSC_PROD }}
           REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_BSC_PROD }}
           REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_BSC_PROD }}
+          REACT_APP_FOREIGN_CHAIN_ID:
 
       - name: Upload environment to be used by the next job
         uses: actions/upload-artifact@v2
@@ -60,7 +61,7 @@ jobs:
           name: build_bsc
           path: build
           retention-days: 1
-  
+
   build_polygon:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
@@ -90,7 +91,7 @@ jobs:
           name: build_polygon
           path: build
           retention-days: 1
-    
+
   build_avalanche:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
@@ -195,7 +196,7 @@ jobs:
       - name: Invalidate Cache
         run: |
           aws cloudfront create-invalidation --paths "/*" --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_POLYGON_PROD }}
-  
+
   push_avalanche:
     needs: build_avalanche
     runs-on: ubuntu-latest

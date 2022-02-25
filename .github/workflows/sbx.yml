@@ -24,7 +24,7 @@ jobs:
           REACT_APP_BLOCKS_API: ${{ secrets.REACT_APP_BLOCKS_API_BSC_SBX }}
           REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_BSC_SBX }}
           REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_BSC_SBX }}
-          REACT_APP_FOREIGN_CHAIN_ID: ${{ secrets.REACT_APP_FOREIGN_CHAIN_ID_BSC_SBX }}
+          REACT_APP_FOREIGN_CHAIN_ID:
 
       - name: Upload environment to be used by the next job
         uses: actions/upload-artifact@v2
@@ -32,7 +32,7 @@ jobs:
           name: build_bsc
           path: build
           retention-days: 1
-  
+
   build_eth:
     runs-on: ubuntu-latest
     steps:
@@ -61,7 +61,7 @@ jobs:
           name: build_eth
           path: build
           retention-days: 1
-  
+
   build_polygon:
     runs-on: ubuntu-latest
     steps:
@@ -119,7 +119,7 @@ jobs:
           name: build_avalanche
           path: build
           retention-days: 1
-  
+
   build_arbitrum:
     runs-on: ubuntu-latest
     steps:
@@ -173,7 +173,7 @@ jobs:
       - name: Invalidate Cache
         run: |
           aws cloudfront create-invalidation --paths "/*" --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_SBX }}
-  
+
   push_eth_sbx:
     needs: build_eth
     runs-on: ubuntu-latest
@@ -223,7 +223,7 @@ jobs:
       - name: Invalidate Cache
         run: |
           aws cloudfront create-invalidation --paths "/*" --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_POLYGON_SBX }}
-  
+
   push_avalanche_sbx:
     needs: build_avalanche
     runs-on: ubuntu-latest
@@ -248,7 +248,7 @@ jobs:
       - name: Invalidate Cache
         run: |
           aws cloudfront create-invalidation --paths "/*" --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_AVALANCHE_SBX }}
-  
+
   push_arbitrum_sbx:
     needs: build_arbitrum
     runs-on: ubuntu-latest

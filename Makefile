@@ -73,6 +73,7 @@ sbx-s3-eth-sync:
 build-s3-dev-bsc: export REACT_APP_BLOCKS_API=$(DEV_BSC_REACT_APP_BLOCKS_API)
 build-s3-dev-bsc: export REACT_APP_SCAN_URL=$(DEV_BSC_REACT_APP_SCAN_URL)
 build-s3-dev-bsc: export REACT_APP_TOKEN_AUTH=$(DEV_BSC_REACT_APP_TOKEN_AUTH)
+build-s3-dev-bsc: export REACT_APP_FOREIGN_CHAIN_ID=
 build-s3-dev-bsc:
 	@echo "## Building BSC DEV Environment ##"
 	@yarn install
@@ -87,6 +88,7 @@ dev-s3-bsc-sync:
 build-s3-sbx-bsc: export REACT_APP_BLOCKS_API=$(SBX_BSC_REACT_APP_BLOCKS_API)
 build-s3-sbx-bsc: export REACT_APP_SCAN_URL=$(SBX_BSC_REACT_APP_SCAN_URL)
 build-s3-sbx-bsc: export REACT_APP_TOKEN_AUTH=$(SBX_BSC_REACT_APP_TOKEN_AUTH)
+build-s3-sbx-bsc: export REACT_APP_FOREIGN_CHAIN_ID=
 build-s3-sbx-bsc:
 	@echo "## Building BSC SBX Environment ##"
 	@yarn install
