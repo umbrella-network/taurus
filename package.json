@@ -1,6 +1,6 @@
 {
   "name": "taurus",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.12.1",
-    "@umb-network/toolbox": "^5.4.0",
+    "@umb-network/toolbox": "^5.7.0",
     "axios": "^0.21.0",
     "classnames": "^2.2.6",
     "customize-cra": "^1.0.0",
@@ -39,6 +39,8 @@
     "styled-components": "^5.2.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -58,16 +60,9 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": {
-    "production": [
+  "browserslist": [
       ">0.2%",
       "not dead",
       "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
     ]
-  }
 }
