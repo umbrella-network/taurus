@@ -121,6 +121,36 @@ jobs:
           name: build_avalanche
           path: build
           retention-days: 1
+  
+  build_arbitrum:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build arbitrum
+        run: yarn build
+        env:
+          REACT_APP_BLOCKS_API: ${{ secrets.REACT_APP_BLOCKS_API_ARBITRUM_PROD }}
+          REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_ARBITRUM_PROD }}
+          REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_ARBITRUM_PROD }}
+          REACT_APP_FOREIGN_CHAIN_ID: ${{ secrets.REACT_APP_FOREIGN_CHAIN_ID_ARBITRUM_PROD }}
+
+      - name: Upload environment to be used by the next job
+        uses: actions/upload-artifact@v2
+        with:
+          name: build_arbitrum
+          path: build
+          retention-days: 1
 
   push_eth:
     needs: build_eth
@@ -221,3 +251,28 @@ jobs:
       - name: Invalidate Cache
         run: |
           aws cloudfront create-invalidation --paths "/*" --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_AVALANCHE_PROD }}
+
+  push_arbitrum:
+    needs: build_arbitrum
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retrieve build
+        uses: actions/download-artifact@v2
+        with:
+          name: build_arbitrum
+          path: build-download
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Sync files to S3
+        run: |
+          aws s3 sync build-download/ s3://${{ secrets.AWS_S3_BUCKET_ARBITRUM_PROD }} --cache-control "max-age=86400" --delete --only-show-errors
+          aws s3 cp build-download/index.html s3://${{ secrets.AWS_S3_BUCKET_ARBITRUM_PROD }} --cache-control "no-cache, no-store, must-revalidate"
+
+      - name: Invalidate Cache
+        run: |
+          aws cloudfront create-invalidation --paths "/*" --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_ARBITRUM_PROD }}
