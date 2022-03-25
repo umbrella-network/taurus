@@ -14,7 +14,7 @@ import {
 
 import { readableProof, formatLeaf, arrayToReadableJSON } from "@Formatters";
 
-import { scanUrl } from "@Urls";
+import { scanUrl, scanUrlSuffix } from "@Urls";
 import { fetchLeaves } from "@Services";
 
 import "./leaves.scss";
@@ -70,6 +70,7 @@ function Leaves({ block, id, leavesLengthCallback }) {
                   label: "Contract",
                   primary: true,
                   urlPrefix: scanUrl,
+                  urlSuffix: scanUrlSuffix,
                   truncate: true,
                   clipboardable: true,
                 },

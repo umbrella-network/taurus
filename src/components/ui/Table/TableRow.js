@@ -39,7 +39,9 @@ function Content({ item, properties, paired }) {
 
     const formattedValue = property.truncate ? truncate(value, 4) : value;
     const hasUrl = property.urlKey || property.urlPrefix;
-    const url = item[property.urlKey] ?? `${property.urlPrefix}/${value}`;
+    const url =
+      item[property.urlKey] ??
+      `${property.urlPrefix}/${value}${property.urlSuffix ?? ""}`;
     const title = item[property.titleKey] ?? value;
 
     const valuesToRender = [
