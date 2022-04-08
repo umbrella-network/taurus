@@ -6,7 +6,7 @@ import { fetchBlocks } from "@Services";
 
 import { valueToToken } from "@Formatters";
 import { readableAgeFromTimestamp } from "@Utils";
-import { scanUrl } from "@Urls";
+import { scanUrl, scanUrlSuffix } from "@Urls";
 
 import "./blockIndex.scss";
 
@@ -46,29 +46,36 @@ function BlockIndex() {
               clipboardable: true,
               truncate: true,
               urlPrefix: scanUrl,
+              urlSuffix: scanUrlSuffix,
             },
             {
               key: "anchor",
               label: "Anchor",
-              description: "This is the location where you can find the transaction in EThereum",
+              description:
+                "This is the location where you can find the transaction in EThereum",
             },
             {
               label: "Staked",
-              valueCallback: (value) => valueToToken({ value: value.staked, truncate: true }),
-              description: "This is the amount that has been staked during this block",
+              valueCallback: (value) =>
+                valueToToken({ value: value.staked, truncate: true }),
+              description:
+                "This is the amount that has been staked during this block",
               titleKey: "staked",
             },
             {
               label: "Power",
-              valueCallback: (value) => valueToToken({ value: value.power, truncate: true }),
-              description: "This is the amount that the validator staked in the most recent block",
+              valueCallback: (value) =>
+                valueToToken({ value: value.power, truncate: true }),
+              description:
+                "This is the amount that the validator staked in the most recent block",
               titleKey: "power",
             },
             {
               label: "Age",
-              valueCallback: (value) => readableAgeFromTimestamp(value.dataTimestamp),
+              valueCallback: (value) =>
+                readableAgeFromTimestamp(value.dataTimestamp),
               titleKey: "dataTimestamp",
-            }
+            },
           ]}
         />
       </Card>

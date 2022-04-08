@@ -11,21 +11,25 @@ BSC_CLOUDFRONT := E1Q0XCIKYCHTHZ
 POLYGON_CLOUDFRONT := E11BELZ5J30GNQ
 AVALANCHE_CLOUDFRONT := E347ZEGY5LMWML
 ARBITRUM_CLOUDFRONT := E2M91E27JXBFA4
+SOLANA_CLOUDFRONT := E1Z00ZXSQWUWQC
 ETH_CLOUDFRONT_SBX := E2XOPE0XC4MDU
 BSC_CLOUDFRONT_SBX := E2WE2QUJJKY66W
 POLYGON_CLOUDFRONT_SBX := EAKFTNX7JS1M0
 AVALANCHE_CLOUDFRONT_SBX := E14OL2UN2WZFUE
 ARBITRUM_CLOUDFRONT_SBX := EDDFHC5SXJ4GX
+SOLANA_CLOUDFRONT_SBX := E26U2VAN03Q1LM
 ETH_S3 := umb-taurus-eth-frontend-app
 BSC_S3 := umb-taurus-bsc-frontend-app
 POLYGON_S3 := umb-taurus-polygon-frontend-app
 AVALANCHE_S3 := umb-taurus-avalanche-frontend-app
 ARBITRUM_S3 := umb-taurus-arbitrum-frontend-app
+SOLANA_S3 := umb-taurus-solana-frontend-app
 ETH_S3_SBX := umb-taurus-eth-sbx-frontend-app
 BSC_S3_SBX := umb-taurus-bsc-sbx-frontend-app
 POLYGON_S3_SBX := umb-taurus-polygon-sbx-frontend-app
 AVALANCHE_S3_SBX := umb-taurus-avalanche-sbx-frontend-app
 ARBITRUM_S3_SBX := umb-taurus-arbitrum-sbx-frontend-app
+SOLANA_S3_SBX := umb-taurus-solana-sbx-frontend-app
 
 default: dev-eth
 
@@ -192,6 +196,40 @@ sbx-s3-arbitrum-sync:
 	@aws --profile umb-staging s3 cp build/index.html s3://$(ARBITRUM_S3_SBX) --cache-control "no-cache, no-store, must-revalidate"
 	@aws --profile umb-staging cloudfront create-invalidation --paths "/*" --distribution-id $(ARBITRUM_CLOUDFRONT_SBX) --no-cli-pager > /dev/null
 
+###########  SOLANA  ##########
+# DEV
+
+build-s3-dev-solana: export REACT_APP_BLOCKS_API=$(DEV_SOLANA_REACT_APP_BLOCKS_API)
+build-s3-dev-solana: export REACT_APP_SCAN_URL=$(DEV_SOLANA_REACT_APP_SCAN_URL)
+build-s3-dev-solana: export REACT_APP_TOKEN_AUTH=$(DEV_SOLANA_REACT_APP_TOKEN_AUTH)
+build-s3-dev-solana: export REACT_APP_FOREIGN_CHAIN_ID=$(DEV_SOLANA_REACT_APP_FOREIGN_CHAIN_ID)
+build-s3-dev-solana:
+	@echo "## Building SOLANA DEV Environment ##"
+	@yarn install
+	@yarn build
+
+dev-s3-solana-sync:
+	@aws --profile umb-staging s3 sync build/ s3://$(SOLANA_S3) --cache-control "max-age=86400" --delete --only-show-errors
+	@aws --profile umb-staging s3 cp build/index.html s3://$(SOLANA_S3) --cache-control "no-cache, no-store, must-revalidate"
+	@aws --profile umb-staging cloudfront create-invalidation --paths "/*" --distribution-id $(SOLANA_CLOUDFRONT) --no-cli-pager > /dev/null
+
+
+# SBX
+build-s3-sbx-solana: export REACT_APP_BLOCKS_API=$(SBX_SOLANA_REACT_APP_BLOCKS_API)
+build-s3-sbx-solana: export REACT_APP_SCAN_URL=$(SBX_SOLANA_REACT_APP_SCAN_URL)
+build-s3-sbx-solana: export REACT_APP_TOKEN_AUTH=$(SBX_SOLANA_REACT_APP_TOKEN_AUTH)
+build-s3-sbx-solana: export REACT_APP_FOREIGN_CHAIN_ID=$(SBX_SOLANA_REACT_APP_FOREIGN_CHAIN_ID)
+build-s3-sbx-solana:
+	@echo "## Building SOLANA DEV Environment ##"
+	@yarn install
+	@yarn build
+
+sbx-s3-solana-sync:
+	@aws --profile umb-staging s3 sync build/ s3://$(SOLANA_S3_SBX) --cache-control "max-age=86400" --delete --only-show-errors
+	@aws --profile umb-staging s3 cp build/index.html s3://$(SOLANA_S3_SBX) --cache-control "no-cache, no-store, must-revalidate"
+	@aws --profile umb-staging cloudfront create-invalidation --paths "/*" --distribution-id $(SOLANA_CLOUDFRONT_SBX) --no-cli-pager > /dev/null
+
+
 #################################
 
 dev-eth-deploy: build-s3-dev-eth dev-s3-eth-sync
@@ -199,24 +237,28 @@ dev-bsc-deploy: build-s3-dev-bsc dev-s3-bsc-sync
 dev-polygon-deploy: build-s3-dev-polygon dev-s3-polygon-sync
 dev-avax-deploy: build-s3-dev-avalanche dev-s3-avalanche-sync
 dev-arbitrum-deploy: build-s3-dev-arbitrum dev-s3-arbitrum-sync
+dev-solana-deploy: build-s3-dev-solana dev-s3-solana-sync
 
 sbx-eth-deploy: build-s3-sbx-eth sbx-s3-eth-sync
 sbx-bsc-deploy: build-s3-sbx-bsc sbx-s3-bsc-sync
 sbx-polygon-deploy: build-s3-sbx-polygon sbx-s3-polygon-sync
 sbx-avax-deploy: build-s3-sbx-avalanche sbx-s3-avalanche-sync
 sbx-arbitrum-deploy: build-s3-sbx-arbitrum sbx-s3-arbitrum-sync
+sbx-solana-deploy: build-s3-sbx-solana sbx-s3-solana-sync
 
 dev-eth: update-stg dev-eth-deploy
 dev-bsc: update-stg dev-bsc-deploy
 dev-polygon: update-stg dev-polygon-deploy
 dev-avax: update-stg dev-avax-deploy
 dev-arbitrum: update-stg dev-arbitrum-deploy
+dev-solana: update-stg dev-solana-deploy
 
 sbx-eth: update-stg sbx-eth-deploy
 sbx-bsc: update-stg sbx-bsc-deploy
 sbx-polygon: update-stg sbx-polygon-deploy
 sbx-avax: update-stg sbx-avax-deploy
 sbx-arbitrum: update-stg sbx-arbitrum-deploy
+sbx-solana: update-stg sbx-solana-deploy
 
-dev: update-stg dev-eth-deploy dev-bsc-deploy dev-polygon-deploy dev-avax-deploy dev-arbitrum-deploy
-sbx: update-stg sbx-eth-deploy sbx-bsc-deploy sbx-polygon-deploy sbx-avax-deploy sbx-arbitrum-deploy
+dev: update-stg dev-eth-deploy dev-bsc-deploy dev-polygon-deploy dev-avax-deploy dev-arbitrum-deploy dev-solana-deploy
+sbx: update-stg sbx-eth-deploy sbx-bsc-deploy sbx-polygon-deploy sbx-avax-deploy sbx-arbitrum-deploy sbx-solana-deploy

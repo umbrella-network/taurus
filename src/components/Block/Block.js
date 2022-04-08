@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { startCase } from "lodash";
 
 import { fetchBlock } from "@Services";
-import { bscScanUrl, scanUrl } from "@Urls";
+import { bscScanUrl, scanUrl, scanUrlSuffix } from "@Urls";
 import { valueToToken } from "@Formatters";
 import { readableAgeFromTimestamp } from "@Utils";
 import { Url } from "@Ui";
@@ -72,6 +72,7 @@ function Block() {
                   key: "chainAddress",
                   label: "Chain Address",
                   urlPrefix: scanUrl,
+                  urlSuffix: scanUrlSuffix,
                   truncate: true,
                   clipboardable: true,
                 },
@@ -113,6 +114,7 @@ function Block() {
                   clipboardable: true,
                   truncate: true,
                   urlPrefix: scanUrl,
+                  urlSuffix: scanUrlSuffix,
                 },
                 {
                   label: "Staked",
