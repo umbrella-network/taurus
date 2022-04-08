@@ -1,7 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 import { fetchFCD, fetchProof, fetchLatestLeaves } from "@Services";
 import { formatDatapairs } from "@Formatters";
-import { isEmpty } from "ramda";
 
 const ProofsContext = React.createContext();
 
@@ -22,7 +21,7 @@ const DATAPAIRS_FULFILLED = "DATAPAIRS_FULFILLED";
 const initialState = {
   leaves: {
     isLoading: false,
-    list: [],
+    list: null,
     error: undefined,
   },
   proof: {
@@ -33,14 +32,14 @@ const initialState = {
   },
   firstClassData: {
     isLoading: false,
-    list: [],
+    list: null,
     error: undefined,
   },
   datapairs: {
     isLoading: true,
     list: [],
     error: undefined,
-  }
+  },
 };
 
 function reducer(state = {}, action = {}) {
@@ -261,14 +260,15 @@ export function ProofsProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    if (!isEmpty(firstClassData.list) && !isEmpty(leaves.list)) {
-      const list = formatDatapairs(firstClassData.list, leaves.list, block);
+    const hasLoadedData = Boolean(firstClassData.list && leaves.list);
 
+    if (hasLoadedData) {
+      const list = formatDatapairs(firstClassData.list, leaves.list, block);
       dispatch(datapairsFulfilled(list));
     }
 
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  }, [firstClassData, leaves])
+  }, [firstClassData, leaves]);
 
   return (
     <ProofsContext.Provider value={{ state, dispatch }}>

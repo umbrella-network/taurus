@@ -16,6 +16,8 @@ export const environment =
 
 export const isDev = devEnvironments.includes(environment);
 
+export const isSolana = chainId === "solana";
+
 export const availableChains = {
   bsc: {
     name: "BSC",
@@ -48,6 +50,13 @@ export const availableChains = {
   arbitrum: {
     name: "Arbitrum",
     symbol: "arbitrum",
+    dev: "Testnet",
+    sbx: "Testnet",
+    [PRODUCTION]: "Mainnet",
+  },
+  solana: {
+    name: "Solana",
+    symbol: "solana",
     dev: "Testnet",
     sbx: "Testnet",
     [PRODUCTION]: "Mainnet",

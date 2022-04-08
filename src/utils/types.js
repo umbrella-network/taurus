@@ -12,6 +12,7 @@ export const tableProperties = PropTypes.arrayOf(
     urlKey: PropTypes.string,
     highlight: PropTypes.bool,
     urlPrefix: PropTypes.string,
+    urlSuffix: PropTypes.string,
     onClick: PropTypes.func,
     titleKey: PropTypes.string,
   })
