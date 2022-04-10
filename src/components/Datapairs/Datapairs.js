@@ -14,6 +14,7 @@ import {
 } from "@Ui";
 
 import { usePrices } from "@Store";
+import { scanUrlSuffix } from "@Urls";
 
 import classnames from "classnames";
 
@@ -176,6 +177,7 @@ function Datapairs() {
                 clipboardable: true,
                 truncate: true,
                 urlKey: "chainAddressScanUrl",
+                urlSuffix: scanUrlSuffix,
               },
             ]}
             dataPerPage={6}
