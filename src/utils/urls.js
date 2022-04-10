@@ -2,7 +2,7 @@ import { environment, isDev, isSolana, PRODUCTION } from "@Constants";
 
 export const apiUrl = process.env.REACT_APP_BLOCKS_API;
 export const scanUrl = process.env.REACT_APP_SCAN_URL;
-export const scanUrlSuffix = isSolana && isDev ? "?cluster=testnet" : "";
+export const scanUrlSuffix = isSolana && isDev ? "?cluster=devnet" : "";
 export const bscScanUrl = isDev
   ? "https://testnet.bscscan.com/address"
   : "https://bscscan.com/address";
