@@ -14,7 +14,7 @@ import {
 } from "@Ui";
 
 import { usePrices } from "@Store";
-import { scanUrlSuffix } from "@Urls";
+import { scanUrlSuffix, rootUrl } from "@Urls";
 
 import classnames from "classnames";
 
@@ -146,6 +146,7 @@ function Datapairs() {
                 label: "Block ID",
                 description: "This is the ID of the block containing the data",
                 clipboardable: true,
+                urlPrefix: `${rootUrl}blocks`,
               },
               {
                 valueCallback: readableProof,

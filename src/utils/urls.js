@@ -6,6 +6,7 @@ export const scanUrlSuffix = isSolana && isDev ? "?cluster=devnet" : "";
 export const bscScanUrl = isDev
   ? "https://testnet.bscscan.com/address"
   : "https://bscscan.com/address";
+export const rootUrl = window.location;
 
 export const scanForChain = (chain) => {
   const urlEnv = environment !== PRODUCTION && environment;
