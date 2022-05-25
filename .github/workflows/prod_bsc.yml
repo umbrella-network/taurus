@@ -24,6 +24,7 @@ jobs:
           REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_BSC_PROD }}
           REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_BSC_PROD }}
           REACT_APP_FOREIGN_CHAIN_ID:
+          REACT_APP_STAGE: prod
 
       - name: Upload environment to be used by the next job
         uses: actions/upload-artifact@v2

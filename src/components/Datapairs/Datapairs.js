@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
+import classnames from "classnames";
 
-import { readableProof } from "@Formatters";
-import { HeaderCards } from "@Components";
-import { ArrowHamburger, Close } from "@Images";
+import { useChain } from "store/Chain";
 
+import { HeaderCards } from "components";
 import {
   Heading,
   Card,
@@ -11,12 +11,12 @@ import {
   PaginatedTable,
   Select,
   Dropdown,
-} from "@Ui";
+} from "components/ui";
 
-import { usePrices } from "@Store";
-import { scanUrlSuffix, rootUrl } from "@Urls";
+import { scanUrlSuffix, rootUrl } from "utils/urls";
+import { readableProof } from "utils/formatters";
 
-import classnames from "classnames";
+import { ArrowHamburger, Close } from "assets/images";
 
 import "./datapairs.scss";
 
@@ -31,14 +31,12 @@ function Datapairs() {
   const [goToFirstPage, setGoToFirstPage] = useState(false);
 
   const {
-    state: {
-      datapairs: { list, isLoading },
-    },
-  } = usePrices();
+    state: { datapairs, isLoading },
+  } = useChain();
 
-  const [filteredItems, setFilteredItems] = useState(list);
+  const [filteredItems, setFilteredItems] = useState(datapairs);
 
-  useEffect(() => setFilteredItems(list), [list]);
+  useEffect(() => setFilteredItems(datapairs), [datapairs]);
 
   const handleListFilter = (filteredList) => {
     setFilteredItems(filteredList);
@@ -55,7 +53,7 @@ function Datapairs() {
     <div className="datapairs">
       <Heading primary>
         Datapairs
-        <span>{isLoading ? "Loading..." : `${list.length} pairs`}</span>
+        <span>{isLoading ? "Loading..." : `${datapairs.length} pairs`}</span>
       </Heading>
       <HeaderCards />
       <div
@@ -79,7 +77,7 @@ function Datapairs() {
           callback={handleListFilter}
           matchingKey="key"
           full
-          items={list}
+          items={datapairs}
         />
         <Dropdown title="Type" className="type-select">
           <div>

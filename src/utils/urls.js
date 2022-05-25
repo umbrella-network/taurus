@@ -1,4 +1,9 @@
-import { environment, isDev, isSolana, PRODUCTION } from "@Constants";
+import { isSolana } from "constants/chainData";
+import {
+  STAGE as environment,
+  isDev,
+  PROD as PRODUCTION,
+} from "constants/stages";
 
 export const apiUrl = process.env.REACT_APP_BLOCKS_API;
 export const scanUrl = process.env.REACT_APP_SCAN_URL;

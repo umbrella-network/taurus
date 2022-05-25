@@ -1,14 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { startCase } from "lodash";
-
-import { fetchBlock } from "@Services";
-import { bscScanUrl, scanUrl, scanUrlSuffix } from "@Urls";
-import { valueToToken } from "@Formatters";
-import { readableAgeFromTimestamp } from "@Utils";
-import { Url } from "@Ui";
-
-import { ArrowAlt, CloseAlt } from "@Images";
 
 import {
   PaginatedTable,
@@ -16,42 +8,41 @@ import {
   Card,
   Heading,
   KeyValuePairs,
-} from "@Ui";
-
+  Url,
+} from "components/ui";
 import Leaves from "./Leaves";
+
+import { useChain } from "store/Chain";
+import { bscScanUrl, scanUrl, scanUrlSuffix } from "utils/urls";
+import { valueToToken, parseBlockVoters } from "utils/formatters";
+import { readableAgeFromTimestamp } from "utils";
+import { ArrowAlt, CloseAlt } from "assets/images";
 
 import "./block.scss";
 
 function Block() {
+  const {
+    state: {
+      selectedBlock: { leavesAmount, details: block, error, isLoading },
+    },
+    getBlockAndLeaves,
+  } = useChain();
   const { id } = useParams();
   const history = useHistory();
+
   const handleRedirect = () => history.push("/blocks");
 
-  const [block, setBlock] = useState();
-  const [leavesLength, setLeavesLength] = useState("Loading...");
-  const [isLoading, setIsLoading] = useState(true);
-
-  const [hasError, setHasError] = useState(false);
-  const loadingState = isLoading && !block;
-  const hasBlock = !isLoading && block;
-
-  const handleError = () => setHasError(true);
+  const parsedVoters = parseBlockVoters(block);
 
   useEffect(() => {
-    if (block || hasError) {
-      setIsLoading(false);
+    const shouldRequestBlock =
+      (!block && !isLoading && !error) ||
+      (block && block.blockId !== Number(id));
+
+    if (shouldRequestBlock) {
+      getBlockAndLeaves({ blockId: id });
     }
-  }, [block, hasError]);
-
-  const parsedVoters = block?.voters.map((voter) => ({
-    address: voter,
-    power: block.votes[voter],
-  }));
-
-  const handleBlock = ({ data }) => setBlock(data);
-
-  /* eslint-disable-next-line */
-  useEffect(() => fetchBlock(id, handleBlock, handleError), []);
+  }, [block, id, error, isLoading, getBlockAndLeaves]);
 
   return (
     <div className="block">
@@ -61,8 +52,8 @@ function Block() {
         </button>
         <Heading>Block {id} Details</Heading>
       </div>
-      {loadingState && <LoadingState />}
-      {hasBlock && (
+      {isLoading && <LoadingState />}
+      {block && (
         <div className="block__body">
           <Card>
             <KeyValuePairs
@@ -92,7 +83,7 @@ function Block() {
                 },
                 {
                   label: "L2 data pairs",
-                  valueCallback: () => leavesLength,
+                  valueCallback: () => leavesAmount ?? "Loading...",
                 },
                 {
                   label: "Status",
@@ -131,11 +122,7 @@ function Block() {
               ]}
             />
           </Card>
-          <Leaves
-            block={block}
-            id={id}
-            leavesLengthCallback={setLeavesLength}
-          />
+          <Leaves block={block} id={id} />
           <Heading>
             Block {id} Validators <span>{block.voters.length} total </span>
           </Heading>
@@ -161,14 +148,16 @@ function Block() {
           </Card>
         </div>
       )}
-      {hasError && !isLoading && (
+      {error && (
         <div className="block__body">
           <div className="error-state">
             <Card>
               <div className="error-state__message">
                 <CloseAlt />
                 <p>
-                  Sorry, we could not find a block with the ID <span>{id}</span>
+                  Sorry, we encountered an error while processing block{" "}
+                  <span>{id}</span>. Please make sure you are requesting a valid
+                  block and try again.
                 </p>
               </div>
               <Url

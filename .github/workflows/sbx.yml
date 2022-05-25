@@ -25,6 +25,7 @@ jobs:
           REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_BSC_SBX }}
           REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_BSC_SBX }}
           REACT_APP_FOREIGN_CHAIN_ID:
+          REACT_APP_STAGE: sbx
 
       - name: Upload environment to be used by the next job
         uses: actions/upload-artifact@v2
@@ -54,6 +55,7 @@ jobs:
           REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_ETH_SBX }}
           REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_ETH_SBX }}
           REACT_APP_FOREIGN_CHAIN_ID: ${{ secrets.REACT_APP_FOREIGN_CHAIN_ID_ETH_SBX }}
+          REACT_APP_STAGE: sbx
 
       - name: Upload environment to be used by the next job
         uses: actions/upload-artifact@v2
@@ -83,6 +85,7 @@ jobs:
           REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_POLYGON_SBX }}
           REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_POLYGON_SBX }}
           REACT_APP_FOREIGN_CHAIN_ID: ${{ secrets.REACT_APP_FOREIGN_CHAIN_ID_POLYGON_SBX }}
+          REACT_APP_STAGE: sbx
 
       - name: Upload environment to be used by the next job
         uses: actions/upload-artifact@v2
@@ -112,6 +115,7 @@ jobs:
           REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_AVALANCHE_SBX }}
           REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_AVALANCHE_SBX }}
           REACT_APP_FOREIGN_CHAIN_ID: ${{ secrets.REACT_APP_FOREIGN_CHAIN_ID_AVALANCHE_SBX }}
+          REACT_APP_STAGE: sbx
 
       - name: Upload environment to be used by the next job
         uses: actions/upload-artifact@v2
@@ -141,6 +145,7 @@ jobs:
           REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_ARBITRUM_SBX }}
           REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_ARBITRUM_SBX }}
           REACT_APP_FOREIGN_CHAIN_ID: ${{ secrets.REACT_APP_FOREIGN_CHAIN_ID_ARBITRUM_SBX }}
+          REACT_APP_STAGE: sbx
 
       - name: Upload environment to be used by the next job
         uses: actions/upload-artifact@v2
@@ -170,6 +175,7 @@ jobs:
           REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_SOLANA_SBX }}
           REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_SOLANA_SBX }}
           REACT_APP_FOREIGN_CHAIN_ID: ${{ secrets.REACT_APP_FOREIGN_CHAIN_ID_SOLANA_SBX }}
+          REACT_APP_STAGE: sbx
 
       - name: Upload environment to be used by the next job
         uses: actions/upload-artifact@v2
