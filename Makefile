@@ -47,6 +47,7 @@ build-s3-dev-eth: export REACT_APP_BLOCKS_API=$(DEV_ETH_REACT_APP_BLOCKS_API)
 build-s3-dev-eth: export REACT_APP_SCAN_URL=$(DEV_ETH_REACT_APP_SCAN_URL)
 build-s3-dev-eth: export REACT_APP_TOKEN_AUTH=$(DEV_ETH_REACT_APP_TOKEN_AUTH)
 build-s3-dev-eth: export REACT_APP_FOREIGN_CHAIN_ID=$(DEV_ETH_REACT_APP_FOREIGN_CHAIN_ID)
+build-s3-dev-eth: export REACT_APP_STAGE=dev
 build-s3-dev-eth:
 	@echo "## Building ETH DEV Environment ##"
 	@yarn install
@@ -62,6 +63,7 @@ build-s3-sbx-eth: export REACT_APP_BLOCKS_API=$(SBX_ETH_REACT_APP_BLOCKS_API)
 build-s3-sbx-eth: export REACT_APP_SCAN_URL=$(SBX_ETH_REACT_APP_SCAN_URL)
 build-s3-sbx-eth: export REACT_APP_TOKEN_AUTH=$(SBX_ETH_REACT_APP_TOKEN_AUTH)
 build-s3-sbx-eth: export REACT_APP_FOREIGN_CHAIN_ID=$(SBX_ETH_REACT_APP_FOREIGN_CHAIN_ID)
+build-s3-sbx-eth: export REACT_APP_STAGE=sbx
 build-s3-sbx-eth:
 	@echo "## Building ETH SBX Environment ##"
 	@yarn install
@@ -78,6 +80,7 @@ build-s3-dev-bsc: export REACT_APP_BLOCKS_API=$(DEV_BSC_REACT_APP_BLOCKS_API)
 build-s3-dev-bsc: export REACT_APP_SCAN_URL=$(DEV_BSC_REACT_APP_SCAN_URL)
 build-s3-dev-bsc: export REACT_APP_TOKEN_AUTH=$(DEV_BSC_REACT_APP_TOKEN_AUTH)
 build-s3-dev-bsc: export REACT_APP_FOREIGN_CHAIN_ID=
+build-s3-dev-bsc: export REACT_APP_STAGE=dev
 build-s3-dev-bsc:
 	@echo "## Building BSC DEV Environment ##"
 	@yarn install
@@ -93,6 +96,7 @@ build-s3-sbx-bsc: export REACT_APP_BLOCKS_API=$(SBX_BSC_REACT_APP_BLOCKS_API)
 build-s3-sbx-bsc: export REACT_APP_SCAN_URL=$(SBX_BSC_REACT_APP_SCAN_URL)
 build-s3-sbx-bsc: export REACT_APP_TOKEN_AUTH=$(SBX_BSC_REACT_APP_TOKEN_AUTH)
 build-s3-sbx-bsc: export REACT_APP_FOREIGN_CHAIN_ID=
+build-s3-sbx-bsc: export REACT_APP_STAGE=sbx
 build-s3-sbx-bsc:
 	@echo "## Building BSC SBX Environment ##"
 	@yarn install
@@ -109,6 +113,7 @@ build-s3-dev-polygon: export REACT_APP_BLOCKS_API=$(DEV_POLYGON_REACT_APP_BLOCKS
 build-s3-dev-polygon: export REACT_APP_SCAN_URL=$(DEV_POLYGON_REACT_APP_SCAN_URL)
 build-s3-dev-polygon: export REACT_APP_TOKEN_AUTH=$(DEV_POLYGON_REACT_APP_TOKEN_AUTH)
 build-s3-dev-polygon: export REACT_APP_FOREIGN_CHAIN_ID=$(DEV_POLYGON_REACT_APP_FOREIGN_CHAIN_ID)
+build-s3-dev-polygon: export REACT_APP_STAGE=dev
 build-s3-dev-polygon:
 	@echo "## Building POLYGON DEV Environment ##"
 	@yarn install
@@ -124,6 +129,7 @@ build-s3-sbx-polygon: export REACT_APP_BLOCKS_API=$(SBX_POLYGON_REACT_APP_BLOCKS
 build-s3-sbx-polygon: export REACT_APP_SCAN_URL=$(SBX_POLYGON_REACT_APP_SCAN_URL)
 build-s3-sbx-polygon: export REACT_APP_TOKEN_AUTH=$(SBX_POLYGON_REACT_APP_TOKEN_AUTH)
 build-s3-sbx-polygon: export REACT_APP_FOREIGN_CHAIN_ID=$(SBX_POLYGON_REACT_APP_FOREIGN_CHAIN_ID)
+build-s3-sbx-polygon: export REACT_APP_STAGE=sbx
 build-s3-sbx-polygon:
 	@echo "## Building POLYGON SBX Environment ##"
 	@yarn install
@@ -140,6 +146,7 @@ build-s3-dev-avalanche: export REACT_APP_BLOCKS_API=$(DEV_AVAX_REACT_APP_BLOCKS_
 build-s3-dev-avalanche: export REACT_APP_SCAN_URL=$(DEV_AVAX_REACT_APP_SCAN_URL)
 build-s3-dev-avalanche: export REACT_APP_TOKEN_AUTH=$(DEV_AVAX_REACT_APP_TOKEN_AUTH)
 build-s3-dev-avalanche: export REACT_APP_FOREIGN_CHAIN_ID=$(DEV_AVAX_REACT_APP_FOREIGN_CHAIN_ID)
+build-s3-dev-avalanche: export REACT_APP_STAGE=dev
 build-s3-dev-avalanche:
 	@echo "## Building AVAX DEV Environment ##"
 	@yarn install
@@ -155,6 +162,7 @@ build-s3-sbx-avalanche: export REACT_APP_BLOCKS_API=$(SBX_AVAX_REACT_APP_BLOCKS_
 build-s3-sbx-avalanche: export REACT_APP_SCAN_URL=$(SBX_AVAX_REACT_APP_SCAN_URL)
 build-s3-sbx-avalanche: export REACT_APP_TOKEN_AUTH=$(SBX_AVAX_REACT_APP_TOKEN_AUTH)
 build-s3-sbx-avalanche: export REACT_APP_FOREIGN_CHAIN_ID=$(SBX_AVAX_REACT_APP_FOREIGN_CHAIN_ID)
+build-s3-sbx-avalanche: export REACT_APP_STAGE=sbx
 build-s3-sbx-avalanche:
 	@echo "## Building AVAX SBX Environment ##"
 	@yarn install
@@ -171,6 +179,7 @@ build-s3-dev-arbitrum: export REACT_APP_BLOCKS_API=$(DEV_ARBITRUM_REACT_APP_BLOC
 build-s3-dev-arbitrum: export REACT_APP_SCAN_URL=$(DEV_ARBITRUM_REACT_APP_SCAN_URL)
 build-s3-dev-arbitrum: export REACT_APP_TOKEN_AUTH=$(DEV_ARBITRUM_REACT_APP_TOKEN_AUTH)
 build-s3-dev-arbitrum: export REACT_APP_FOREIGN_CHAIN_ID=$(DEV_ARBITRUM_REACT_APP_FOREIGN_CHAIN_ID)
+build-s3-dev-arbitrum: export REACT_APP_STAGE=dev
 build-s3-dev-arbitrum:
 	@echo "## Building ARBITRUM DEV Environment ##"
 	@yarn install
@@ -186,6 +195,7 @@ build-s3-sbx-arbitrum: export REACT_APP_BLOCKS_API=$(SBX_ARBITRUM_REACT_APP_BLOC
 build-s3-sbx-arbitrum: export REACT_APP_SCAN_URL=$(SBX_ARBITRUM_REACT_APP_SCAN_URL)
 build-s3-sbx-arbitrum: export REACT_APP_TOKEN_AUTH=$(SBX_ARBITRUM_REACT_APP_TOKEN_AUTH)
 build-s3-sbx-arbitrum: export REACT_APP_FOREIGN_CHAIN_ID=$(SBX_ARBITRUM_REACT_APP_FOREIGN_CHAIN_ID)
+build-s3-sbx-arbitrum: export REACT_APP_STAGE=sbx
 build-s3-sbx-arbitrum:
 	@echo "## Building ARBITRUM SBX Environment ##"
 	@yarn install
@@ -203,6 +213,7 @@ build-s3-dev-solana: export REACT_APP_BLOCKS_API=$(DEV_SOLANA_REACT_APP_BLOCKS_A
 build-s3-dev-solana: export REACT_APP_SCAN_URL=$(DEV_SOLANA_REACT_APP_SCAN_URL)
 build-s3-dev-solana: export REACT_APP_TOKEN_AUTH=$(DEV_SOLANA_REACT_APP_TOKEN_AUTH)
 build-s3-dev-solana: export REACT_APP_FOREIGN_CHAIN_ID=$(DEV_SOLANA_REACT_APP_FOREIGN_CHAIN_ID)
+build-s3-dev-solana: export REACT_APP_STAGE=dev
 build-s3-dev-solana:
 	@echo "## Building SOLANA DEV Environment ##"
 	@yarn install
@@ -219,6 +230,7 @@ build-s3-sbx-solana: export REACT_APP_BLOCKS_API=$(SBX_SOLANA_REACT_APP_BLOCKS_A
 build-s3-sbx-solana: export REACT_APP_SCAN_URL=$(SBX_SOLANA_REACT_APP_SCAN_URL)
 build-s3-sbx-solana: export REACT_APP_TOKEN_AUTH=$(SBX_SOLANA_REACT_APP_TOKEN_AUTH)
 build-s3-sbx-solana: export REACT_APP_FOREIGN_CHAIN_ID=$(SBX_SOLANA_REACT_APP_FOREIGN_CHAIN_ID)
+build-s3-sbx-solana: export REACT_APP_STAGE=sbx
 build-s3-sbx-solana:
 	@echo "## Building SOLANA DEV Environment ##"
 	@yarn install

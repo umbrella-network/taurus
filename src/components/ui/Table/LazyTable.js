@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import { PaginatedTable, LoadingState } from "@Ui";
 
-import { tableProperties as properties } from "@Types";
+import { PaginatedTable, LoadingState } from "components/ui";
+
+import { tableProperties as properties } from "utils/types";
 
 import "./lazyTable.scss";
 
@@ -12,36 +13,34 @@ const propTypes = {
   dataPerPage: PropTypes.number,
   fetchCallback: PropTypes.func.isRequired,
   queryPage: PropTypes.bool,
+  data: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 const defaultProps = {
   dataPerPage: 10,
   queryPage: false,
+  isLoading: false,
 };
 
-function LazyTable({ properties, fetchCallback, dataPerPage, queryPage }) {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleData = (data) => {
-    setIsLoading(false);
-    setData(data);
-  };
-
-  const pageChangeCallback = (page) => {
-    setIsLoading(true);
-    fetchCallback(page, handleData);
-  };
-
+function LazyTable({
+  properties,
+  fetchCallback,
+  data,
+  isLoading,
+  dataPerPage,
+  queryPage,
+}) {
   return (
     <div
       className={classnames("lazy-table", { "lazy-table--loading": isLoading })}
     >
       <PaginatedTable
         queryPage={queryPage}
+        dataPerPage={dataPerPage}
         data={data}
         properties={properties}
-        pageChangeCallback={pageChangeCallback}
+        pageChangeCallback={fetchCallback}
       />
       <LoadingState />
     </div>

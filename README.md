@@ -22,6 +22,7 @@ REACT_APP_BLOCKS_API=       //The URL in which the API will be available
 REACT_APP_SCAN_URL=         //URL for the address scan
 REACT_APP_TOKEN_AUTH=       //Auth Token to be used
 REACT_APP_FOREIGN_CHAIN_ID= //ID for the foreign chain, leave empty if it's not a foreign chain
+REACT_APP_STAGE=            //stage: dev | sbx | prod
 ```
 
 ## Running

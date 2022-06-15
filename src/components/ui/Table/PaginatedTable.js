@@ -1,17 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import { slice, isEmpty } from "ramda";
-
 import classnames from "classnames";
-
 import { useHistory, useLocation } from "react-router-dom";
-
-import { Info } from "@Ui";
-
-import { tableProperties as properties } from "@Types";
+import { slice, isEmpty } from "ramda";
 
 import Pagination from "./Pagination";
 import TableRow from "./TableRow";
+import { Info } from "components/ui";
+
+import { tableProperties as properties } from "utils/types";
 
 import "./paginatedTable.scss";
 

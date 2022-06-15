@@ -1,4 +1,5 @@
 import { isEmpty, splitAt } from "ramda";
+import millify from "millify";
 
 export function valueToToken({
   value,
@@ -26,4 +27,17 @@ export function valueToToken({
   const parsedValue = `${formattedInteger}.${formattedDecimals}`;
 
   return toFloat ? parseFloat(parsedValue) : `${parsedValue} ${token}`;
+}
+
+export function parseAndMillifyToken(amount, currency) {
+  const parsedAmount = valueToToken({
+    value: amount,
+    floatDecimals: 2,
+    toFloat: true,
+  });
+  const millifiedAmount = millify(parsedAmount, {
+    precision: 1,
+    lowercase: true,
+  });
+  return `${millifiedAmount} ${currency}`;
 }

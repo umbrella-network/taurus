@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import { Close } from "@Images";
-import { Card, Heading } from "@Ui";
+
+import { Card, Heading } from "components/ui";
+
+import { Close } from "assets/images";
 
 import "./layer.scss";
 
@@ -32,8 +34,8 @@ function Layer({ children, title, close, className, fillMobile }) {
       if (body) {
         body.style.overflow = "initial";
       }
-    }
-  }, [])
+    };
+  }, []);
 
   return (
     <div className="layer">
@@ -44,11 +46,7 @@ function Layer({ children, title, close, className, fillMobile }) {
         })}
       >
         <div className="layer-card-header">
-          {title ? (
-            <Heading>
-              {title}
-            </Heading>
-          ) : null}
+          {title ? <Heading>{title}</Heading> : null}
           <button onClick={close}>
             <Close />
           </button>

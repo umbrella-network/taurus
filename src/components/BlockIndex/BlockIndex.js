@@ -1,19 +1,23 @@
 import React from "react";
-import { HeaderCards } from "@Components";
-import { LazyTable, Heading, Card } from "@Ui";
 
-import { fetchBlocks } from "@Services";
+import { useChain } from "store/Chain";
 
-import { valueToToken } from "@Formatters";
-import { readableAgeFromTimestamp } from "@Utils";
-import { scanUrl, scanUrlSuffix } from "@Urls";
+import { HeaderCards } from "components";
+import { LazyTable, Heading, Card } from "components/ui";
+
+import { readableAgeFromTimestamp } from "utils";
+import { valueToToken } from "utils/formatters";
+import { scanUrl, scanUrlSuffix } from "utils/urls";
 
 import "./blockIndex.scss";
 
 function BlockIndex() {
-  const fetchCallback = (page, callback) => {
-    fetchBlocks(callback, undefined, page - 1, 10);
-  };
+  const {
+    state: {
+      blocks: { list, isLoading },
+    },
+    getNthBlocksPage,
+  } = useChain();
 
   return (
     <div className="block-index">
@@ -22,7 +26,9 @@ function BlockIndex() {
       <Card className="block-index__table">
         <LazyTable
           queryPage
-          fetchCallback={fetchCallback}
+          data={list}
+          isLoading={isLoading}
+          fetchCallback={getNthBlocksPage}
           properties={[
             {
               key: "blockId",

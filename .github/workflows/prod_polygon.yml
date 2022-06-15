@@ -24,6 +24,7 @@ jobs:
           REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_POLYGON_PROD }}
           REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_POLYGON_PROD }}
           REACT_APP_FOREIGN_CHAIN_ID: ${{ secrets.REACT_APP_FOREIGN_CHAIN_ID_POLYGON_PROD }}
+          REACT_APP_STAGE: prod
 
       - name: Upload environment to be used by the next job
         uses: actions/upload-artifact@v2
@@ -31,7 +32,7 @@ jobs:
           name: build_polygon
           path: build
           retention-days: 1
-  
+
   push_polygon:
     needs: build_polygon
     runs-on: ubuntu-latest

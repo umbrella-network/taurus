@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-
-import { useClickOutsideListenerRef } from "@Hooks";
+import classnames from "classnames";
 import { useLocation, useHistory } from "react-router-dom";
+
+import { useClickOutsideListenerRef } from "hooks";
 
 import {
   UmbrellaIcon,
@@ -23,20 +24,9 @@ import {
   Telegram,
   Linkedin,
   Collapse,
-} from "@Images";
-
-import classnames from "classnames";
+} from "assets/images";
 
 import "./sidebar.scss";
-
-//eslint-disable-next-line
-function NewKeys() {
-  return (
-    <div className="notification">
-      <p>2 new</p>
-    </div>
-  );
-}
 
 const options = [
   {

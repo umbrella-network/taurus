@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 
-import { useClickOutsideListenerRef } from "@Hooks";
+import { useClickOutsideListenerRef } from "hooks";
 
-import { Arrow } from "@Images";
+import { Arrow } from "assets/images";
 
 import "./dropdown.scss";
 

@@ -1,10 +1,9 @@
 import React from "react";
-
 import PropTypes from "prop-types";
 
-import { tableProperties as properties } from "@Types";
+import { TableRow } from "components/ui";
 
-import { TableRow } from "@Ui";
+import { tableProperties as properties } from "utils/types";
 
 import "./keyValuePairs.scss";
 

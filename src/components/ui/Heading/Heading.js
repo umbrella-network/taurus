@@ -1,8 +1,7 @@
 import React from "react";
-
 import PropTypes from "prop-types";
 
-import { ChainSelect } from "@Components";
+import { ChainSelect } from "components";
 
 import "./heading.scss";
 
@@ -12,7 +11,7 @@ const propTypes = {
 
 const defaultProps = {
   primary: false,
-}
+};
 
 function Heading({ primary, children }) {
   return (
@@ -21,7 +20,7 @@ function Heading({ primary, children }) {
       {primary && <ChainSelect />}
     </h1>
   );
-};
+}
 
 Heading.propTypes = propTypes;
 Heading.defaultProps = defaultProps;

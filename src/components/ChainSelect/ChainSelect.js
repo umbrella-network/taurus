@@ -1,20 +1,22 @@
 import React from "react";
 
-import { Dropdown, Url } from "@Ui";
-import { scanForChain } from "@Urls";
+import { Dropdown, Url } from "components/ui";
+
+import { scanForChain } from "utils/urls";
+
 import {
   currentChainName,
   currentNetwork,
-  environment,
   availableChains,
-  isDev,
-} from "@Constants";
+} from "constants/chainData";
+import { STAGE as environment, isDev } from "constants/stages";
 
 import "./chainSelect.scss";
 
 function ChainSelect() {
   const chains = Object.values(availableChains).filter(
-    ({ name, devOnly = false }) => name !== currentChainName && (isDev || !devOnly)
+    ({ name, devOnly = false }) =>
+      name !== currentChainName && (isDev || !devOnly)
   );
 
   return (

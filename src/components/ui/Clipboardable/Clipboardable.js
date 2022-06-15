@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import { Clipboard, CheckedCircle } from "@Images";
+import { debounce } from "lodash";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { debounce } from "lodash";
+
+import { Clipboard, CheckedCircle } from "assets/images";
 
 import "./clipboardable.scss";
 
@@ -19,7 +20,7 @@ const defaultProps = {
   label: undefined,
 };
 
-function Clipboardable({ text, disabled, children, label, ...rest }) {
+function Clipboardable({ text, disabled, children, label }) {
   const [hasCopied, setHasCopied] = useState(false);
   const copiedCallback = debounce(setHasCopied, 750);
   const icon = hasCopied ? CheckedCircle : Clipboard;
