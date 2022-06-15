@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
-
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { debounce } from "lodash";
 import { isEmpty } from "ramda";
-import { Search } from "@Images";
+
+import { Search } from "assets/images";
 
 import "./searchBar.scss";
 
@@ -44,11 +44,7 @@ function SearchBar({
   const [value, setValue] = React.useState("");
 
   const handleValueChange = useCallback((value) => {
-    setKeyWords(
-      value
-        .split(/(?=[^-:])\W/)
-        .filter((value) => !isEmpty(value))
-    );
+    setKeyWords(value.split(/(?=[^-:])\W/).filter((value) => !isEmpty(value)));
   }, []);
 
   const valueChangeCallback = useRef(
@@ -86,7 +82,12 @@ function SearchBar({
       })}
     >
       <Search />
-      <input onFocus={onFocus} value={value} placeholder={placeholder} onInput={handleChange} />
+      <input
+        onFocus={onFocus}
+        value={value}
+        placeholder={placeholder}
+        onInput={handleChange}
+      />
     </div>
   );
 }

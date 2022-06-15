@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { Datapairs, BlockIndex, Block, ChainSelect } from "@Components";
-import { ProofsProvider } from "@Store";
-import { Sidebar } from "@Ui";
+import { ChainProvider } from "store/Chain";
+
+import { Datapairs, BlockIndex, Block, ChainSelect } from "components";
+import { Sidebar } from "components/ui";
 
 function MainContent() {
   return (
@@ -12,7 +13,7 @@ function MainContent() {
         <Sidebar />
         <ChainSelect />
 
-        <ProofsProvider>
+        <ChainProvider>
           <div className="main-content">
             <Switch>
               <Route path="/blocks/:id">
@@ -28,7 +29,7 @@ function MainContent() {
               </Route>
             </Switch>
           </div>
-        </ProofsProvider>
+        </ChainProvider>
       </Router>
     </main>
   );

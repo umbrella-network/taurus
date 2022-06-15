@@ -1,20 +1,10 @@
 import { isEmpty } from "ramda";
 
+import STAGE, { PROD } from "./stages";
+
 const baseChain = "bsc";
 
-export const PRODUCTION = "production";
-
 export const chainId = process.env.REACT_APP_FOREIGN_CHAIN_ID;
-export const tokenAuth = process.env.REACT_APP_TOKEN_AUTH;
-
-export const devEnvironments = ["dev", "sbx"];
-
-export const environment =
-  devEnvironments.find((environment) =>
-    process.env.REACT_APP_BLOCKS_API.includes(environment)
-  ) ?? PRODUCTION;
-
-export const isDev = devEnvironments.includes(environment);
 
 export const isSolana = chainId === "solana";
 
@@ -24,42 +14,42 @@ export const availableChains = {
     symbol: "bsc",
     dev: "Testnet",
     sbx: "Testnet",
-    [PRODUCTION]: "Mainnet",
+    [PROD]: "Mainnet",
   },
   polygon: {
     name: "Polygon",
     symbol: "polygon",
     dev: "Mumbai",
     sbx: "Mumbai",
-    [PRODUCTION]: "Mainnet",
+    [PROD]: "Mainnet",
   },
   ethereum: {
     name: "Ethereum",
     symbol: "eth",
     dev: "Kovan",
     sbx: "Ropsten",
-    [PRODUCTION]: "Mainnet",
+    [PROD]: "Mainnet",
   },
   avax: {
     name: "Avalanche",
     symbol: "avax",
     dev: "Testnet",
     sbx: "Testnet",
-    [PRODUCTION]: "Mainnet",
+    [PROD]: "Mainnet",
   },
   arbitrum: {
     name: "Arbitrum",
     symbol: "arbitrum",
     dev: "Testnet",
     sbx: "Testnet",
-    [PRODUCTION]: "Mainnet",
+    [PROD]: "Mainnet",
   },
   solana: {
     name: "Solana",
     symbol: "solana",
     dev: "Testnet",
     sbx: "Testnet",
-    [PRODUCTION]: "Mainnet",
+    [PROD]: "Mainnet",
   },
 };
 
@@ -69,4 +59,4 @@ const currentChain =
     : availableChains[baseChain];
 
 export const currentChainName = currentChain.name;
-export const currentNetwork = currentChain[environment];
+export const currentNetwork = currentChain[STAGE];

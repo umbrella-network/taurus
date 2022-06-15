@@ -11,12 +11,12 @@ import {
   Grid,
   ResponsiveContext,
 } from "grommet";
+import { Clipboardable, LeafPairs } from "components/ui";
+
+import { arrayToReadableJSON, truncate } from "utils/formatters";
+import { isSizeMobile, scanUrl } from "utils";
 
 import { FormClose } from "grommet-icons";
-
-import { arrayToReadableJSON, truncate } from "@Formatters";
-import { Clipboardable, LeafPairs } from "@Ui";
-import { isSizeMobile } from "@Utils";
 
 const propTypes = {
   leaf: PropTypes.object.isRequired,
@@ -74,7 +74,7 @@ function Leaf({ leaf, blockId, label, chainAddress, timestamp }) {
                     size="small"
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={`${process.env.REACT_APP_SCAN_URL}/${chainAddress}`}
+                    href={`${scanUrl}/${chainAddress}`}
                     label={`Contract - [${truncate(chainAddress)}]`}
                   />
                 </Clipboardable>

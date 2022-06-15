@@ -1,6 +1,7 @@
+import { LeafKeyCoder, LeafValueCoder } from "@umb-network/toolbox";
 import { join, splitAt, takeLast, isEmpty, uniqBy, prop, sortBy } from "ramda";
 
-import { LeafKeyCoder, LeafValueCoder } from "@umb-network/toolbox";
+import { scanUrl } from "utils/urls";
 
 export const arrayToReadableJSON = (array) => {
   const formattedArray = array.map((element) => `"${element}"`);
@@ -60,10 +61,17 @@ export function formatLeaf(data, block) {
     dataTimestamp: block.dataTimestamp,
     blockId: block.blockId,
     chainAddress: block.chainAddress,
-    chainAddressScanUrl: `${process.env.REACT_APP_SCAN_URL}/${block.chainAddress}`,
+    chainAddressScanUrl: `${scanUrl}/${block.chainAddress}`,
     isL2: true,
     type: "Layer 2",
   };
+}
+
+export function parseBlockVoters(block) {
+  return block?.voters.map((voter) => ({
+    address: voter,
+    power: block.votes[voter],
+  }));
 }
 
 function mergeFirstClassWithLeafs(firstClassData, leaves) {

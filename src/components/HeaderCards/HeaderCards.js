@@ -1,70 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import { usePrices } from "@Store";
-import { valueToToken } from "@Formatters";
-import { Card, Url } from "@Ui";
-import { BlocksAltComponent, StackAltComponent, Shield, Staked } from "@Images";
+import { useChain } from "store/Chain";
 
-import { isEmpty } from "ramda";
-import millify from "millify";
+import { Card, Url } from "components/ui";
+
+import { parseAndMillifyToken } from "utils/formatters";
+
+import {
+  BlocksAltComponent,
+  StackAltComponent,
+  Shield,
+  Staked,
+} from "assets/images";
 
 import "./headerCards.scss";
 
-const loading = "Loading...";
-
 function HeaderCards() {
   const {
-    state: {
-      proof: { block },
-      datapairs: { list },
-    },
-  } = usePrices();
+    state: { lastBlockId, lastBlock, datapairs },
+  } = useChain();
 
-  const [latestBlock, setLatestBlock] = useState(loading);
-  const [datapairs, setDatapairs] = useState(loading);
-  const [validators, setValidators] = useState(loading);
-  const [staked, setStaked] = useState(loading);
-
-  useEffect(() => {
-    if (block) {
-      const staked = valueToToken({
-        value: block.staked,
-        floatDecimals: 2,
-        toFloat: true,
-      });
-      const millifiedStaked = millify(staked, {
-        precision: 1,
-        lowercase: true,
-      });
-
-      setLatestBlock(block.blockId);
-      setValidators(block.voters.length);
-      setStaked(`${millifiedStaked} UMB`);
-    }
-  }, [block]);
-
-  useEffect(() => {
-    if (!isEmpty(list)) {
-      setDatapairs(list.length);
-    }
-  }, [list]);
+  const staked = lastBlock && parseAndMillifyToken(lastBlock.staked, "UMB");
 
   const data = [
     {
       label: "Latest block",
-      value: latestBlock,
-      url: `/blocks/${latestBlock}`,
+      value: lastBlockId,
+      url: `/blocks/${lastBlockId}`,
       icon: <BlocksAltComponent />,
     },
     {
       label: "Total datapairs",
-      value: datapairs,
+      value: datapairs?.length,
       url: "/datapairs",
       icon: <StackAltComponent />,
     },
     {
       label: "Total validators",
-      value: validators,
+      value: lastBlock?.voters.length,
       icon: <Shield />,
     },
     {
@@ -80,10 +53,10 @@ function HeaderCards() {
         <Card key={`${value} card ${label}`} className="header-cards__card">
           {icon}
           <p className="header-card__label">{label}</p>
-          {url && value !== loading ? (
+          {url && value ? (
             <Url className="header-card__value" label={value} url={url} />
           ) : (
-            <p className="header-card__value">{value}</p>
+            <p className="header-card__value">{value ? value : "Loading..."}</p>
           )}
         </Card>
       ))}

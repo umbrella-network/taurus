@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
+import { useChain } from "store/Chain";
+
 import {
-  LoadingState,
   PaginatedTable,
   Card,
   Heading,
@@ -10,52 +11,35 @@ import {
   Layer,
   KeyValuePairs,
   Clipboardable,
-} from "@Ui";
+} from "components/ui";
 
-import { readableProof, formatLeaf, arrayToReadableJSON } from "@Formatters";
-
-import { scanUrl, scanUrlSuffix } from "@Urls";
-import { fetchLeaves } from "@Services";
+import { readableProof, arrayToReadableJSON } from "utils/formatters";
+import { scanUrl, scanUrlSuffix } from "utils/urls";
 
 import "./leaves.scss";
 
 const propTypes = {
   block: PropTypes.object.isRequired,
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  leavesLengthCallback: PropTypes.func.isRequired,
 };
 
-function Leaves({ block, id, leavesLengthCallback }) {
-  const [leaves, setLeaves] = useState(undefined);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(undefined);
+function Leaves({ block, id }) {
+  const {
+    state: {
+      selectedBlock: { leavesAmount, leavesList: leaves },
+    },
+  } = useChain();
 
   const [filteredItems, setFilteredItems] = useState(leaves ?? []);
 
   const [currentLeaf, setCurrentLeaf] = useState(undefined);
   const close = () => setCurrentLeaf(undefined);
 
-  const handleLeaves = (leaves) => {
-    setLeaves(leaves.map((leaf) => formatLeaf(leaf, block)));
-  };
-
-  useEffect(() => {
-    if (leaves || error) {
-      setIsLoading(false);
-      leavesLengthCallback(leaves.length);
-    }
-
-    /* eslint-disable-next-line */
-  }, [leaves, error]);
-
   useEffect(() => {
     if (leaves) {
       setFilteredItems(leaves);
     }
   }, [leaves]);
-
-  /* eslint-disable-next-line */
-  useEffect(() => fetchLeaves(id, handleLeaves, setError), []);
 
   return (
     <>
@@ -125,48 +109,42 @@ function Leaves({ block, id, leavesLengthCallback }) {
       </div>
       <Heading>
         Block {id} Layer 2 data{" "}
-        {Boolean(leaves?.length) && <span>{leaves.length} total</span>}
+        {Boolean(leaves?.length) && <span>{leavesAmount} total</span>}
       </Heading>
       <Card className="leaves">
-        {isLoading && <LoadingState />}
-        {!isLoading && !error && (
-          <PaginatedTable
-            data={filteredItems}
-            properties={[
-              {
-                key: "key",
-                label: "Key",
-                description: "This is the name of the cryptocurrency pair",
-                onClick: setCurrentLeaf,
-              },
-              {
-                label: "Value",
-                key: "value",
-                description:
-                  "This is the price (or any other type of data that we are supporting)",
-              },
-              {
-                label: "Key (bytes)",
-                key: "keyHex",
-                description: "This is the byte representation of the Key",
-                truncate: true,
-                clipboardable: true,
-              },
-              {
-                key: "valueBytes",
-                label: "Value (Bytes)",
-                description: "This is the byte representation of the Value",
-                highlight: true,
-                truncate: true,
-                clipboardable: true,
-              },
-            ]}
-            dataPerPage={6}
-          />
-        )}
-        {error && (
-          <p>Something went wrong fetching the L2 data. Try again later</p>
-        )}
+        <PaginatedTable
+          data={filteredItems}
+          properties={[
+            {
+              key: "key",
+              label: "Key",
+              description: "This is the name of the cryptocurrency pair",
+              onClick: setCurrentLeaf,
+            },
+            {
+              label: "Value",
+              key: "value",
+              description:
+                "This is the price (or any other type of data that we are supporting)",
+            },
+            {
+              label: "Key (bytes)",
+              key: "keyHex",
+              description: "This is the byte representation of the Key",
+              truncate: true,
+              clipboardable: true,
+            },
+            {
+              key: "valueBytes",
+              label: "Value (Bytes)",
+              description: "This is the byte representation of the Value",
+              highlight: true,
+              truncate: true,
+              clipboardable: true,
+            },
+          ]}
+          dataPerPage={6}
+        />
       </Card>
     </>
   );

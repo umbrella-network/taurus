@@ -1,5 +1,6 @@
 import React from "react";
-import { Loading } from "@Images";
+
+import { Loading } from "assets/images";
 
 import "./loadingState.scss";
 

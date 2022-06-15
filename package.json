@@ -1,6 +1,6 @@
 {
   "name": "taurus",
-  "version": "1.7.2",
+  "version": "1.8.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -12,11 +12,9 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.12.1",
     "@umb-network/toolbox": "^5.7.0",
     "axios": "^0.21.0",
     "classnames": "^2.2.6",
-    "customize-cra": "^1.0.0",
     "date-fns": "^2.19.0",
     "ethers": "^5.5.1",
     "int64-buffer": "^1.0.0",
@@ -26,7 +24,6 @@
     "prop-types": "^15.7.2",
     "ramda": "^0.27.1",
     "react": "^17.0.1",
-    "react-app-rewired": "^2.1.6",
     "react-copy-to-clipboard": "^5.0.2",
     "react-device-detect": "^1.14.0",
     "react-dom": "^17.0.1",
@@ -44,16 +41,15 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "babel-plugin-module-resolver": "^4.0.0",
     "cypress": "^5.4.0",
     "eslint-plugin-prettier": "^3.1.4"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "eject": "react-scripts eject",
     "format": "prettier \"src/**/*.{js,html}\" --write",
-    "test": "react-app-rewired test --verbose --env=jest-environment-jsdom-sixteen",
+    "test": "react-scripts test --verbose --env=jest-environment-jsdom-sixteen",
     "test:e2e": "cypress open",
     "test:lint": "eslint ./src"
   },
@@ -61,8 +57,8 @@
     "extends": "react-app"
   },
   "browserslist": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ]
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ]
 }

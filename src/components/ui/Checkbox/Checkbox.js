@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Check } from "@Images";
 import classnames from "classnames";
+
+import { Check } from "assets/images";
 
 import "./checkbox.scss";
 

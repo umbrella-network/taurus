@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-
 import classnames from "classnames";
+import { isEmpty } from "ramda";
 
-import { useClickOutsideListenerRef } from "@Hooks";
+import { useClickOutsideListenerRef } from "hooks";
 
 import { List, AutoSizer } from "react-virtualized";
-
-import { SearchBar, Checkbox } from "@Ui";
-
-import { isEmpty } from "ramda";
+import { SearchBar, Checkbox } from "components/ui";
 
 import "./select.scss";
 

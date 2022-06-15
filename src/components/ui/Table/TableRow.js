@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
-
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { isEmpty } from "ramda";
 
-import { truncate } from "@Formatters";
-import { tableProperties as properties } from "@Types";
-import { Clipboardable, Url } from "@Ui";
+import { Clipboardable, Url } from "components/ui";
+
+import { truncate } from "utils/formatters";
+import { tableProperties as properties } from "utils/types";
 
 const propTypes = {
   item: PropTypes.object.isRequired,
