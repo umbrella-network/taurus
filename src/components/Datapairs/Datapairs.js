@@ -13,7 +13,7 @@ import {
   Dropdown,
 } from "components/ui";
 
-import { scanUrlSuffix, rootUrl } from "utils/urls";
+import { scanUrlSuffix } from "utils/urls";
 import { readableProof } from "utils/formatters";
 
 import { ArrowHamburger, Close } from "assets/images";
@@ -144,7 +144,7 @@ function Datapairs() {
                 label: "Block ID",
                 description: "This is the ID of the block containing the data",
                 clipboardable: true,
-                urlPrefix: `${rootUrl}blocks`,
+                urlPrefix: `blocks`,
               },
               {
                 valueCallback: readableProof,
