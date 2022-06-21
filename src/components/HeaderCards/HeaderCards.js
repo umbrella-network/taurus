@@ -17,7 +17,7 @@ import "./headerCards.scss";
 
 function HeaderCards() {
   const {
-    state: { lastBlockId, lastBlock, datapairs },
+    state: { lastBlock, datapairs },
   } = useChain();
 
   const staked = lastBlock && parseAndMillifyToken(lastBlock.staked, "UMB");
@@ -25,8 +25,8 @@ function HeaderCards() {
   const data = [
     {
       label: "Latest block",
-      value: lastBlockId,
-      url: `/blocks/${lastBlockId}`,
+      value: lastBlock?.blockId,
+      url: `/blocks/${lastBlock?.blockId}`,
       icon: <BlocksAltComponent />,
     },
     {
