@@ -24,8 +24,8 @@ function fetchBlocks({
   });
 }
 
-function fetchChainInfo({ successCallback, rejectCallback }) {
-  const url = `${ChainAPIUrl}/info`;
+function fetchLatestBlock({ successCallback, rejectCallback }) {
+  const url = `${ChainAPIUrl}/blocks/latest`;
 
   API.get({
     url,
@@ -60,11 +60,6 @@ function fetchChainLatestData({ successCallback, rejectCallback, blockId }) {
   API.collect({
     operations: [
       {
-        key: "block",
-        url: `${ChainAPIUrl}/blocks/${blockId}`,
-        params: { chainId },
-      },
-      {
         key: "leaves",
         url: `${ChainAPIUrl}/blocks/${blockId}/leaves`,
         params: { chainId },
@@ -82,9 +77,9 @@ function fetchChainLatestData({ successCallback, rejectCallback, blockId }) {
 
 const chainService = {
   fetchBlocks,
-  fetchChainInfo,
   fetchBlockAndLeaves,
   fetchChainLatestData,
+  fetchLatestBlock,
 };
 
 export default chainService;

@@ -5,9 +5,9 @@ import { formatLeaf, formatDatapairs } from "utils/formatters";
 const ChainContext = React.createContext();
 
 const actionTypes = {
-  getChainInfo: "explorer/get_chain_info",
-  getChainInfoConfirmed: "explorer/get_chain_info_confirmed",
-  getChainInfoRejected: "explorer/get_chain_info_rejected",
+  getLatestBlock: "explorer/get_latest_block",
+  getLatestBlockConfirmed: "explorer/get_latest_block_confirmed",
+  getLatestBlockRejected: "explorer/get_latest_block_rejected",
   getChainLatestData: "explorer/get_chain_latest_data",
   getChainLatestDataConfirmed: "explorer/get_chain_latest_data_confirmed",
   getChainLatestDataRejected: "explorer/get_chain_latest_data_rejected",
@@ -20,7 +20,6 @@ const actionTypes = {
 };
 
 const initialState = {
-  lastBlockId: undefined,
   lastBlock: undefined,
   error: undefined,
   isLoading: true,
@@ -45,7 +44,6 @@ function reducer(state = {}, action = {}) {
       return {
         ...state,
         isLoading: true,
-        lastBlock: undefined,
         datapairs: [],
         error: undefined,
       };
@@ -54,7 +52,6 @@ function reducer(state = {}, action = {}) {
         ...state,
         isLoading: false,
         datapairs: action.payload.datapairs,
-        lastBlock: action.payload.lastBlock,
       };
     case actionTypes.getChainLatestDataRejected:
       return {
@@ -62,17 +59,17 @@ function reducer(state = {}, action = {}) {
         isLoading: false,
         error: action.payload.error,
       };
-    case actionTypes.getChainInfo:
+    case actionTypes.getLatestBlock:
       return {
         ...state,
-        lastBlockId: undefined,
+        lastBlock: undefined,
       };
-    case actionTypes.getChainInfoConfirmed:
+    case actionTypes.getLatestBlockConfirmed:
       return {
         ...state,
-        lastBlockId: action.payload.lastBlockId,
+        lastBlock: action.payload.lastBlock,
       };
-    case actionTypes.getChainInfoRejected:
+    case actionTypes.getLatestBlockRejected:
       return {
         ...state,
         error: action.payload.error,
@@ -83,7 +80,6 @@ function reducer(state = {}, action = {}) {
         selectedBlock: {
           ...state.selectedBlock,
           isLoading: true,
-
           id: undefined,
           error: undefined,
           details: undefined,
@@ -145,30 +141,32 @@ function reducer(state = {}, action = {}) {
   }
 }
 
-function getChainInfo(dispatch) {
-  dispatch({ type: actionTypes.getChainInfo });
+function getLatestBlock(dispatch) {
+  dispatch({ type: actionTypes.getLatestBlock });
 
-  chainService.fetchChainInfo({
-    successCallback: ({ status: { lastBlockId, lastId } }) =>
+  chainService.fetchLatestBlock({
+    successCallback: ({ data }) =>
       dispatch({
-        type: actionTypes.getChainInfoConfirmed,
-        payload: { lastBlockId: lastBlockId ?? lastId },
+        type: actionTypes.getLatestBlockConfirmed,
+        payload: { lastBlock: data },
       }),
     rejectCallback: (error) =>
-      dispatch({ type: actionTypes.getChainInfoRejected, payload: { error } }),
+      dispatch({
+        type: actionTypes.getLatestBlockRejected,
+        payload: { error },
+      }),
   });
 }
 
-function getChainLatestData(dispatch, { blockId }) {
+function getChainLatestData(dispatch, { lastBlock }) {
   dispatch({ type: actionTypes.getChainLatestData });
 
   chainService.fetchChainLatestData({
-    successCallback: ({ block: { data }, leaves, firstClassData }) =>
+    successCallback: ({ leaves, firstClassData }) =>
       dispatch({
         type: actionTypes.getChainLatestDataConfirmed,
         payload: {
-          datapairs: formatDatapairs(firstClassData, leaves, data),
-          lastBlock: data,
+          datapairs: formatDatapairs(firstClassData, leaves, lastBlock),
         },
       }),
     rejectCallback: (error) =>
@@ -176,7 +174,7 @@ function getChainLatestData(dispatch, { blockId }) {
         type: actionTypes.getChainLatestDataRejected,
         payload: { error },
       }),
-    blockId,
+    blockId: lastBlock.blockId,
   });
 }
 
@@ -220,17 +218,17 @@ function getBlockAndLeaves(dispatch, { blockId }) {
 export function ChainProvider({ children }) {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
-  const { lastBlockId } = state;
+  const { lastBlock } = state;
 
   useEffect(() => {
-    getChainInfo(dispatch);
+    getLatestBlock(dispatch);
   }, []);
 
   useEffect(() => {
-    if (lastBlockId) {
-      getChainLatestData(dispatch, { blockId: lastBlockId });
+    if (lastBlock) {
+      getChainLatestData(dispatch, { lastBlock });
     }
-  }, [lastBlockId]);
+  }, [lastBlock]);
 
   return (
     <ChainContext.Provider
