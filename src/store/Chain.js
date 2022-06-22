@@ -145,10 +145,10 @@ function getLatestBlock(dispatch) {
   dispatch({ type: actionTypes.getLatestBlock });
 
   chainService.fetchLatestBlock({
-    successCallback: ({ data }) =>
+    successCallback: ([lastBlock]) =>
       dispatch({
         type: actionTypes.getLatestBlockConfirmed,
-        payload: { lastBlock: data },
+        payload: { lastBlock },
       }),
     rejectCallback: (error) =>
       dispatch({
