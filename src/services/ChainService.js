@@ -25,16 +25,7 @@ function fetchBlocks({
 }
 
 function fetchLatestBlock({ successCallback, rejectCallback }) {
-  const url = `${ChainAPIUrl}/blocks/latest`;
-
-  API.get({
-    url,
-    successCallback,
-    rejectCallback,
-    params: {
-      chainId,
-    },
-  });
+  fetchBlocks({ successCallback, rejectCallback, limit: 1 });
 }
 
 function fetchBlockAndLeaves({ successCallback, rejectCallback, blockId }) {
