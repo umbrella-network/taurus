@@ -6,6 +6,7 @@ import { range, isEmpty, splitEvery } from "ramda";
 import { Arrow } from "assets/images";
 
 import "./pagination.scss";
+import { useTranslation } from "react-i18next";
 
 const propTypes = {
   maxPages: PropTypes.number.isRequired,
@@ -27,6 +28,8 @@ function Pagination({
   callback,
   infinite,
 }) {
+  const { t } = useTranslation("ui", { keyPrefix: "table.pagination" });
+
   const pageBreak = 3;
   const [paginationRange, setPaginationRange] = useState([1]);
   const pageGroups = splitEvery(pageBreak, range(1, maxPages + 1));
@@ -146,7 +149,7 @@ function Pagination({
       </div>
       <div className="pagination__divider" />
       <div className="pagination__navigation">
-        <p>Go To:</p>
+        <p>{t("goTo")}</p>
         <form className="navigation" onSubmit={goToPageFromInput}>
           <input
             className="navigation__input"

@@ -10,8 +10,11 @@ import { valueToToken } from "utils/formatters";
 import { scanUrl, scanUrlSuffix } from "utils/urls";
 
 import "./blockIndex.scss";
+import { useTranslation } from "react-i18next";
 
 function BlockIndex() {
+  const { t } = useTranslation(["components", "labels"]);
+
   const {
     state: {
       blocks: { list, isLoading },
@@ -21,7 +24,7 @@ function BlockIndex() {
 
   return (
     <div className="block-index">
-      <Heading primary>Blocks</Heading>
+      <Heading primary>{t("blockIndex.heading")}</Heading>
       <HeaderCards />
       <Card className="block-index__table">
         <LazyTable
@@ -32,23 +35,22 @@ function BlockIndex() {
           properties={[
             {
               key: "blockId",
-              label: "Block ID",
+              label: t("labels:blockId"),
               primary: true,
               highlight: true,
               urlPrefix: "/blocks",
             },
             {
               key: "root",
-              label: "Root",
-              description:
-                "This is a unique representation of the entire Merkle Tree",
+              label: t("labels:root"),
+              description: t("blockIndex.rootDescription"),
               truncate: true,
               highlight: true,
             },
             {
-              label: "Minter",
+              label: t("labels:minter"),
               key: "minter",
-              description: "This is the original validator who started the key",
+              description: t("blockIndex.minterDescription"),
               clipboardable: true,
               truncate: true,
               urlPrefix: scanUrl,
@@ -56,28 +58,25 @@ function BlockIndex() {
             },
             {
               key: "anchor",
-              label: "Anchor",
-              description:
-                "This is the location where you can find the transaction in EThereum",
+              label: t("labels:anchor"),
+              description: t("blockIndex.anchorDescription"),
             },
             {
-              label: "Staked",
+              label: t("labels:staked"),
               valueCallback: (value) =>
                 valueToToken({ value: value.staked, truncate: true }),
-              description:
-                "This is the amount that has been staked during this block",
+              description: t("blockIndex.stakedDescription"),
               titleKey: "staked",
             },
             {
-              label: "Power",
+              label: t("labels:power"),
               valueCallback: (value) =>
                 valueToToken({ value: value.power, truncate: true }),
-              description:
-                "This is the amount that the validator staked in the most recent block",
+              description: t("blockIndex.powerDescription"),
               titleKey: "power",
             },
             {
-              label: "Age",
+              label: t("labels:age"),
               valueCallback: (value) =>
                 readableAgeFromTimestamp(value.dataTimestamp),
               titleKey: "dataTimestamp",

@@ -7,6 +7,7 @@ import { isEmpty } from "ramda";
 import { Search } from "assets/images";
 
 import "./searchBar.scss";
+import { useTranslation } from "react-i18next";
 
 const propTypes = {
   placeholder: PropTypes.string,
@@ -21,7 +22,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-  placeholder: "Search...",
   type: "regular",
   className: undefined,
   keyWordsCallback: () => {},
@@ -30,7 +30,7 @@ const defaultProps = {
 };
 
 function SearchBar({
-  placeholder,
+  placeholder: placeholderProp,
   callback,
   items,
   matchingKey,
@@ -40,6 +40,10 @@ function SearchBar({
   error,
   onFocus,
 }) {
+  const { t } = useTranslation("ui", { keyPrefix: "searchBar" });
+
+  const placeholder = placeholderProp ?? t("placeholder");
+
   const [keyWords, setKeyWords] = useState([]);
   const [value, setValue] = React.useState("");
 

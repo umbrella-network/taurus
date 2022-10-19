@@ -27,40 +27,34 @@ import {
 } from "assets/images";
 
 import "./sidebar.scss";
+import { useTranslation } from "react-i18next";
 
-const options = [
-  {
-    label: "Datapairs",
+const optionsProperties = {
+  datapairs: {
     icon: Stack,
     hoverIcon: StackAlt,
     path: "/datapairs",
     matches: ["/datapairs", "/"],
   },
-  {
-    label: "Blocks",
+  blocks: {
     icon: Blocks,
     hoverIcon: BlocksAlt,
     path: "/blocks",
     matches: ["/blocks"],
   },
-];
-
-const subOptions = [
-  {
-    label: "Contact us",
+  contactUs: {
     icon: Contact,
     hoverIcon: ContactAlt,
     path: "https://discord.gg/QEatbAm8ey",
     matches: [],
   },
-  {
-    label: "Documentation",
+  documentation: {
     icon: Document,
     hoverIcon: DocumentAlt,
     path: "https://umbrella-network.readme.io/docs",
     matches: [],
   },
-];
+};
 
 const socialMedia = [
   {
@@ -96,6 +90,30 @@ const socialMedia = [
 ];
 
 function Sidebar() {
+  const { t } = useTranslation("ui", { keyPrefix: "sidebar" });
+
+  const options = [
+    {
+      property: "datapairs",
+      label: t("datapairsLabel"),
+    },
+    {
+      property: "blocks",
+      label: t("blocksLabel"),
+    },
+  ];
+
+  const subOptions = [
+    {
+      property: "contactUs",
+      label: t("contactUsLabel"),
+    },
+    {
+      property: "documentation",
+      label: t("documentationLabel"),
+    },
+  ];
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const open = () => setIsSidebarOpen(true);
   const close = () => setIsSidebarOpen(false);
@@ -138,41 +156,49 @@ function Sidebar() {
         </div>
 
         <div className="sidebar__links">
-          {options.map((option) => (
-            <button
-              onClick={() => handleClick(option)}
-              key={JSON.stringify(option)}
-              className={classnames("link", {
-                "link--current": option.matches.includes(pathname),
-              })}
-            >
-              <img alt="" src={option.hoverIcon} className="icon--hover" />
-              <img alt="" src={option.icon} className="icon--default" />
-              <p className="link__label">{option.label}</p>
-              {option?.notification}
-            </button>
-          ))}
+          {options.map(({ label, property }) => {
+            const option = optionsProperties[property];
+
+            return (
+              <button
+                onClick={() => handleClick(option)}
+                key={JSON.stringify(option)}
+                className={classnames("link", {
+                  "link--current": option.matches.includes(pathname),
+                })}
+              >
+                <img alt="" src={option.hoverIcon} className="icon--hover" />
+                <img alt="" src={option.icon} className="icon--default" />
+                <p className="link__label">{label}</p>
+                {option?.notification}
+              </button>
+            );
+          })}
         </div>
 
         <div className="sidebar__divider" />
 
         <div className="sidebar__links">
-          {subOptions.map((option) => (
-            <a
-              href={option.path}
-              target="_blanke"
-              key={`$sidebar-links-suboptions-${JSON.stringify(option)}`}
-              rel="noopener noreferrer"
-              className={classnames("link", {
-                "link--current": option.matches.includes(pathname),
-              })}
-            >
-              <img alt="" src={option.icon} className="icon--default" />
-              <img alt="" src={option.hoverIcon} className="icon--hover" />
-              <p className="link__label">{option.label}</p>
-              {option?.notification}
-            </a>
-          ))}
+          {subOptions.map(({ label, property }) => {
+            const option = optionsProperties[property];
+
+            return (
+              <a
+                href={option.path}
+                target="_blanke"
+                key={`$sidebar-links-suboptions-${JSON.stringify(option)}`}
+                rel="noopener noreferrer"
+                className={classnames("link", {
+                  "link--current": option.matches.includes(pathname),
+                })}
+              >
+                <img alt="" src={option.icon} className="icon--default" />
+                <img alt="" src={option.hoverIcon} className="icon--hover" />
+                <p className="link__label">{label}</p>
+                {option?.notification}
+              </a>
+            );
+          })}
         </div>
 
         <div className="sidebar__divider" />
