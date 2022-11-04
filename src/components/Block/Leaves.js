@@ -17,6 +17,7 @@ import { readableProof, arrayToReadableJSON } from "utils/formatters";
 import { scanUrl, scanUrlSuffix } from "utils/urls";
 
 import "./leaves.scss";
+import { useTranslation } from "react-i18next";
 
 const propTypes = {
   block: PropTypes.object.isRequired,
@@ -24,6 +25,8 @@ const propTypes = {
 };
 
 function Leaves({ block, id }) {
+  const { t } = useTranslation(["components", "labels"]);
+
   const {
     state: {
       selectedBlock: { leavesAmount, leavesList: leaves },
@@ -44,14 +47,19 @@ function Leaves({ block, id }) {
   return (
     <>
       {Boolean(currentLeaf) && (
-        <Layer close={close} title="Leaf" className="leave-layer" fillMobile>
+        <Layer
+          close={close}
+          title={t("leaves.leafDetailsHeading")}
+          className="leave-layer"
+          fillMobile
+        >
           <div className="leave-layer__body">
             <KeyValuePairs
               item={{ ...currentLeaf, ...block }}
               properties={[
                 {
                   key: "chainAddress",
-                  label: "Contract",
+                  label: t("labels:chainAddress"),
                   primary: true,
                   urlPrefix: scanUrl,
                   urlSuffix: scanUrlSuffix,
@@ -60,36 +68,36 @@ function Leaves({ block, id }) {
                 },
                 {
                   key: "key",
-                  label: "Key",
+                  label: t("labels:key"),
                 },
                 {
                   label: "Value",
-                  key: "value",
+                  key: t("labels:value"),
                 },
                 {
-                  label: "Key (bytes)",
+                  label: t("labels:keyBytes"),
                   key: "keyHex",
                   truncate: true,
                   clipboardable: true,
                 },
                 {
                   key: "valueBytes",
-                  label: "Value (bytes)",
+                  label: t("labels:valueBytes"),
                   clipboardable: true,
                   truncate: true,
                 },
                 {
                   key: "blockId",
-                  label: "Block ID",
+                  label: t("labels:blockId"),
                   clipboardable: true,
                 },
               ]}
             />
             <div className="proof-copy">
-              <p>Proof</p>
+              <p>{t("labels:proof")}</p>
               <Clipboardable
                 text={readableProof(currentLeaf)}
-                label="Click to copy"
+                label={t("leaves.clipboardableLabel")}
               />
             </div>
             <p className="proof">{arrayToReadableJSON(currentLeaf.proof)}</p>
@@ -99,17 +107,19 @@ function Leaves({ block, id }) {
       <div className="select-wrapper">
         <Select
           className="key-select"
-          title="Key"
+          title={t("leaves.searchTitle")}
           callback={setFilteredItems}
           matchingKey="key"
           items={leaves ?? []}
-          placeholder="Search for key..."
+          placeholder={t("leaves.searchPlaceholder")}
           full
         />
       </div>
       <Heading>
-        Block {id} Layer 2 data{" "}
-        {Boolean(leaves?.length) && <span>{leavesAmount} total</span>}
+        {t("leaves.blockL2Heading", { id })}{" "}
+        {Boolean(leaves?.length) && (
+          <span>{t("leaves.blockL2Total", { amount: leavesAmount })}</span>
+        )}
       </Heading>
       <Card className="leaves">
         <PaginatedTable
@@ -117,27 +127,26 @@ function Leaves({ block, id }) {
           properties={[
             {
               key: "key",
-              label: "Key",
-              description: "This is the name of the cryptocurrency pair",
+              label: t("labels:key"),
+              description: t("leaves.keyDescription"),
               onClick: setCurrentLeaf,
             },
             {
-              label: "Value",
+              label: t("labels:value"),
               key: "value",
-              description:
-                "This is the price (or any other type of data that we are supporting)",
+              description: t("leaves.valueDescription"),
             },
             {
-              label: "Key (bytes)",
+              label: t("labels:keyBytes"),
               key: "keyHex",
-              description: "This is the byte representation of the Key",
+              description: t("leaves.keyBytesDescription"),
               truncate: true,
               clipboardable: true,
             },
             {
               key: "valueBytes",
-              label: "Value (Bytes)",
-              description: "This is the byte representation of the Value",
+              label: t("labels:valueBytes"),
+              description: t("leaves.valueBytesDescription"),
               highlight: true,
               truncate: true,
               clipboardable: true,

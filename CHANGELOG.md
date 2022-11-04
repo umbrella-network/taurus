@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Switch Eth dev network to Goerli
 - Switch Eth sbx network to Goerli
+- Extracted texts to i18n files
 
 ## [1.8.2] - 2022-06-22
 

@@ -19,13 +19,16 @@ import { readableProof } from "utils/formatters";
 import { ArrowHamburger, Close } from "assets/images";
 
 import "./datapairs.scss";
-
-const L2 = { type: "Layer 2" };
-const FCD = { type: "First class" };
-
-const dataTypes = [L2, FCD];
+import { useTranslation } from "react-i18next";
 
 function Datapairs() {
+  const { t } = useTranslation(["components", "labels"]);
+
+  const L2 = t("datapairs.layer2");
+  const FCD = t("datapairs.firstClass");
+
+  const dataTypes = [L2, FCD];
+
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedDataTypes, setSelectedDataTypes] = useState(dataTypes);
   const [goToFirstPage, setGoToFirstPage] = useState(false);
@@ -52,8 +55,12 @@ function Datapairs() {
   return (
     <div className="datapairs">
       <Heading primary>
-        Datapairs
-        <span>{isLoading ? "Loading..." : `${datapairs.length} pairs`}</span>
+        {t("datapairs.heading")}
+        <span>
+          {isLoading
+            ? t("datapairs.loadingPlaceholder")
+            : t("datapairs.datapairsTotal", { amount: datapairs.length })}
+        </span>
       </Heading>
       <HeaderCards />
       <div
@@ -62,7 +69,7 @@ function Datapairs() {
         })}
       >
         <div className="header">
-          <h2>Filters</h2>
+          <h2>{t("datapairs.filters")}</h2>
           <button
             onClick={() => setIsFilterOpen(false)}
             aria-label="close all filters"
@@ -71,29 +78,28 @@ function Datapairs() {
           </button>
         </div>
         <Select
-          title="Keys"
+          title={t("datapairs.filterTitle")}
           className="datapairs-key-search"
-          placeholder="Start typing to filter keys..."
+          placeholder={t("datapairs.filterPlaceholder")}
           callback={handleListFilter}
           matchingKey="key"
           full
           items={datapairs}
         />
-        <Dropdown title="Type" className="type-select">
+        <Dropdown title={t("datapairs.type")} className="type-select">
           <div>
             <Select
               searchable={false}
               startSelected
               keepOne
-              title="Type"
+              title={t("datapairs.type")}
               callback={setSelectedDataTypes}
-              matchingKey="type"
               items={dataTypes}
             />
           </div>
         </Dropdown>
         <button onClick={() => setIsFilterOpen(false)} className="save-button">
-          Save
+          {t("datapairs.save")}
         </button>
         <button
           className="open-all"
@@ -101,7 +107,7 @@ function Datapairs() {
           aria-label="open all filters"
         >
           <ArrowHamburger />
-          <p>Open all filters</p>
+          <p>{t("datapairs.openAllFilters")}</p>
         </button>
       </div>
       <Card className="datapairs__table">
@@ -116,63 +122,62 @@ function Datapairs() {
             properties={[
               {
                 key: "key",
-                label: "Key",
-                description: "This is the name of the cryptocurrency pair",
+                label: t("labels:key"),
+                description: t("datapairs.keyDescription"),
                 primary: true,
               },
               {
                 key: "value",
-                label: "Value",
-                description:
-                  "This is the price (or any other type of data that we are supporting)",
+                label: t("labels:value"),
+                description: t("datapairs.valueDescription"),
               },
               {
                 key: "type",
-                label: "Type",
+                label: t("labels:type"),
                 description: (
                   <>
-                    There are 2 types:
+                    {t("datapairs.typeDescription.intro")}
                     <br />
-                    <span>Layer 1:</span> On Chain Data and Most Used
+                    <span>{t("datapairs.typeDescription.title1")}</span>{" "}
+                    {t("datapairs.typeDescription.description1")}
                     <br />
-                    <span>Layer 2:</span> Off Chain Data and More Scalable
+                    <span>{t("datapairs.typeDescription.title2")}</span>{" "}
+                    {t("datapairs.typeDescription.description1")}
                   </>
                 ),
               },
               {
                 key: "blockId",
-                label: "Block ID",
-                description: "This is the ID of the block containing the data",
+                label: t("labels:blockId"),
+                description: t("datapairs.blockIdDescription"),
                 clipboardable: true,
                 urlPrefix: `blocks`,
               },
               {
                 valueCallback: readableProof,
-                label: "Proof",
-                description:
-                  "Only Layer 2 requires this information and it can be used to find the address of the blockchain that this key was checked on",
+                label: t("labels:proof"),
+                description: t("datapairs.proofDescription"),
                 truncate: true,
                 clipboardable: true,
               },
               {
                 key: "keyHex",
-                label: "Key (Bytes)",
-                description: "This is the byte representation of the Key",
+                label: t("labels:keyBytes"),
+                description: t("datapairs.keyBytesDescription"),
                 truncate: true,
                 clipboardable: true,
               },
               {
                 key: "valueBytes",
-                label: "Value (Bytes)",
-                description: "This is the byte representation of the Value",
+                label: t("labels:valueBytes"),
+                description: t("datapairs.valueBytesDescription"),
                 truncate: true,
                 clipboardable: true,
               },
               {
                 key: "chainAddress",
-                label: "Chain Address",
-                description:
-                  "The address for the chain which contains this block",
+                label: t("labels:chainAddress"),
+                description: t("datapairs.chainAddressDescription"),
                 clipboardable: true,
                 truncate: true,
                 urlKey: "chainAddressScanUrl",

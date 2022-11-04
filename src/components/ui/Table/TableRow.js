@@ -7,6 +7,7 @@ import { Clipboardable, Url } from "components/ui";
 
 import { truncate } from "utils/formatters";
 import { tableProperties as properties } from "utils/types";
+import { useTranslation } from "react-i18next";
 
 const propTypes = {
   item: PropTypes.object.isRequired,
@@ -19,6 +20,8 @@ const defaultProps = {
 };
 
 function Content({ item, properties, paired }) {
+  const { t } = useTranslation("ui", { keyPrefix: "table.tableRow.content" });
+
   return properties.map(({ key, label, ...property }) => {
     const hasCallback = Boolean(property.valueCallback);
     const value = item[key] ?? (hasCallback && property.valueCallback(item));
@@ -27,12 +30,12 @@ function Content({ item, properties, paired }) {
       return paired ? (
         <>
           <span>{label}</span>
-          <p className="value">N/A</p>
+          <p className="value">{t("notApplicable")}</p>
         </>
       ) : (
         <td key={`${label} td ${JSON.stringify(item)}`} className="value">
           <span>{label}</span>
-          N/A
+          {t("notApplicable")}
         </td>
       );
     }

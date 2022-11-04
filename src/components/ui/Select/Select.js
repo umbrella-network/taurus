@@ -9,11 +9,12 @@ import { List, AutoSizer } from "react-virtualized";
 import { SearchBar, Checkbox } from "components/ui";
 
 import "./select.scss";
+import { useTranslation } from "react-i18next";
 
 const propTypes = {
   callback: PropTypes.func.isRequired,
   items: PropTypes.array.isRequired,
-  matchingKey: PropTypes.string.isRequired,
+  matchingKey: PropTypes.string,
   placeholder: PropTypes.string,
   title: PropTypes.string.isRequired,
   className: PropTypes.string,
@@ -36,7 +37,7 @@ function Select({
   items,
   callback,
   matchingKey,
-  placeholder,
+  placeholder: placeholderProp,
   title,
   className,
   searchable,
@@ -45,6 +46,10 @@ function Select({
   full,
   unfilteredItemCount,
 }) {
+  const { t } = useTranslation("ui", { keyPrefix: "select" });
+
+  const placeholder = placeholderProp ?? t("placeholder");
+
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(startSelected ? items : []);
   const [filteredItems, setFilteredItems] = useState(items);
@@ -100,10 +105,7 @@ function Select({
       {searchable && (
         <div className="select__search">
           {isSearchEmpty && (!full || isOpen) && (
-            <p className="error">
-              *Key doesn't exist, please use the scroll bar, radio selection,
-              and/or check the format
-            </p>
+            <p className="error">{t("emptyError")}</p>
           )}
           <SearchBar
             onFocus={() => setIsOpen(true)}
