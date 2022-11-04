@@ -14,8 +14,11 @@ import {
 } from "assets/images";
 
 import "./headerCards.scss";
+import { useTranslation } from "react-i18next";
 
 function HeaderCards() {
+  const { t } = useTranslation("components", { keyPrefix: "headerCards" });
+
   const {
     state: { lastBlock, datapairs },
   } = useChain();
@@ -24,24 +27,24 @@ function HeaderCards() {
 
   const data = [
     {
-      label: "Latest block",
+      label: t("latestBlock"),
       value: lastBlock?.blockId,
       url: `/blocks/${lastBlock?.blockId}`,
       icon: <BlocksAltComponent />,
     },
     {
-      label: "Total datapairs",
+      label: t("totalDatapairs"),
       value: datapairs?.length,
       url: "/datapairs",
       icon: <StackAltComponent />,
     },
     {
-      label: "Total validators",
+      label: t("totalValidators"),
       value: lastBlock?.voters.length,
       icon: <Shield />,
     },
     {
-      label: "Total staked",
+      label: t("totalStaked"),
       value: staked,
       icon: <Staked />,
     },
@@ -56,7 +59,9 @@ function HeaderCards() {
           {url && value ? (
             <Url className="header-card__value" label={value} url={url} />
           ) : (
-            <p className="header-card__value">{value ? value : "Loading..."}</p>
+            <p className="header-card__value">
+              {value ? value : t("loadingPlaceholder")}
+            </p>
           )}
         </Card>
       ))}

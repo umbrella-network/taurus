@@ -26,8 +26,8 @@ export const availableChains = {
   ethereum: {
     name: "Ethereum",
     symbol: "eth",
-    dev: "Kovan",
-    sbx: "Ropsten",
+    dev: "Goerli",
+    sbx: "Goerli",
     [PROD]: "Mainnet",
   },
   avax: {

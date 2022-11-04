@@ -19,8 +19,11 @@ import { readableAgeFromTimestamp } from "utils";
 import { ArrowAlt, CloseAlt } from "assets/images";
 
 import "./block.scss";
+import { useTranslation } from "react-i18next";
 
 function Block() {
+  const { t } = useTranslation(["components", "labels"]);
+
   const {
     state: {
       selectedBlock: { leavesAmount, details: block, error, isLoading },
@@ -50,7 +53,7 @@ function Block() {
         <button aria-label="Back to block list" onClick={handleRedirect}>
           <ArrowAlt />
         </button>
-        <Heading>Block {id} Details</Heading>
+        <Heading>{t("block.heading", { id })}</Heading>
       </div>
       {isLoading && <LoadingState />}
       {block && (
@@ -61,7 +64,7 @@ function Block() {
               properties={[
                 {
                   key: "chainAddress",
-                  label: "Chain Address",
+                  label: t("labels:chainAddress"),
                   urlPrefix: scanUrl,
                   urlSuffix: scanUrlSuffix,
                   truncate: true,
@@ -69,38 +72,38 @@ function Block() {
                 },
                 {
                   key: "blockId",
-                  label: "Block ID",
+                  label: t("labels:blockId"),
                 },
                 {
-                  label: "Age",
+                  label: t("labels:age"),
                   valueCallback: (value) =>
                     readableAgeFromTimestamp(value.dataTimestamp),
                 },
                 {
-                  label: "Timestamp",
+                  label: t("labels:timestamp"),
                   key: "dataTimestamp",
                   clipboardable: true,
                 },
                 {
-                  label: "L2 data pairs",
+                  label: t("labels:l2Datapairs"),
                   valueCallback: () => leavesAmount ?? "Loading...",
                 },
                 {
-                  label: "Status",
+                  label: t("labels:status"),
                   valueCallback: (value) => startCase(value.status),
                 },
                 {
                   key: "anchor",
-                  label: "Anchor",
+                  label: t("labels:anchor"),
                 },
                 {
                   key: "root",
-                  label: "Root",
+                  label: t("labels:root"),
                   truncate: true,
                   clipboardable: true,
                 },
                 {
-                  label: "Minter",
+                  label: t("labels:minter"),
                   key: "minter",
                   clipboardable: true,
                   truncate: true,
@@ -108,13 +111,13 @@ function Block() {
                   urlSuffix: scanUrlSuffix,
                 },
                 {
-                  label: "Staked",
+                  label: t("labels:staked"),
                   valueCallback: (value) =>
                     valueToToken({ value: value.staked, truncate: true }),
                   titleKey: "staked",
                 },
                 {
-                  label: "Power",
+                  label: t("labels:power"),
                   valueCallback: (value) =>
                     valueToToken({ value: value.power, truncate: true }),
                   titleKey: "power",
@@ -124,7 +127,10 @@ function Block() {
           </Card>
           <Leaves block={block} id={id} />
           <Heading>
-            Block {id} Validators <span>{block.voters.length} total </span>
+            {t("block.validatorsHeading", { id })}{" "}
+            <span>
+              {t("block.validatorsTotal", { amount: block.voters.length })}
+            </span>
           </Heading>
           <Card className="validators">
             <PaginatedTable
@@ -132,14 +138,14 @@ function Block() {
               data={parsedVoters}
               properties={[
                 {
-                  label: "Address",
+                  label: t("labels:address"),
                   urlPrefix: bscScanUrl,
                   key: "address",
                   truncate: true,
                   clipboardable: true,
                 },
                 {
-                  label: "Power",
+                  label: t("labels:power"),
                   valueCallback: (value) =>
                     valueToToken({ value: value.power, truncate: true }),
                 },
@@ -155,15 +161,15 @@ function Block() {
               <div className="error-state__message">
                 <CloseAlt />
                 <p>
-                  Sorry, we encountered an error while processing block{" "}
-                  <span>{id}</span>. Please make sure you are requesting a valid
-                  block and try again.
+                  {t("block.notFound.part1")}
+                  <span>{id}</span>
+                  {t("block.notFound.part2")}
                 </p>
               </div>
               <Url
                 onClick={handleRedirect}
                 url="/blocks"
-                label="go to block list"
+                label={t("block.notFound.returnButtonLabel")}
               />
             </Card>
           </div>
