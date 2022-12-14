@@ -1,5 +1,5 @@
 import { LeafKeyCoder, LeafValueCoder } from "@umb-network/toolbox";
-import { join, splitAt, takeLast, isEmpty, uniqBy, prop, sortBy } from "ramda";
+import { join, splitAt, takeLast, isEmpty, prop, sortBy, uniq } from "ramda";
 
 import { scanUrl } from "utils/urls";
 
@@ -74,11 +74,12 @@ export function parseBlockVoters(block) {
   }));
 }
 
+export function filterOutDuplicatedLabels(datapairs) {
+  return uniq(datapairs.map(({ key }) => key));
+}
+
 function mergeFirstClassWithLeafs(firstClassData, leaves) {
-  return sortBy(
-    prop("key"),
-    uniqBy(prop("id"), [...firstClassData, ...leaves])
-  );
+  return sortBy(prop("key"), [...firstClassData, ...leaves]);
 }
 
 export function formatDatapairs(firstClassData, leaves, block) {
