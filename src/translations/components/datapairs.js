@@ -12,6 +12,7 @@ export const datapairsEn = {
     save: "Save",
     openAllFilters: "Open all filters",
     keyDescription: "This is the name of the cryptocurrency pair",
+    ageDescription: "This represents how old the data is",
     valueDescription:
       "This is the price (or any other type of data that we are supporting)",
     typeDescription: {
@@ -22,10 +23,6 @@ export const datapairsEn = {
       description2: "Off Chain Data and More Scalable",
     },
     blockIdDescription: "This is the ID of the block containing the data",
-    proofDescription:
-      "Only Layer 2 requires this information and it can be used to find the address of the blockchain that this key was checked on",
-    keyBytesDescription: "This is the byte representation of the Key",
-    valueBytesDescription: "This is the byte representation of the Value",
     chainAddressDescription:
       "The address for the chain which contains this block",
   },

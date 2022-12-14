@@ -24,7 +24,7 @@ jobs:
           REACT_APP_BLOCKS_API: ${{ secrets.REACT_APP_BLOCKS_API_BSC_SBX }}
           REACT_APP_SCAN_URL: ${{ secrets.REACT_APP_SCAN_URL_BSC_SBX }}
           REACT_APP_TOKEN_AUTH: ${{ secrets.REACT_APP_TOKEN_AUTH_BSC_SBX }}
-          REACT_APP_FOREIGN_CHAIN_ID:
+          REACT_APP_FOREIGN_CHAIN_ID: ${{ secrets.REACT_APP_FOREIGN_CHAIN_ID_BSC_SBX }}
           REACT_APP_STAGE: sbx
 
       - name: Upload environment to be used by the next job

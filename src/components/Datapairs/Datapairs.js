@@ -14,12 +14,13 @@ import {
 } from "components/ui";
 
 import { scanUrlSuffix } from "utils/urls";
-import { readableProof } from "utils/formatters";
 
 import { ArrowHamburger, Close } from "assets/images";
 
 import "./datapairs.scss";
 import { useTranslation } from "react-i18next";
+import { readableAgeFromTimestamp } from "utils";
+import { filterOutDuplicatedLabels } from "utils/formatters";
 
 function Datapairs() {
   const { t } = useTranslation(["components", "labels"]);
@@ -37,19 +38,25 @@ function Datapairs() {
     state: { datapairs, isLoading },
   } = useChain();
 
-  const [filteredItems, setFilteredItems] = useState(datapairs);
+  const availablePairs = filterOutDuplicatedLabels(datapairs);
 
-  useEffect(() => setFilteredItems(datapairs), [datapairs]);
+  const [filteredItems, setFilteredItems] = useState(availablePairs);
+
+  useEffect(() => {
+    setFilteredItems(availablePairs);
+    /* eslint-disable-next-line */
+  }, [datapairs]);
 
   const handleListFilter = (filteredList) => {
     setFilteredItems(filteredList);
     setGoToFirstPage(true);
   };
 
-  const dataPairsListByType = filteredItems.filter(
-    (dataPair) =>
-      (selectedDataTypes.includes(L2) && dataPair.isL2) ||
-      (selectedDataTypes.includes(FCD) && dataPair.isFCD)
+  const pairsFilteredByType = datapairs.filter(
+    (pair) =>
+      filteredItems.includes(pair.key) &&
+      ((selectedDataTypes.includes(L2) && pair.isL2) ||
+        (selectedDataTypes.includes(FCD) && pair.isFCD))
   );
 
   return (
@@ -82,9 +89,8 @@ function Datapairs() {
           className="datapairs-key-search"
           placeholder={t("datapairs.filterPlaceholder")}
           callback={handleListFilter}
-          matchingKey="key"
           full
-          items={datapairs}
+          items={availablePairs}
         />
         <Dropdown title={t("datapairs.type")} className="type-select">
           <div>
@@ -115,7 +121,7 @@ function Datapairs() {
           <LoadingState />
         ) : (
           <PaginatedTable
-            data={dataPairsListByType}
+            data={pairsFilteredByType}
             queryPage
             shouldGoToFirstPage={goToFirstPage}
             callback={() => setGoToFirstPage(false)}
@@ -130,6 +136,13 @@ function Datapairs() {
                 key: "value",
                 label: t("labels:value"),
                 description: t("datapairs.valueDescription"),
+              },
+              {
+                valueCallback: (value) =>
+                  readableAgeFromTimestamp(value.dataTimestamp),
+                label: t("labels:age"),
+                description: t("datapairs.ageDescription"),
+                titleKey: "dataTimestamp",
               },
               {
                 key: "type",
@@ -152,27 +165,6 @@ function Datapairs() {
                 description: t("datapairs.blockIdDescription"),
                 clipboardable: true,
                 urlPrefix: `blocks`,
-              },
-              {
-                valueCallback: readableProof,
-                label: t("labels:proof"),
-                description: t("datapairs.proofDescription"),
-                truncate: true,
-                clipboardable: true,
-              },
-              {
-                key: "keyHex",
-                label: t("labels:keyBytes"),
-                description: t("datapairs.keyBytesDescription"),
-                truncate: true,
-                clipboardable: true,
-              },
-              {
-                key: "valueBytes",
-                label: t("labels:valueBytes"),
-                description: t("datapairs.valueBytesDescription"),
-                truncate: true,
-                clipboardable: true,
               },
               {
                 key: "chainAddress",
