@@ -243,7 +243,7 @@
         border-radius: $border-radius-large;
 
         table tr {
-          grid-template-columns: 140px 1fr 100px 100px 100px 120px 120px 142px;
+          grid-template-columns: 230px repeat(5, 1fr);
           align-items: center;
         }
       }
