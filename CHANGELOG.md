@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update Logos to reflect Umbrella's new visual identity
+- Filter out FCD flagged as inactive
 
 ## [1.10.0] - 2022-12-14
 
