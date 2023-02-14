@@ -40,8 +40,8 @@ export const availableChains = {
   arbitrum: {
     name: "Arbitrum",
     symbol: "arbitrum",
-    dev: "Testnet",
-    sbx: "Testnet",
+    dev: "Goerli",
+    sbx: "Goerli",
     [PROD]: "Mainnet",
   },
   solana: {

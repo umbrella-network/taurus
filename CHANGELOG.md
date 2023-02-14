@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update Logos to reflect Umbrella's new visual identity
 - Filter out FCD flagged as inactive
+- Use Goerli as dev network for Arbitrum
 
 ## [1.10.0] - 2022-12-14
 
