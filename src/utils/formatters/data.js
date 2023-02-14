@@ -50,6 +50,12 @@ function formatFCD(data) {
   };
 }
 
+function filterAndFormatFCD(data) {
+  const filteredFCD = data.filter((fcd) => fcd.active);
+
+  return filteredFCD.map(formatFCD);
+}
+
 export function formatLeaf(data, block) {
   return {
     value: LeafValueCoder.printableValue(data.value, data.key),
@@ -83,7 +89,7 @@ function mergeFirstClassWithLeafs(firstClassData, leaves) {
 }
 
 export function formatDatapairs(firstClassData, leaves, block) {
-  const formattedFCD = firstClassData.map(formatFCD);
+  const formattedFCD = filterAndFormatFCD(firstClassData);
   const formattedLeafs = leaves.map((leaf) => formatLeaf(leaf, block));
 
   return mergeFirstClassWithLeafs(formattedFCD, formattedLeafs);
