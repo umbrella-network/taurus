@@ -5,8 +5,6 @@ import { useLocation, useHistory } from "react-router-dom";
 import { useClickOutsideListenerRef } from "hooks";
 
 import {
-  UmbrellaIcon,
-  UmbrellaTypography,
   Stack,
   Blocks,
   Contact,
@@ -24,6 +22,7 @@ import {
   Telegram,
   Linkedin,
   Collapse,
+  UmbrellaFullLogo,
 } from "assets/images";
 
 import "./sidebar.scss";
@@ -147,8 +146,7 @@ function Sidebar() {
       <div className="content">
         <div aria-label="Home" className="sidebar__header sidebar__link">
           <button onClick={() => handleClick({ path: "/", matches: [] })}>
-            <img src={UmbrellaIcon} alt="" />
-            <img src={UmbrellaTypography} className="typography" alt="" />
+            <img src={UmbrellaFullLogo} alt="" />
           </button>
           <button aria-label="Close sidebar" onClick={close} className="close">
             <Close />
