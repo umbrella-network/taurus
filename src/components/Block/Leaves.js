@@ -71,8 +71,8 @@ function Leaves({ block, id }) {
                   label: t("labels:key"),
                 },
                 {
-                  label: "Value",
-                  key: t("labels:value"),
+                  key: "value",
+                  label: t("labels:value"),
                 },
                 {
                   label: t("labels:keyBytes"),
